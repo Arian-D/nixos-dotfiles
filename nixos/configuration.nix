@@ -11,26 +11,31 @@
       ./x.nix
       ./networking.nix
       ./packages.nix
-      "${builtins.fetchTarball https://github.com/rycee/home-manager/archive/master.tar.gz}/nixos"
+      # "${builtins.fetchTarball https://github.com/rycee/home-manager/archive/master.tar.gz}/nixos"
     ];
 
   # Use the systemd-boot EFI boot loader.
   boot = {
     cleanTmpDir = true;
     loader = {
-      systemd-boot.enable       = true;
+      systemd-boot.enable = true;
+      systemd-boot.configurationLimit = 10;
       efi.canTouchEfiVariables  = true;
     };
   };
 
-  hardware.cpu.intel.updateMicrocode = true;
+  # Long live the battery...
+  services.tlp.enable = true;
 
+  # Additionl docs
   documentation.dev.enable = true;
-  
+
+  # Enable low-level kvm stuff
+  boot.extraModprobeConfig = "options kvm_intel nested=1";
+
   environment.variables = {
-    OPENSSL_DIR = "${pkgs.openssl.dev}";
-    OPENSSL_LIB_DIR = "${pkgs.openssl.out}/lib";
-    EDITOR = "nvim";
+    # The provided $EDITOR in services.emacs doesn't have the '-n' flag
+    editor = "emacseditor -n";
   };
 
   # zsh
@@ -39,22 +44,25 @@
     enableCompletion          = true;
     autosuggestions.enable    = true;
     syntaxHighlighting.enable = true;
-    promptInit = ''
-      bindkey -v
-      export PATH=$PATH:~/.npm/bin
-    '';
-
+    # promptInit = ''
+    #   # Add color configs
+    #   POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs)
+    #   POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(battery date time vpn_ip)
+    #   source ${pkgs.zsh-powerlevel9k}/share/zsh-powerlevel9k/powerlevel9k.zsh-theme
+    # ''; 
     ohMyZsh = {
       enable = true;
-      plugins = [ 
+      theme = "agnoster";
+      plugins = [
         "git"
         "git-extras"
         "python"
         "cabal"
+        "stack"
         "man"
         "sudo"
+        "nmap"
       ];
-      theme = "agnoster";
     };
   };
 
@@ -76,11 +84,32 @@
     extraGroups = [
       "wheel" # sudo
       "networkmanager" # nmtui
-      "vboxuser" # VirtualBox
+      "dialout"
+      "vboxusers" # VirtualBox
       "wireshark" # Wrireshark
       "docker" # Docker
+      "fuse" # For sshfs
     ];
   };
 
-  system.stateVersion = "19.03"; # Did you read the comment?
+  # Pentesting user
+  # users.users.pentester = {
+  #   initialPassword = "toor";
+  #   isNormalUser = true;
+  #   extraGroups = [
+  #     "wheel"
+  #     "wireshark"
+  #   ];
+  #   packages = with pkgs; [
+  #     aircrack-ng
+  #     macchanger
+  #     reaverwps-t6x
+  #     hashcat
+  #     metasploit
+  #     nmap
+  #     busybox
+  #   ];              
+  # };
+
+  system.stateVersion = "19.09";
 }

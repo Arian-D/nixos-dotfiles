@@ -4,8 +4,8 @@ with lib;
 
 let
 
-  gitName = "Arian-d";
-  gitEmail = "ArianDehghani@protonmail";
+  gitName = "Arian-D";
+  gitEmail = "ArianDehghani@protonmail.com";
   home = lib.getEnv "HOME";
 
 in
@@ -13,49 +13,43 @@ in
 {
   imports =
     [
-      ./neovim/neovim.nix
       ./firefox/firefox.nix
     ];
 
   home.packages = with pkgs; [
     # Rust
-    rustup
-    # Haskel linting
-    hlint
+    cargo
+    # LaTeX LSP
+    lua53Packages.digestif
   ];
 
   programs.alacritty = {
     enable = true;
     settings = {
       cursor.style = "Beam";
-      font.normal.family = "Hack Nerd Font";
+      font.normal.family = "Iosevka Nerd Font";
       font.size = 9;
-      background_opacity = 0.9;
+      background_opacity = 0.3;
     };
   };
-
+  
   programs.git = {
     enable = true;
     userName = gitName;
     userEmail = gitEmail;
   };
-
+  
   programs.gpg.enable = true;
 
-  # When developing
+  programs.lsd = {
+    enable = true;
+    enableAliases = true;
+  };
+
   /*
   programs.home-manager = {
     enable = true;
     path = home + "playground/home-manager";
-  };
-  */
-
-  # Enable once my PR gets approved
-  /*
-  programs.calcurse = {
-    enable = true;
-    general.confirmQuit = false;
-    appearance.layout = 2;
   };
   */
 }

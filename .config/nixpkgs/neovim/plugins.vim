@@ -40,6 +40,8 @@ augroup LSP
   autocmd FileType cpp,c,haskell,rust,javascript,python,typescript call SetLSPShortcuts()
 augroup END
 
+autocmd FileType java setlocal omnifunc=javacomplete#Complete
+
 " Tagbar
 nmap <F8> :TagbarToggle<CR>
 

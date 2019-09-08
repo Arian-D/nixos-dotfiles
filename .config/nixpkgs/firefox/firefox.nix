@@ -3,9 +3,9 @@
 {
   programs.firefox = {
     enable = true;
+    package = pkgs.firefox;
     profiles.nix = {
       settings = {
-
         ## Privacy
         # Telemetry
         "toolkit.telemetry.enabled" = false;
@@ -54,10 +54,6 @@
         ## Personal
         # Disable warn on exit
         "browser.tabs.warnOnClose" = false;
-        # View source in vim
-        "view_source.editor.external" = true;
-        "view_source.editor.path" = "${pkgs.alacritty}/bin/alacritty";
-        "view_source.editor.args" = "-e vim";
         # Spell check
         "layout.spellcheckDefault" = 2;
         # Dark theme

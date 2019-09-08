@@ -38,6 +38,7 @@ with builtins;
           elm-vim
           rust-vim
           deoplete-nvim
+          vim-javacomplete2
           LanguageClient-neovim
           ultisnips
           vim-snippets
