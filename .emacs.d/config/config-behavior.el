@@ -9,6 +9,12 @@
 (which-key-setup-side-window-right-bottom)
 (which-key-mode)
 
+;; AUCTeX
+;; TODO
+
+;; Company
+(setq company-idle-delay 0)
+
 ;; Shorten interactive yes or no
 (defalias 'yes-or-no-p 'y-or-n-p)
 

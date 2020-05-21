@@ -51,7 +51,10 @@
  '(haskell-process-log t)
  '(haskell-process-suggest-remove-import-lines t)
  '(haskell-process-type (quote auto))
- '(helm-completion-style (quote emacs)))
+ '(helm-completion-style (quote emacs))
+ '(org-agenda-files
+   (quote
+    ("~/life/work.org" "~/life/personal.org" "~/life/school.org"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

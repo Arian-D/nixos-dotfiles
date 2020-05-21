@@ -30,12 +30,14 @@
   # Additionl docs
   documentation.dev.enable = true;
 
-  # Enable low-level kvm stuff
-  boot.extraModprobeConfig = "options kvm_intel nested=1";
+  fonts.fonts = with pkgs; [
+    nerdfonts
+    fantasque-sans-mono
+  ];
 
   environment.variables = {
-    # The provided $EDITOR in services.emacs doesn't have the '-n' flag
-    editor = "emacseditor -n";
+    # For TLS analysis
+    SSLKEYLOGFILE = "/tmp/ssl-keys.log";
   };
 
   # zsh
@@ -44,18 +46,12 @@
     enableCompletion          = true;
     autosuggestions.enable    = true;
     syntaxHighlighting.enable = true;
-    # promptInit = ''
-    #   # Add color configs
-    #   POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs)
-    #   POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(battery date time vpn_ip)
-    #   source ${pkgs.zsh-powerlevel9k}/share/zsh-powerlevel9k/powerlevel9k.zsh-theme
-    # ''; 
     ohMyZsh = {
       enable = true;
       theme = "agnoster";
       plugins = [
         "git"
-        "git-extras"
+        "docker"
         "python"
         "cabal"
         "stack"
@@ -92,24 +88,5 @@
     ];
   };
 
-  # Pentesting user
-  # users.users.pentester = {
-  #   initialPassword = "toor";
-  #   isNormalUser = true;
-  #   extraGroups = [
-  #     "wheel"
-  #     "wireshark"
-  #   ];
-  #   packages = with pkgs; [
-  #     aircrack-ng
-  #     macchanger
-  #     reaverwps-t6x
-  #     hashcat
-  #     metasploit
-  #     nmap
-  #     busybox
-  #   ];              
-  # };
-
-  system.stateVersion = "19.09";
+  system.stateVersion = "20.03";
 }

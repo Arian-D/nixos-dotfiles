@@ -16,11 +16,8 @@
 	  (lambda ()
 	    (interactive-haskell-mode)))
 
-;; Display line numbers
-(add-hook 'haskell-mode-hook 'display-line-numbers-mode)
 ;; Create a template for haskell modules
 (add-hook 'haskell-mode-hook 'haskell-auto-insert-module-template)
-
 
 ;; Create a TAGS file every time you C-x C-s
 (setq haskell-tags-non-save t

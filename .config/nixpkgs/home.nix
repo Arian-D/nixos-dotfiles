@@ -23,29 +23,52 @@ in
     lua53Packages.digestif
   ];
 
-  programs.alacritty = {
-    enable = true;
-    settings = {
-      cursor.style = "Beam";
-      font.normal.family = "Iosevka Nerd Font";
-      font.size = 9;
-      background_opacity = 0.3;
+
+  programs = {
+    alacritty = {
+      enable = true;
+      settings = {
+        cursor.style = "Beam";
+        font.normal.family = "Iosevka Nerd Font";
+        font.size = 9;
+        background_opacity = 0.3;
+      };
     };
-  };
-  
-  programs.git = {
-    enable = true;
-    userName = gitName;
-    userEmail = gitEmail;
-  };
-  
-  programs.gpg.enable = true;
 
-  programs.lsd = {
-    enable = true;
-    enableAliases = true;
-  };
+    htop = {
+      enable = true;
+      treeView = true;
+    };
+    
+    git = {
+      enable = true;
+      userName = gitName;
+      userEmail = gitEmail;
+    };
+    
+    gpg.enable = true;
 
+    lsd = {
+      enable = true;
+      enableAliases = true;
+    };
+    
+    bat.enable = true;
+    
+    rofi = {
+      enable = true;
+      terminal = "alacritty";
+      scrollbar = false;
+      location = "top-left";
+      theme = "DarkBlue";
+      font = "DejaVu Sans extralight 24";
+      extraConfig = ''
+        show-icons: true;
+      '';
+    };
+    
+    zathura.enable = true;
+  };
   /*
   programs.home-manager = {
     enable = true;

@@ -2,7 +2,7 @@
 let
   essentialPackages = with pkgs; [
     manpages
-    wget gparted bat ripgrep fzf
+    wget gparted ripgrep fzf
     usbutils pciutils
   ];
 
@@ -13,11 +13,8 @@ let
 
   desktopPackages = with pkgs; [
     home-manager
-    rofi ranger mplayer
-    python3Packages.mps-youtube
+    mplayer
     libreoffice
-    # pdf
-    zathura
     # Eye candy
     pywal gotop tty-clock cli-visualizer
     neofetch
@@ -72,8 +69,8 @@ let
       nix-mode                    # Nix
       nixos-options
       company                     # Autocompletion
-      lsp-mode
       # Java
+      lsp-mode
       lsp-java
       # Haskal
       haskell-mode
@@ -90,7 +87,7 @@ let
       org-pomodoro
       org-trello
       # Misc
-      helm-youtube              # Search youtube
+      # ytel                      # YouTube
       emms                      # Music
       telega                    # Telegram
       emacsql                   # SQL client
