@@ -55,8 +55,7 @@ let
 
   # TODO: Move this to a separate file
   superEmacs = let
-    myEmacs = pkgs.emacs; 
-    emacsWithPackages = (pkgs.emacsPackages.emacsWithPackages);
+    emacsWithPackages = (pkgs.emacs26Packages.emacsWithPackages);
   in
     emacsWithPackages (epkgs: (with epkgs.melpaStablePackages; [
       # Essential
@@ -79,6 +78,7 @@ let
       slime
       slime-company
       geiser
+      rainbow-delimiters
       # Docker
       docker
       dockerfile-mode
@@ -97,7 +97,6 @@ let
 in
 
 {
-
   # Packages
   environment.systemPackages = with pkgs; [
     nixops
@@ -108,6 +107,7 @@ in
   ++ networkingPackages
   ++ devPackages;
 
+  environment.variables.EMACS_LOCATION = "${superEmacs}";
   # Wireshark to capture them packets
   programs.wireshark.enable = true;
   
@@ -124,21 +124,9 @@ in
       enableExtensionPack  = pkgs.config.allowUnfree;
     };
     docker.enable = true;
-    # Enable KVM for QEMU
-    kvmgt.enable = false;
-    libvirtd.enable = false;
+    # QEMU
+    libvirtd.enable = true;
   };
 
-  services.bitlbee.enable = false;
-  services.bitlbee.plugins = [ pkgs.bitlbee-discord ];
   programs.java.enable = true;
-
-  # ++ (if pkgs.config.allowUnfree then [
-  #   unrar
-  # ] else [])
-  # ++
-  #   (let 
-  #     all-hies = import (fetchTarball "https://github.com/infinisil/all-hies/tarball/master") {};
-  #   in
-  #     [ (all-hies.unstable.selection { selector = p: { inherit (p) ghc865; }; }) ]);
 }

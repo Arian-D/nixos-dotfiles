@@ -13,18 +13,20 @@
   (interactive)
   (async-shell-command "home-manager switch"))
 
-(defun nix-collect-garbage (deep)	; TODO: Select depth (raw, old)
+(defun nix-collect-garbage (deep)
   "Collect nixos garbage"
   (interactive (list (yes-or-no-p "-d?")))
   (async-shell-command (concat "nix-collect-garbage" (if deep " -d" ""))))
 
-;; TODO
-(defun reboot ()
-  "Reboot the machine (TODO)"
-  (interactive))
+(defun reboot (sure)
+  "Reboot the machine"
+  (interactive (list (yes-or-no-p "Are you sure?")))
+  (if sure (shell-command "reboot")))
 
-(defun shutdown ()
-  "Shutdown the machine (TODO)"
-  (interactive))
+(defun shutdown (sure)
+  "Shutdown the machine"
+  (interactive (list (yes-or-no-p "Are you sure?")))
+  (if sure (let ((default-directory "/sudo::"))
+	     (shell-command "shutdown"))))
 
 (provide 'config-nixos)

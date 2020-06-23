@@ -34,4 +34,11 @@
       (concat org-directory "/notes.org"))
 (global-set-key "\C-cb" 'org-switchb)
 
+;; Evaluate code blocks
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((haskell . t)
+   (python . t)
+   (shell . t)))
+
 (provide 'config-org)

@@ -6,7 +6,7 @@
 (set-scroll-bar-mode nil)
 
 ;; My favorite font
-(set-frame-font "Fantasque Sans Mono: style=Thin-18" nil t)
+(set-frame-font "Fantasque Sans Mono-18:weight=light" nil t)
 
 ;; My favorite theme
 (load-theme 'doom-dracula t)

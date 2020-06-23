@@ -12,6 +12,9 @@
 ;; AUCTeX
 ;; TODO
 
+;; ERC
+(load "~/.emacs.d/.erc-auth")
+
 ;; Company
 (setq company-idle-delay 0)
 

@@ -23,7 +23,6 @@ in
     lua53Packages.digestif
   ];
 
-
   programs = {
     alacritty = {
       enable = true;
@@ -44,6 +43,7 @@ in
       enable = true;
       userName = gitName;
       userEmail = gitEmail;
+      ignores = [ "*~" ];
     };
     
     gpg.enable = true;
@@ -62,11 +62,10 @@ in
       location = "top-left";
       theme = "DarkBlue";
       font = "DejaVu Sans extralight 24";
-      extraConfig = ''
-        show-icons: true;
-      '';
+      extraConfig = "rofi.show-icons: true";
     };
     
+    feh.enable = true;
     zathura.enable = true;
   };
   /*

@@ -81,6 +81,7 @@
       "wheel" # sudo
       "networkmanager" # nmtui
       "dialout"
+      "libvirtd"
       "vboxusers" # VirtualBox
       "wireshark" # Wrireshark
       "docker" # Docker
