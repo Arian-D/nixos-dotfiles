@@ -13,7 +13,8 @@
 ;; TODO
 
 ;; ERC
-(load "~/.emacs.d/.erc-auth")
+(if (file-exists-p (expand-file-name ".erc-auth" user-emacs-directory))
+    (load "~/.emacs.d/.erc-auth"))
 
 ;; Company
 (setq company-idle-delay 0)
