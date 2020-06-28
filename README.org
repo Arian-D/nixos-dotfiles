@@ -1,2 +1,54 @@
 #+TITLE: Dot files
 My NixOS, Emacs, and StumpWM dot files.
+
+These configurations are my personal ones, and they may not pertain to
+your personal needs. Feel free to use them or copy snippets for your
+configs.
+* Installation
+Assuming you have cloned the repo and CWD is the repo, you can go
+through these steps. The order is structured like this because some of
+these packages /may/ depend on the previous ones.
+** NixOS
+All the NixOS files are stored in ~./nixos~. If you want to recreate
+this exact machine, copy the files onto your own.
+*This might overwrite your ~/etc/nixos~ so be careful*
+#+BEGIN_SRC shell
+cp -ir ./nixos /etc/
+#+END_SRC
+** Home-manager
+Home-manager files are in ~./.config/nixpkgs~. There are also Neovim and
+firefox configs in there. Neovim will soon be deleted.
+#+BEGIN_SRC shell
+cp -r ./.config/nixpkgs ~/.config/
+#+END_SRC
+** Emacs
+Emacs depends on several packages that are _currently_ in
+~nixos/packages.nix~. Once they are met, you can copy the configs:
+#+BEGIN_SRC shell
+cp -r ~/.emacs.d/ ~/
+#+END_SRC
+** StumpWM
+Stump's config is just like emacs. At the time of writing this, Swank
+doesn't work, so you might not want to switch to it.
+#+BEGIN_SRC shell
+cp -r ~/.stumpwm.d ~/
+#+END_SRC
+* TODO
+** Emacs [0/6]
+- [ ] Make ERC go over TLS by default
+- [ ] Global Magit keybindings
+- [ ] Move the ~nmap~ functions to ~config-nixos~ and make it something
+  for personal functions.
+- [ ] Function to spawn nix-shell with certain packages
+- [ ] Set up gnus
+- [ ] Set up rainbow-delimiters
+** StumpWM [0/4]
+- [ ] Fix Swank
+- [ ] Function to take screenshots
+- [ ] Better rofi shortcut
+** NixOS/home-manager [0/2]
+- [ ] Move Emacs to Home-manager *as a separate file*
+- [ ] Make a script to deploy on a fresh NixOS machine
+** Misc [0/3]
+- [ ] Add Guix System configs
+- [ ] Rename repo
