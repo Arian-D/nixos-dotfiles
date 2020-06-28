@@ -1,17 +1,20 @@
-;;   ____                 _____
-;;  / ___|___ _____   _  | ____|_ __ ___   __ _  ___ ___
-;; | |   / _ \_  / | | | |  _| | '_ ` _ \ / _` |/ __/ __|
-;; | |__| (_) / /| |_| | | |___| | | | | | (_| | (__\__ \
-;;  \____\___/___|\__, | |_____|_| |_| |_|\__,_|\___|___/
-;;                |___/
+;;     _         _             _       _____
+;;    / \   _ __(_) __ _ _ __ ( )___  | ____|_ __ ___   __ _  ___ ___
+;;   / _ \ | '__| |/ _` | '_ \|// __| |  _| | '_ ` _ \ / _` |/ __/ __|
+;;  / ___ \| |  | | (_| | | | | \__ \ | |___| | | | | | (_| | (__\__ \
+;; /_/   \_\_|  |_|\__,_|_| |_| |___/ |_____|_| |_| |_|\__,_|\___|___/
 
 (require 'package)
 (setq package-enable-at-startup nil)
 (package-initialize)
 
+;; Always have the server running
+(unless (server-running-p)
+  (server-start))
+
 ;; Use a separate file for custom behavior
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-(if (not (file-exists-p custom-file))	; Make sure it's there
+(unless (file-exists-p custom-file)	; Make sure it's there
     (shell-command (concat "touch " custom-file)))
 (load-file custom-file)
 

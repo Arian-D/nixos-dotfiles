@@ -68,6 +68,9 @@ let
       nix-mode                    # Nix
       nixos-options
       company                     # Autocompletion
+      # Web
+      web-mode
+      company-web
       # Java
       lsp-mode
       lsp-java
@@ -87,7 +90,6 @@ let
       org-pomodoro
       org-trello
       # Misc
-      # ytel                      # YouTube
       emms                      # Music
       telega                    # Telegram
       emacsql                   # SQL client
@@ -127,6 +129,7 @@ in
     # QEMU
     libvirtd.enable = true;
   };
+  programs.firejail.enable = true;
 
   programs.java.enable = true;
 }

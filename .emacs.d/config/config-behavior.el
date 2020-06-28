@@ -22,4 +22,8 @@
 ;; Shorten interactive yes or no
 (defalias 'yes-or-no-p 'y-or-n-p)
 
+;; Language-specific:
+(add-to-list 'auto-mode-alist
+	     '("\\.gs\\'" . javascript-mode)) ; The unholy Google Apps Script
+
 (provide 'config-behavior)
