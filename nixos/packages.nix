@@ -1,4 +1,5 @@
 {configs, pkgs, ...}:
+
 let
   essentialPackages = with pkgs; [
     manpages
@@ -53,63 +54,18 @@ let
     nodePackages.vscode-css-languageserver-bin
   ];
 
-  # TODO: Move this to a separate file
-  superEmacs = let
-    emacsWithPackages = (pkgs.emacs26Packages.emacsWithPackages);
-  in
-    emacsWithPackages (epkgs: (with epkgs.melpaStablePackages; [
-      # Essential
-      helm                        # Survival
-      which-key
-      magit                       # Git
-      doom-themes                 # For chllenger deep
-      doom-modeline
-      challenger-deep-theme
-      nix-mode                    # Nix
-      nixos-options
-      company                     # Autocompletion
-      # Web
-      web-mode
-      company-web
-      # Java
-      lsp-mode
-      lsp-java
-      # Haskal
-      haskell-mode
-      helm-hoogle
-      # Uncommon Lisp
-      slime
-      slime-company
-      geiser
-      rainbow-delimiters
-      # Docker
-      docker
-      dockerfile-mode
-      # Org
-      org-bullets
-      org-pomodoro
-      org-trello
-      # Misc
-      emms                      # Music
-      telega                    # Telegram
-      emacsql                   # SQL client
-    ] ++ (with epkgs.elpaPackages; [
-      auctex
-    ])));
 in
 
 {
   # Packages
   environment.systemPackages = with pkgs; [
     nixops
-    superEmacs
   ]
   ++ essentialPackages
   ++ desktopPackages
   ++ networkingPackages
   ++ devPackages;
 
-  environment.variables.EMACS_LOCATION = "${superEmacs}";
   # Wireshark to capture them packets
   programs.wireshark.enable = true;
   
@@ -130,6 +86,5 @@ in
     libvirtd.enable = true;
   };
   programs.firejail.enable = true;
-
   programs.java.enable = true;
 }

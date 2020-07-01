@@ -4,13 +4,11 @@
 (global-set-key (kbd "<print>") #'helm-M-x)
 
 ;; Which-key mode
-;; (setq which-key-idle-delay 10000)
-;; (setq which-key-idle-secondary-delay 0.05)
+(setq which-key-idle-delay 0.2)
 (which-key-setup-side-window-right-bottom)
 (which-key-mode)
 
-;; AUCTeX
-;; TODO
+;; TODO: gnus, auctex, rainbow delimiters
 
 ;; ERC
 (if (file-exists-p (expand-file-name ".erc-auth" user-emacs-directory))

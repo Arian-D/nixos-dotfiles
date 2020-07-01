@@ -9,8 +9,8 @@
 (package-initialize)
 
 ;; Always have the server running
-(unless (server-running-p)
-  (server-start))
+;; (unless (server-running-p)
+;;   (server-start))
 
 ;; Use a separate file for custom behavior
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))

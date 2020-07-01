@@ -16,14 +16,15 @@ this exact machine, copy the files onto your own.
 cp -ir ./nixos /etc/
 #+END_SRC
 ** Home-manager
-Home-manager files are in ~./.config/nixpkgs~. There are also Neovim and
-firefox configs in there. Neovim will soon be deleted.
+Home-manager files are in ~./.config/nixpkgs~. You can also find
+~emacs.nix~ and ~firefox.nix~ in there.
 #+BEGIN_SRC shell
 cp -r ./.config/nixpkgs ~/.config/
 #+END_SRC
 ** Emacs
-Emacs depends on several packages that are _currently_ in
-~nixos/packages.nix~. Once they are met, you can copy the configs:
+Emacs depends on several packages that are
+~.config/nixpkgs/emacs.nix~. Once they are met, you can copy the
+configs:
 #+BEGIN_SRC shell
 cp -r ~/.emacs.d/ ~/
 #+END_SRC
@@ -33,7 +34,7 @@ doesn't work, so you might not want to switch to it.
 #+BEGIN_SRC shell
 cp -r ~/.stumpwm.d ~/
 #+END_SRC
-* TODO
+* Todo list
 ** Emacs [0/6]
 - [ ] Make ERC go over TLS by default
 - [ ] Global Magit keybindings
@@ -46,9 +47,11 @@ cp -r ~/.stumpwm.d ~/
 - [ ] Fix Swank
 - [ ] Function to take screenshots
 - [ ] Better rofi shortcut
-** NixOS/home-manager [0/2]
-- [ ] Move Emacs to Home-manager *as a separate file*
+- [ ] Lockscreen shortcut
+** NixOS/home-manager [1/3]
+- [X] Move Emacs to Home-manager *as a separate file*
 - [ ] Make a script to deploy on a fresh NixOS machine
+- [ ] Lockscreen
 ** Misc [0/3]
 - [ ] Add Guix System configs
 - [ ] Rename repo

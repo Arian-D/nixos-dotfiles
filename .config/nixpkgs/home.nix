@@ -14,6 +14,7 @@ in
   imports =
     [
       ./firefox/firefox.nix
+      ./emacs.nix
     ];
 
   home.packages = with pkgs; [
@@ -68,10 +69,4 @@ in
     feh.enable = true;
     zathura.enable = true;
   };
-  /*
-  programs.home-manager = {
-    enable = true;
-    path = home + "playground/home-manager";
-  };
-  */
 }
