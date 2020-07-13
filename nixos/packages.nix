@@ -2,9 +2,11 @@
 
 let
   essentialPackages = with pkgs; [
+    home-manager
     manpages
     wget gparted ripgrep fzf
     usbutils pciutils
+    ffmpeg-full
   ];
 
   networkingPackages = with pkgs; [
@@ -13,7 +15,6 @@ let
   ];
 
   desktopPackages = with pkgs; [
-    home-manager
     mplayer
     libreoffice
     # Eye candy
@@ -22,23 +23,7 @@ let
   ];
 
   devPackages = with pkgs; [    
-    # C
-    clang gcc gnumake
-    global
     texlive.combined.scheme-full
-    # python
-    (python3.withPackages(ps: with ps; [
-      # Devel
-      python-language-server
-      pyls-mypy pyls-isort pyls-black
-      # Essential
-      requests
-      tkinter
-      jupyter
-      numpy
-      # misc
-      selenium
-    ]))
     # Haskal
     (haskellPackages.ghcWithPackages(hs: with hs; [
       stack
@@ -49,10 +34,20 @@ let
     ]))
     # Lisp
     sbcl
+    guile
+    racket
     # Web
     nodePackages.typescript-language-server
     nodePackages.vscode-css-languageserver-bin
   ];
+
+  nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
+    export __NV_PRIME_RENDER_OFFLOAD=1
+    export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
+    export __GLX_VENDOR_LIBRARY_NAME=nvidia
+    export __VK_LAYER_NV_optimus=NVIDIA_only
+    exec -a "$0" "$@"
+  '';
 
 in
 
@@ -60,6 +55,8 @@ in
   # Packages
   environment.systemPackages = with pkgs; [
     nixops
+    nvidia-offload
+    winePackages.stable
   ]
   ++ essentialPackages
   ++ desktopPackages
@@ -71,19 +68,17 @@ in
   
   nixpkgs.config = {
     # Stallman is watching you...
-    allowUnfree = false;
+    allowUnfree = true;
     allowBroken = false;
   };
   
   virtualisation = {
     virtualbox.host = {
-      enable               = true;
-      enableHardening      = true;
-      enableExtensionPack  = pkgs.config.allowUnfree;
+      enable = true;
+      enableHardening = true;
     };
     docker.enable = true;
-    # QEMU
-    libvirtd.enable = true;
+    libvirtd.enable = true;     # QEMU
   };
   programs.firejail.enable = true;
   programs.java.enable = true;

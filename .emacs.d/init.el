@@ -18,29 +18,15 @@
     (shell-command (concat "touch " custom-file)))
 (load-file custom-file)
 
-;; SLIME
-(setq inferior-lisp-program "sbcl")
-
-;; Global company
-(add-hook 'after-init-hook 'global-company-mode)
-
 ;; Add ./config/ folder to the `load-path'
 (let ((config-path (expand-file-name "config" user-emacs-directory)))
   (add-to-list 'load-path config-path))
 
 ;; Load the configs
-(mapc 'require '(config-helm
-		 config-haskell
-		 config-org
-		 config-appearance
-		 config-behavior
-		 config-nixos))
-
-;; Put these in a separate file
-(defun nmap (host)
-  (interactive "sHost: ")
-  (async-shell-command (concat "nmap -Pn " host)))
-
-(defun nmap-service-scan (host)
-  (interactive "sHost: ")
-  (async-shell-command (concat "nmap -Pn -sV " host)))
+(mapc 'require
+      '(config-helm
+	config-haskell
+	config-org
+	config-appearance
+	config-behavior
+	config-nixos))

@@ -8,33 +8,75 @@ let
   gitEmail = "ArianDehghani@protonmail.com";
   home = lib.getEnv "HOME";
 
+
 in
 
 {
   imports =
     [
-      ./firefox/firefox.nix
+      # ./firefox/firefox.nix
       ./emacs.nix
     ];
 
   home.packages = with pkgs; [
-    # Rust
-    cargo
-    # LaTeX LSP
-    lua53Packages.digestif
+    higan
+    direnv
+    (firefox-unwrapped.override {
+      enableOfficialBranding = false;
+      crashreporterSupport = false;
+      geolocationSupport = false;
+      drmSupport = false;
+      waylandSupport = false;   # Enable when you add Sway
+      webrtcSupport = false;
+      privacySupport = true;
+      ffmpegSupport = true;
+      debugBuild = false;
+    })
+    # (chromium.override {
+    #   useOzone = false;         # Enable when you add Sway
+    # })
+    next
   ];
 
-  programs = {
-    alacritty = {
+  home.sessionVariables = {
+    SWANK = let slime = pkgs.emacs26Packages.slime;
+            in
+              "${slime}/share/emacs/site-lisp/elpa/slime-${slime.version}/swank-loader.lisp";
+    
+  };
+  
+  programs = {   
+  zsh = {
+    enable = true;
+    enableAutosuggestions = true;
+    enableCompletion = true;
+    defaultKeymap = "emacs";
+    oh-my-zsh = {
+      enable = true;
+      theme = "agnoster";
+      plugins = [
+        "git"
+        "docker"
+        "python"
+        "cabal"
+        "stack"
+        "man"
+        "sudo"
+        "nmap"
+      ];
+    };
+  };
+
+  alacritty = {
       enable = true;
       settings = {
         cursor.style = "Beam";
         font.normal.family = "Iosevka Nerd Font";
-        font.size = 9;
+        font.size = 10;
         background_opacity = 0.3;
       };
     };
-
+    
     htop = {
       enable = true;
       treeView = true;
@@ -47,8 +89,6 @@ in
       ignores = [ "*~" ];
     };
     
-    gpg.enable = true;
-
     lsd = {
       enable = true;
       enableAliases = true;
@@ -68,5 +108,16 @@ in
     
     feh.enable = true;
     zathura.enable = true;
+    gpg.enable = true;
+  };
+  
+  services = {
+    gpg-agent = {
+      enable = true;
+      extraConfig = ''
+      allow-emacs-pinentry
+      allow-loopback-pinentry
+    '';
+    };
   };
 }

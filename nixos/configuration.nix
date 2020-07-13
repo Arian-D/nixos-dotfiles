@@ -34,33 +34,6 @@
     fantasque-sans-mono
   ];
 
-  environment.variables = {
-    # For TLS analysis
-    SSLKEYLOGFILE = "/tmp/ssl-keys.log";
-  };
-
-  # zsh
-  programs.zsh = {
-    enable                    = true;
-    enableCompletion          = true;
-    autosuggestions.enable    = true;
-    syntaxHighlighting.enable = true;
-    ohMyZsh = {
-      enable = true;
-      theme = "agnoster";
-      plugins = [
-        "git"
-        "docker"
-        "python"
-        "cabal"
-        "stack"
-        "man"
-        "sudo"
-        "nmap"
-      ];
-    };
-  };
-
   # Set your time zone.
   time.timeZone = "US/Pacific";
 
@@ -88,5 +61,6 @@
     ];
   };
 
+  system.autoUpgrade.channel = "https://nixos.org/channels/nixos-20.03";
   system.stateVersion = "20.03";
 }

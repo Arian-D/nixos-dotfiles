@@ -1,21 +1,28 @@
 {configs, pkgs, ...}:
+
 {
   services.xserver = {
     enable = true;
     displayManager.sddm.enable = true;
+    #    displayManager.gdm.nvidiaWayland = true;
+    displayManager.defaultSession = "none+stumpwm";
     desktopManager = {
-      default         = "";
       xterm.enable    = false;
       plasma5.enable  = true;
       gnome3.enable = false;
     };
 
     windowManager = {
-      default = "stumpwm";
       stumpwm.enable = true;
-     };
-
-    libinput.enable = true; # touchpad
+    };    
+    videoDrivers = [ "modesetting" "nvidia" ];
+    libinput.enable = true;
   };
-}
 
+  hardware.nvidia.prime = {
+    offload.enable = true;
+    intelBusId = "PCI:0:2:0";
+    nvidiaBusId = "PCI:2:0:0";
+  };
+  hardware.opengl.driSupport32Bit = true;
+}

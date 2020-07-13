@@ -6,10 +6,10 @@
 (set-scroll-bar-mode nil)
 
 ;; My favorite font
-(set-frame-font "Fantasque Sans Mono-18:weight=light" nil t)
+(set-frame-font "Fantasque Sans Mono-12:weight=light" nil t)
 
 ;; My favorite theme
-(load-theme 'doom-dracula t)
+(load-theme 'doom-challenger-deep t)
 
 ;; Display battery in the mode line
 (display-battery-mode)
@@ -19,14 +19,12 @@
 
 ;; Line number mode for my favorite modes
 (mapc (lambda (mode-hook)
-	  (add-hook mode-hook 'display-line-numbers-mode))
-      '(emacs-lisp-mode-hook
-	lisp-mode-hook
-	TeX-mode-hook
-	LaTeX-mode-hook
-	nix-mode-hook
-	haskell-mode-hook
-	c-mode-hook))
+	(add-hook mode-hook 'display-line-numbers-mode))
+      '(emacs-lisp-mode-hook lisp-mode-hook scheme-mode-hook
+			     TeX-mode-hook LaTeX-mode-hook
+			     nix-mode-hook
+			     haskell-mode-hook
+			     c-mode-hook python-mode-hook ))
 
 ;; Provide
 (provide 'config-appearance)

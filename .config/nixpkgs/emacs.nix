@@ -1,45 +1,59 @@
-{pkgs, ...}:
+{pkgs ? import <nixpkgs>, ...}:
 
 {
   programs.emacs = {
     enable = true;
+    package = pkgs.emacs26.override { imagemagick = pkgs.imagemagickBig; };
     extraPackages = epkgs: with epkgs; [
       # Essential
       helm                        # Survival
-      which-key
-      magit                       # Git
-      doom-themes                 # For chllenger deep
-      doom-modeline
-      challenger-deep-theme
+      which-key                   # Saves you extra `C-h k'
+      magit                       # Best Git client
+      doom-themes                 # For chllenger deep, dracula, and other occasional themes
+      doom-modeline               # hmmm
+      challenger-deep-theme       # Cool theme; looks better than the doom one
       nix-mode                    # Nix
-      nixos-options
+      nixos-options               # Might remove; doesn't seem to work
       company                     # Autocompletion
-      # Web
+      direnv                      # For use with Lorri
+      elfeed                      # RSS, Atom, and YT
+      telega                      # Telegram do be cool
+      ytel                        # YouTube search
+      # Webshit garbage
       web-mode
       company-web
-      # Java
+      # Java: for employability
       lsp-mode
       lsp-java
-      # Haskal
+      # Haskal: for unemployability
       haskell-mode
       helm-hoogle
+      # Coq... hehe
+      proof-general
+      company-coq
+      # Python
+      elpy
       # Uncommon Lisp
       slime
       slime-company
       geiser
       rainbow-delimiters
+      paredit
       # Docker
-      docker
+      docker                    # Doesn't seem to do much
       dockerfile-mode
-      # Org
-      org-bullets
-      org-pomodoro
+      # Org: aimless attempt at getting my shit together
+      org-roam                  # Still learning it
+      org-bullets               # Might remove
+      org-pomodoro              # Tic toc
       org-trello
       # Misc
       emms                      # Music
-      telega                    # Telegram
       emacsql                   # SQL client
-      auctex
+      auctex                    # LaTeX to make Knuth proud
+      slack                     # Slack AKA professional Discord
+      pinentry                  # For GPG
+      emojify
     ];
   };
 }

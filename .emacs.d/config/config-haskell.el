@@ -1,5 +1,14 @@
 (require 'haskell-mode)
 
+;; Use nix-shell instead of the wacky 
+(setq haskell-process-wrapper-function
+      (lambda (argv)
+        (list "nix-shell"
+              "-I"
+              "."
+              "--command"
+              (mapconcat 'identity argv " "))))
+
 ;; Startup hook for haskell mode
 (add-hook 'haskell-mode-hook
 	  (lambda ()
