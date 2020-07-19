@@ -1,12 +1,12 @@
 ;; Org mode, AKA the greatest thing on the face of this planet
 
-;; Most of my agenda/capture files go here
-(setq org-directory "~/life")
+;; Most of my org files go here
+(setq org-directory "~/me")
 
 ;; Enable fill mode to disallow long lines
 (add-hook 'org-mode-hook 'auto-fill-mode)
-;; Org bullets for pretty headings
-(add-hook 'org-mode-hook 'org-bullets-mode)
+
+(add-hook 'org-mode-hook 'prettify-symbols-mode)
 
 (add-hook 'org-mode-hook
 	  (lambda ()
@@ -23,7 +23,6 @@
       ;; Highlight LaTeX within org
       ;; org-highlight-latex-and-related 'latex)
 
-
 ;; Global org keys
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-ca" 'org-agenda)
@@ -36,7 +35,18 @@
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((haskell . t)
+   (scheme . t)
    (python . t)
    (shell . t)))
+
+;; Roam
+(require 'org-roam)
+(setq org-roam-directory "~/roam"
+      org-roam-link-title-format "(→%s)"
+      org-roam-completion-system 'helm)
+(add-hook 'after-init-hook 'org-roam-mode)
+(global-set-key "\C-\M-g" 'org-roam-find-file)
+(define-key org-mode-map (kbd "C-c i") 'org-roam-insert)
+
 
 (provide 'config-org)

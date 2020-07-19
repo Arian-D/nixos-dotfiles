@@ -49,6 +49,10 @@
   (interactive (list (yes-or-no-p "Are you sure?")))
   (shutdown sure t))
 
+;; Nixpecifc
+(defun nix-setup nil nil)
+
 ;; TODO: Dev setup: `default.nix' creator, `nix-options' with helm, and `nix-env' crap
 
 (provide 'config-nixos)
+

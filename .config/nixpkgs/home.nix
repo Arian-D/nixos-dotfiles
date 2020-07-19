@@ -42,38 +42,37 @@ in
     SWANK = let slime = pkgs.emacs26Packages.slime;
             in
               "${slime}/share/emacs/site-lisp/elpa/slime-${slime.version}/swank-loader.lisp";
-    
+    EDITOR = "emacsclient";
   };
   
   programs = {   
-  zsh = {
-    enable = true;
-    enableAutosuggestions = true;
-    enableCompletion = true;
-    defaultKeymap = "emacs";
-    oh-my-zsh = {
+    zsh = {
       enable = true;
-      theme = "agnoster";
-      plugins = [
-        "git"
-        "docker"
-        "python"
-        "cabal"
-        "stack"
-        "man"
-        "sudo"
-        "nmap"
-      ];
+      enableAutosuggestions = true;
+      enableCompletion = true;
+      defaultKeymap = "emacs";
+      oh-my-zsh = {
+        enable = true;
+        theme = "agnoster";
+        plugins = [
+          "git"
+          "docker"
+          "python"
+          "cabal"
+          "stack"
+          "man"
+          "sudo"
+          "nmap"
+        ];
+      };
     };
-  };
 
-  alacritty = {
+    alacritty = {
       enable = true;
       settings = {
         cursor.style = "Beam";
         font.normal.family = "Iosevka Nerd Font";
         font.size = 10;
-        background_opacity = 0.3;
       };
     };
     

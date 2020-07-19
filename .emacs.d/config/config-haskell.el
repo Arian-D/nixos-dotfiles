@@ -1,6 +1,6 @@
 (require 'haskell-mode)
 
-;; Use nix-shell instead of the wacky 
+;; Use nix-shell instead of the wacky cabal/stack
 (setq haskell-process-wrapper-function
       (lambda (argv)
         (list "nix-shell"

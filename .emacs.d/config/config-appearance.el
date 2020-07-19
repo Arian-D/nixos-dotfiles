@@ -5,8 +5,11 @@
 (menu-bar-mode -1)
 (set-scroll-bar-mode nil)
 
+;; Remove the black borders after resize
+(setq frame-resize-pixelwise t)
+
 ;; My favorite font
-(set-frame-font "Fantasque Sans Mono-12:weight=light" nil t)
+(set-frame-font "Fantasque Sans Mono-16:weight=light" nil t)
 
 ;; My favorite theme
 (load-theme 'doom-challenger-deep t)

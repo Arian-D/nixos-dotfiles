@@ -66,6 +66,11 @@ in
   # Wireshark to capture them packets
   programs.wireshark.enable = true;
   
+  services.bitlbee = {
+    enable = true;
+    plugins = [ pkgs.bitlgnbee-discord ];
+  };
+
   nixpkgs.config = {
     # Stallman is watching you...
     allowUnfree = true;

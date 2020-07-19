@@ -1,4 +1,4 @@
-{configs, pkgs, ...}:
+{configs, pkgs, lib, ...}:
 {
   # Essential
   networking = {
@@ -19,5 +19,7 @@
       "8.8.8.8"
       "8.8.4.4"
     ];
+    # Block adware/malware
+    extraHosts = lib.readFile ./hosts.txt;
   };
 }

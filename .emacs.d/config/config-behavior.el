@@ -16,18 +16,20 @@
 ;; Magit
 (global-set-key (kbd "C-x g") 'magit-status)
 
+
+(defmacro safe-load (file-path &optional create-if-absent)
+  "Load an `.el' file if it exists"
+  `(if (file-exists-p ,file-path)
+       (load ,file-path)
+     `(if ,create-if-absent
+	  (shell-command (concat "touch " ,file-path)))))
+
 ;; Slack
-;; TODO: Define `safe-load' macro
-;; TODO: More slack customization
+(safe-load (expand-file-name "config/slack-teams.el" user-emacs-directory))
 (setq slack-buffer-emojify t)
-(let ((teams-file
-       (expand-file-name "config/slack-teams.el" user-emacs-directory)))
-  (if (file-exists-p teams-file)
-      (load teams-file)))
 
 ;; ERC
-(if (file-exists-p (expand-file-name ".erc-auth" user-emacs-directory))
-    (load "~/.emacs.d/.erc-auth"))
+(safe-load (expand-file-name ".erc-auth" user-emacs-directory))
 
 ;; Youtube, to be used for ytel and elfeed
 (defvar video-player-command "cvlc ")
@@ -39,6 +41,7 @@
 		 url-or-id (concat youtube-url url-or-id))))
     (call-process-shell-command ;TODO: Print errors
      (format "%s '%s'" video-player-command url)
+
      nil 0)))
 
 ;; Ytel
@@ -93,6 +96,8 @@
 	   'security))
 	'(("proofpoint.com/rss.xml" proof-point)
 	  ("researchcenter.paloaltonetworks.com/unit42/feed" palo-alto)
+	  ("reddit.com/r/netsec/.rss" netsec reddit)
+	  ("feeds.feedburner.com/feedburner/Talos?format=xml" talos cisco)
 	  ("feeds.trendmicro.com/Anti-MalwareBlog/" trend-micro)))
        ;; YouTube channels
        (mapcar
