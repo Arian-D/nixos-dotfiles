@@ -6,7 +6,9 @@
 ;; Enable fill mode to disallow long lines
 (add-hook 'org-mode-hook 'auto-fill-mode)
 
+;; Make it look nice
 (add-hook 'org-mode-hook 'prettify-symbols-mode)
+(add-hook 'org-mode-hook 'emojify-mode)
 
 (add-hook 'org-mode-hook
 	  (lambda ()

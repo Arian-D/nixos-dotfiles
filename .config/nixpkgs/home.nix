@@ -36,6 +36,7 @@ in
     #   useOzone = false;         # Enable when you add Sway
     # })
     next
+    pinentry.qt
   ];
 
   home.sessionVariables = {
@@ -45,7 +46,11 @@ in
     EDITOR = "emacsclient";
   };
   
-  programs = {   
+  programs = {
+    ssh = {
+      enable = true;
+      extraConfig = lib.readFile ("/home/someone/.ssh/config");
+    };
     zsh = {
       enable = true;
       enableAutosuggestions = true;
@@ -99,7 +104,7 @@ in
       enable = true;
       terminal = "alacritty";
       scrollbar = false;
-      location = "top-left";
+      location = "center";
       theme = "DarkBlue";
       font = "DejaVu Sans extralight 24";
       extraConfig = "rofi.show-icons: true";

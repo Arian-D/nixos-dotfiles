@@ -1,12 +1,7 @@
 ;; Keybindings and personal preferences
 
-;; Use print as M-x
-(global-set-key (kbd "<print>") #'helm-M-x)
-
 ;; Shorten interactive yes or no
 (defalias 'yes-or-no-p 'y-or-n-p)
-
-;; Plugins:
 
 ;; Which-key mode
 (setq which-key-idle-delay 0.2)
@@ -15,7 +10,6 @@
 
 ;; Magit
 (global-set-key (kbd "C-x g") 'magit-status)
-
 
 (defmacro safe-load (file-path &optional create-if-absent)
   "Load an `.el' file if it exists"
@@ -31,7 +25,7 @@
 ;; ERC
 (safe-load (expand-file-name ".erc-auth" user-emacs-directory))
 
-;; Youtube, to be used for ytel and elfeed
+;; Youtube, to be used with elfeed and interactively
 (defvar video-player-command "cvlc ")
 (defvar youtube-url "https://invidio.us/watch?raw=1&v=") ; Replace with YT if Invidious goes down
 (defun watch-youtube (url-or-id)
@@ -41,18 +35,7 @@
 		 url-or-id (concat youtube-url url-or-id))))
     (call-process-shell-command ;TODO: Print errors
      (format "%s '%s'" video-player-command url)
-
      nil 0)))
-
-;; Ytel
-(require 'ytel)
-(defun ytel-watch ()
-  "Watch the selected video"
-  (interactive)
-  (let* ((video (ytel-get-current-video))
-	 (id    (ytel-video-id video)))
-    (watch-youtube id)))
-(define-key ytel-mode-map (kbd "RET") #'ytel-watch)
 
 ;; Elfeed
 (require 'elfeed)
@@ -67,45 +50,36 @@
 ;; Huge list of my favorite feeds; TODO: Abstract extra mapcars
 (setq elfeed-feeds
       (append
-       '(("https://nullprogram.com/feed/" general emacs)
+       '(("https://nullprogram.com/feed/" blog emacs general)
 	 ("https://news.ycombinator.com/rss" hn general)
+	 ("https://drewdevault.com/feed.xml" blog linux sway general)
 	 ("https://planetpython.org/rss20.xml" python general))
        ;; GNU slash Leenouxe
-       (mapcar
-	(lambda (feed)
-	  (elfeed-modify-feed
-	   feed
-	   (lambda (url) (concat "https://" url))
-	   'linux))
-	'(("planet.kernel.org/rss20.xml" kernel)
-	  ("guix.gnu.org/feeds/blog.atom" guix)
-	  ("weekly.nixos.org/feeds/all.rss.xml" nixos)
-	  ("trisquel.info/en/node/feed" trisquel)
-	  ("planet.debian.org/atom.xml" debian)
-	  ("planet.ubuntu.com/atom.xml" ubuntu)
-	  ("security.gentoo.org/glsa/feed.rss" gentoo security)
-	  ("planet.gentoo.org/atom.xml" gentoo)
-	  ("fedoraplanet.org/atom.xml" fedora)
-	  ("www.archlinux.org/feeds/news/" arch)))
+	'(("https://planet.kernel.org/rss20.xml" kernel linux)
+	  ("https://guix.gnu.org/feeds/blog.atom" guix linux)
+	  ("https://weekly.nixos.org/feeds/all.rss.xml" nixos linux)
+	  ("https://trisquel.info/en/node/feed" trisquel linux)
+	  ("https://planet.debian.org/atom.xml" debian linux)
+	  ("https://planet.ubuntu.com/atom.xml" ubuntu linux)
+	  ("https://security.gentoo.org/glsa/feed.rss" gentoo security linux)
+	  ("https://planet.gentoo.org/atom.xml" gentoo linux)
+	  ("https://fedoraplanet.org/atom.xml" fedora linux)
+	  ("https://www.archlinux.org/feeds/news/" arch linux))
        ;; Security; Im a hax0r b0i, apparently
-       (mapcar
-	(lambda (feed)
-	  (elfeed-modify-feed
-	   feed
-	   (lambda (url) (concat "https://" url))
-	   'security))
-	'(("proofpoint.com/rss.xml" proof-point)
-	  ("researchcenter.paloaltonetworks.com/unit42/feed" palo-alto)
-	  ("reddit.com/r/netsec/.rss" netsec reddit)
-	  ("feeds.feedburner.com/feedburner/Talos?format=xml" talos cisco)
-	  ("feeds.trendmicro.com/Anti-MalwareBlog/" trend-micro)))
+	'(("https://forum.defcon.org/external?type=rss2&nodeid=19" def-con security)
+	  ("https://proofpoint.com/rss.xml" proof-point security)	  
+	  ("https://researchcenter.paloaltonetworks.com/unit42/feed" palo-alto security)
+	  ("https://reddit.com/r/netsec/.rss" netsec reddit security)
+	  ("https://feeds.feedburner.com/feedburner/Talos?format=xml" talos cisco security)
+	  ("https://hackaday.com/blog/feed/" hackaday blog security)
+	  ("https://feeds.trendmicro.com/Anti-MalwareBlog/" trend-micro security))
        ;; YouTube channels
        (mapcar
 	(lambda (feed)
 	  (elfeed-modify-feed
 	   feed
 	   (lambda (id)
-	     (concat 
+ 	     (concat 
 	      "https://www.youtube.com/feeds/videos.xml?channel_id="
 	      id))
 	   'youtube))
@@ -137,15 +111,22 @@
 	     '("\\.gs\\'" . javascript-mode) ; Icky Google script
 	     '("\\.pl\\'" . prolog-mode))
 
-;; SLIME
+;; Lisp & scheme
 (setq inferior-lisp-program "sbcl")
+;; Hooks
+;;; TODO: Change to mapc (3×2)
+(add-hook 'lisp-mode-hook 'paredit-mode)
+(add-hook 'lisp-mode-hook 'rainbow-delimiters-mode)
+(add-hook 'emacs-lisp-mode-hook 'paredit-mode)
+(add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
+(add-hook 'scheme-mode-hook 'paredit-mode)
+(add-hook 'scheme-mode-hook 'rainbow-delimiters-mode)
 
 ;; Python
 (elpy-enable)
 (setq python-shell-interpreter "nix-shell"
       python-shell-interpreter-args " --run python"
       elpy-get-info-from-shell t)
-
-;; TODO: auctex, paredit
+(setq elpy-rpc-python-command "python")
 
 (provide 'config-behavior)

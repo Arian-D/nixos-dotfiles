@@ -1,5 +1,10 @@
 ;; Emacs appearance
 
+
+;; Zone for shits and giggles
+(require 'zone)
+(zone-when-idle (* 10 60))
+
 ;; Clean up the space
 (tool-bar-mode -1)
 (menu-bar-mode -1)
@@ -28,6 +33,7 @@
 			     nix-mode-hook
 			     haskell-mode-hook
 			     c-mode-hook python-mode-hook ))
+
 
 ;; Provide
 (provide 'config-appearance)

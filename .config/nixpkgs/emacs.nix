@@ -3,7 +3,10 @@
 {
   programs.emacs = {
     enable = true;
-    package = pkgs.emacs26.override { imagemagick = pkgs.imagemagickBig; };
+    package = pkgs.emacs26.override {
+      imagemagick = pkgs.imagemagickBig;
+      withXwidgets = true;
+    };
     extraPackages = epkgs: with epkgs; [
       # Essential
       helm                        # Survival
@@ -18,7 +21,6 @@
       direnv                      # For use with Lorri
       elfeed                      # RSS, Atom, and YT
       telega                      # Telegram do be cool
-      ytel                        # YouTube search
       # Webshit garbage
       web-mode
       company-web
