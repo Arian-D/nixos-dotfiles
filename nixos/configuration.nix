@@ -16,6 +16,7 @@
   # Use the systemd-boot EFI boot loader.
   boot = {
     cleanTmpDir = true;
+    kernel.sysctl."vm.swappiness" = 1;
     loader = {
       systemd-boot.enable = true;
       systemd-boot.configurationLimit = 10;

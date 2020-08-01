@@ -18,7 +18,7 @@ let
     mplayer
     libreoffice
     # Eye candy
-    pywal gotop tty-clock
+    pywal ytop tty-clock
     neofetch
   ];
 
@@ -36,9 +36,6 @@ let
     sbcl
     guile
     racket
-    # Web
-    nodePackages.typescript-language-server
-    nodePackages.vscode-css-languageserver-bin
   ];
 
   nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''

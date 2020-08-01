@@ -8,7 +8,6 @@ let
   gitEmail = "ArianDehghani@protonmail.com";
   home = lib.getEnv "HOME";
 
-
 in
 
 {
@@ -32,11 +31,12 @@ in
       ffmpegSupport = true;
       debugBuild = false;
     })
-    # (chromium.override {
-    #   useOzone = false;         # Enable when you add Sway
-    # })
+    (chromium.override {
+      useOzone = false;         # Enable when you add Sway
+    })
     next
     pinentry.qt
+    torsocks                    # To be used with my remote server
   ];
 
   home.sessionVariables = {
@@ -47,10 +47,10 @@ in
   };
   
   programs = {
-    ssh = {
-      enable = true;
-      extraConfig = lib.readFile ("/home/someone/.ssh/config");
-    };
+    # ssh = {
+    #   enable = true;
+    #   extraConfig = lib.readFile ("/home/someone/.ssh/config");
+    # };
     zsh = {
       enable = true;
       enableAutosuggestions = true;
