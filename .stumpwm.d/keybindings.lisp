@@ -19,26 +19,23 @@
   `(loop for (key command) in ,keys-and-commands
       do (keybinding key command)))
 
-;; Personal
+;;; Personal
 (create-keybindings
- (list
-  '("T" "toggle-gaps")
-  '("c" "exec alacritty")
-  '("C-c" "exec alacritty")
-  '("M-f" "exec firefox")
-  '("M-c" "exec alacritty -e calcurse -q")
-  ;;'("M-c" (execute-within-terminal (list ("calcurse" "-q"))))
-  ;;'("M-a" (execute-within-terminal '("./auto/target/release/auto")))
-  '("z" "exec zathura")
-  '("M-r" "exec rofi -show drun")
-  '("M-Q" "quit")
-  '("M-w" "open-website")
-  '("M-s" "search-query")
-  '("M-S" "search-web")))
+ '(("T" "toggle-gaps")
+  ("c" "exec alacritty")
+  ("C-c" "exec alacritty")
+  ("M-f" "exec firefox")
+  ("M-c" "exec alacritty -e calcurse -q")
+  ("z" "exec zathura")
+  ("M-r" "exec rofi -show drun")
+  ("M-w" "open-website")
+  ("M-s" "search-query")
+  ("M-S" "search-web")))
 
-
-;; Volume
+;;; Volume
 (keybinding-top "XF86AudioMute" "exec amixer -M set Master +1 toggle")
 (keybinding-top "XF86AudioLowerVolume" "exec amixer -M set Master 5%-")
 (keybinding-top "XF86AudioRaiseVolume" "exec amixer -M set Master 5%+")
+
+;;; TODO: Add brightness keys
 ;;(keybinding-top "" "exec amixer -M set Master 5%+")

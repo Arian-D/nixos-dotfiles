@@ -1,22 +1,11 @@
 (in-package :stumpwm)
 (load "~/.stumpwm.d/keybindings.lisp")
-(set-module-dir "/home/someone/.stumpwm.d/contrib")
-(load-module "battery-portable")
-(load-module "cpu")
-(load-module "mem")
-(load-module "swm-gaps")
-
-;; ;; Gaps
-(setf swm-gaps:*head-gaps-size* 0)
-(setf swm-gaps:*inner-gaps-size* 10)
-(setf swm-gaps:*outer-gaps-size* 40)
 
 (defcommand set-wallpaper (f)
     ((:string "Path> "))
   (run-shell-command (format nil "feh --bg-fill ~a" f)))
 
-
-(set-wallpaper "~/Pictures/wallpaper/fading-bluish-tree.jpg")
+(set-wallpaper "~/wallpaper")
 ;;; TODO: Add volume, brightness
 
 ;; live editing
@@ -67,4 +56,14 @@
 (setf *screen-mode-line-format*
       (list "%n %W |^> %C | %M | %B | %d"))
 
+;;; External modules
+(set-module-dir "/home/someone/.stumpwm.d/modules")
+(load-module "battery-portable")
+(load-module "cpu")
+(load-module "mem")
+(load-module "swm-gaps")
 
+;;; Gaps
+(setf swm-gaps:*head-gaps-size* 0)
+(setf swm-gaps:*inner-gaps-size* 10)
+(setf smw-gaps:*outer-gaps-size* 40)

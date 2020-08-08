@@ -16,10 +16,10 @@
       stumpwm.enable = true;
     };    
 
-    xautolock = {
-      enable = true;
-      time = 3;
-    };
+    # xautolock = {
+    #   enable = true;
+    #   time = 3;
+    # };
 
     videoDrivers = [ "modesetting" "nvidia" ];
     libinput.enable = true;

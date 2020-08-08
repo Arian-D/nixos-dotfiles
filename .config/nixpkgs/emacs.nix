@@ -21,6 +21,7 @@
       direnv                      # For use with Lorri
       elfeed                      # RSS, Atom, and YT
       telega                      # Telegram do be cool
+      multi-term
       # Webshit garbage
       web-mode
       company-web

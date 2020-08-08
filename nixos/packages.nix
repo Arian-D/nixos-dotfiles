@@ -2,7 +2,7 @@
 
 let
   essentialPackages = with pkgs; [
-    home-manager
+    home-manager file
     manpages
     wget gparted ripgrep fzf
     usbutils pciutils
@@ -10,7 +10,7 @@ let
   ];
 
   networkingPackages = with pkgs; [
-    nmap etherape
+    nmap wireshark etherape
     openvpn protonvpn-cli iptables netcat-gnu
   ];
 
@@ -18,7 +18,7 @@ let
     mplayer
     libreoffice
     # Eye candy
-    pywal ytop tty-clock
+    ytop tty-clock
     neofetch
   ];
 
@@ -51,6 +51,7 @@ in
 {
   # Packages
   environment.systemPackages = with pkgs; [
+    pulseeffects
     nixops
     nvidia-offload
     winePackages.stable

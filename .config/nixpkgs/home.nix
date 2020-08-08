@@ -6,7 +6,12 @@ let
 
   gitName = "Arian-D";
   gitEmail = "ArianDehghani@protonmail.com";
-  home = lib.getEnv "HOME";
+  home = getEnv "HOME";
+
+  wallpaper = pkgs.fetchurl {
+    url = https://i.redd.it/qqgds2i3ueh31.jpg;
+    sha256 = "066rnpy0h2pxnzc0hlxylwl8cxvs5zfr4pdap4g7nycz855gfm85";
+  };
 
 in
 
@@ -17,9 +22,13 @@ in
       ./emacs.nix
     ];
 
+  home.file.wallpaper.source = wallpaper;
   home.packages = with pkgs; [
+    vlc
+    remmina
     higan
     direnv
+    spectacle
     (firefox-unwrapped.override {
       enableOfficialBranding = false;
       crashreporterSupport = false;
@@ -44,13 +53,11 @@ in
             in
               "${slime}/share/emacs/site-lisp/elpa/slime-${slime.version}/swank-loader.lisp";
     EDITOR = "emacsclient";
+    WALLPAPER = "${wallpaper}";
   };
   
   programs = {
-    # ssh = {
-    #   enable = true;
-    #   extraConfig = lib.readFile ("/home/someone/.ssh/config");
-    # };
+    mpv.enable = true;
     zsh = {
       enable = true;
       enableAutosuggestions = true;

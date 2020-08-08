@@ -3,6 +3,16 @@
 ;; Shorten interactive yes or no
 (defalias 'yes-or-no-p 'y-or-n-p)
 
+(require 'socks)
+(setq socks-server (list "Remote tor tunnel" "localhost" 9050 5))
+
+
+
+(require 'emms-setup)
+(emms-all)
+(emms-default-players)
+(setq emms-source-file-default-directory "~/Music/")
+
 ;; Which-key mode
 (setq which-key-idle-delay 0.2)
 (which-key-setup-side-window-right-bottom)
@@ -11,19 +21,19 @@
 ;; Magit
 (global-set-key (kbd "C-x g") 'magit-status)
 
-(defmacro safe-load (file-path &optional create-if-absent)
-  "Load an `.el' file if it exists"
-  `(if (file-exists-p ,file-path)
-       (load ,file-path)
-     `(if ,create-if-absent
-	  (shell-command (concat "touch " ,file-path)))))
+;; (defmacro safe-load (file-path &optional create-if-absent)
+;;   "Load an `.el' file if it exists"
+;;   (if (file-exists-p file-path)
+;;        `(load ,file-path)
+;;      (if create-if-absent
+;; 	  (shell-command (concat "touch " file-path)))))
 
 ;; Slack
-(safe-load (expand-file-name "config/slack-teams.el" user-emacs-directory))
+;; (safe-load (expand-file-name "config/slack-teams.el" user-emacs-directory))
 (setq slack-buffer-emojify t)
 
 ;; ERC
-(safe-load (expand-file-name ".erc-auth" user-emacs-directory))
+;; (safe-load (expand-file-name ".erc-auth" user-emacs-directory))
 
 ;; Youtube, to be used with elfeed and interactively
 (defvar video-player-command "cvlc ")
@@ -55,24 +65,26 @@
 	 ("https://drewdevault.com/feed.xml" blog linux sway general)
 	 ("https://planetpython.org/rss20.xml" python general))
        ;; GNU slash Leenouxe
-	'(("https://planet.kernel.org/rss20.xml" kernel linux)
-	  ("https://guix.gnu.org/feeds/blog.atom" guix linux)
-	  ("https://weekly.nixos.org/feeds/all.rss.xml" nixos linux)
-	  ("https://trisquel.info/en/node/feed" trisquel linux)
-	  ("https://planet.debian.org/atom.xml" debian linux)
-	  ("https://planet.ubuntu.com/atom.xml" ubuntu linux)
-	  ("https://security.gentoo.org/glsa/feed.rss" gentoo security linux)
-	  ("https://planet.gentoo.org/atom.xml" gentoo linux)
-	  ("https://fedoraplanet.org/atom.xml" fedora linux)
-	  ("https://www.archlinux.org/feeds/news/" arch linux))
+       '(("https://planet.kernel.org/rss20.xml" kernel linux)
+	 ("https://guix.gnu.org/feeds/blog.atom" guix linux)
+	 ("https://weekly.nixos.org/feeds/all.rss.xml" nixos linux)
+	 ("https://trisquel.info/en/node/feed" trisquel linux)
+	 ("https://planet.debian.org/atom.xml" debian linux)
+	 ("https://planet.ubuntu.com/atom.xml" ubuntu linux)
+	 ("https://security.gentoo.org/glsa/feed.rss" gentoo security linux)
+	 ("https://planet.gentoo.org/atom.xml" gentoo linux)
+	 ("https://fedoraplanet.org/atom.xml" fedora linux)
+	 ("https://www.archlinux.org/feeds/news/" arch linux))
        ;; Security; Im a hax0r b0i, apparently
-	'(("https://forum.defcon.org/external?type=rss2&nodeid=19" def-con security)
-	  ("https://proofpoint.com/rss.xml" proof-point security)	  
-	  ("https://researchcenter.paloaltonetworks.com/unit42/feed" palo-alto security)
-	  ("https://reddit.com/r/netsec/.rss" netsec reddit security)
-	  ("https://feeds.feedburner.com/feedburner/Talos?format=xml" talos cisco security)
-	  ("https://hackaday.com/blog/feed/" hackaday blog security)
-	  ("https://feeds.trendmicro.com/Anti-MalwareBlog/" trend-micro security))
+       '(("https://forum.defcon.org/external?type=rss2&nodeid=19" def-con security)
+	 ("https://proofpoint.com/rss.xml" proof-point security)	  
+	 ("https://researchcenter.paloaltonetworks.com/unit42/feed" palo-alto security)
+	 ("https://reddit.com/r/netsec/.rss" netsec reddit security)
+	 ("https://feeds.feedburner.com/feedburner/Talos?format=xml" talos cisco security)
+	 ("https://hackaday.com/blog/feed/" hackaday blog security)
+	 ("https://feeds.trendmicro.com/Anti-MalwareBlog/" trend-micro security))
+       ;; Entertainment
+       '(("https://xkcd.com/atom.xml" xkcd comics entertainment))
        ;; YouTube channels
        (mapcar
 	(lambda (feed)

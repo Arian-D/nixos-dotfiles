@@ -1,13 +1,13 @@
 (require 'haskell-mode)
 
 ;; Use nix-shell instead of the wacky cabal/stack
-(setq haskell-process-wrapper-function
-      (lambda (argv)
-        (list "nix-shell"
-              "-I"
-              "."
-              "--command"
-              (mapconcat 'identity argv " "))))
+;; (setq haskell-process-wrapper-function
+;;       (lambda (argv)
+;;         (list "nix-shell"
+;;               "-I"
+;;               "."
+;;               "--command"
+;;               (mapconcat 'identity argv " "))))
 
 ;; Startup hook for haskell mode
 (add-hook 'haskell-mode-hook
