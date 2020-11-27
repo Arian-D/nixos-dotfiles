@@ -1,0 +1,15 @@
+# Emacs stuff
+emacs/emojis/*
+emacs/.cache/*
+emacs/bookmarks
+emacs/.lsp*
+emacs/custom.el
+emacs/tramp
+*.elc
+
+# Haskell
+*.hi
+*.o
+*.errors
+xmonad/xmonad-*-linux
+xmonad/.stack-work/*
