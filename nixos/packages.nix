@@ -2,49 +2,35 @@
 
 let
   essentialPackages = with pkgs; [
-    home-manager file
+    file
     manpages
-    wget gparted ripgrep fzf
+    wget ripgrep fzf
     usbutils pciutils
-    ffmpeg-full
-  ];
-
-  networkingPackages = with pkgs; [
-    nmap wireshark etherape
-    openvpn protonvpn-cli iptables netcat-gnu
+    ffmpeg
   ];
 
   desktopPackages = with pkgs; [
-    mplayer
-    libreoffice
-    # Eye candy
-    ytop tty-clock
-    neofetch
+    home-manager
   ];
 
   devPackages = with pkgs; [    
-    texlive.combined.scheme-full
+    texlive.combined.scheme-basic
     # Haskal
     (haskellPackages.ghcWithPackages(hs: with hs; [
       stack
       hoogle
       base
-      hasktags
       stylish-haskell
     ]))
-    # Lisp
-    sbcl
-    guile
-    racket
   ];
 
-  nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
-    export __NV_PRIME_RENDER_OFFLOAD=1
-    export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
-    export __GLX_VENDOR_LIBRARY_NAME=nvidia
-    export __VK_LAYER_NV_optimus=NVIDIA_only
-    exec -a "$0" "$@"
-  '';
+  # nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
+  #   export __NV_PRIME_RENDER_OFFLOAD=1
+  #   export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
+  #   export __GLX_VENDOR_LIBRARY_NAME=nvidia
+  #   export __VK_LAYER_NV_optimus=NVIDIA_only
+  #   exec -a "$0" "$@"
+  # '';
 
 in
 
@@ -53,7 +39,7 @@ in
   environment.systemPackages = with pkgs; [
     pulseeffects
     nixops
-    nvidia-offload
+    # nvidia-offload
     winePackages.stable
   ]
   ++ essentialPackages
@@ -66,10 +52,11 @@ in
    
   nixpkgs.config = {
     # Stallman is watching you...
-    allowUnfree = true;
+    allowUnfree = false;
     allowBroken = false;
   };
   
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" "armv7l-linux" ];
   virtualisation = {
     virtualbox.host = {
       enable = true;

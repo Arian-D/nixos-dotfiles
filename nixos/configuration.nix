@@ -41,10 +41,12 @@
   # Enable sound.
   sound.enable = true;
   hardware.pulseaudio.enable = true;
-
+  
   # Enable bluetooth
-  hardware.bluetooth.enable = true;
-
+  hardware.bluetooth = {
+    enable = true;
+  };
+  
   # Someone
   users.users.someone = {
     initialPassword = "amonadisamonoidinthecategoryofendofunctors";
