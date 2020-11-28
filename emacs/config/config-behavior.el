@@ -14,28 +14,20 @@
 ;; Magit
 (global-set-key (kbd "C-x g") 'magit-status)
 
-;; (defmacro safe-load (file-path &optional create-if-absent)
-;;   "Load an `.el' file if it exists"
-;;   (if (file-exists-p file-path)
-;;        `(load ,file-path)
-;;      (if create-if-absent
-;; 	  (shell-command (concat "touch " file-path)))))
-
 ;; Slack
 (setq slack-buffer-emojify t)
 
 ;; Youtube, to be used with elfeed and interactively
-(defvar video-player-command "cvlc ")
-(defvar youtube-url "https://invidio.us/watch?raw=1&v=") ; Replace with YT if Invidious goes down
+(defvar video-player-command "mpv ")
+(defvar youtube-url "https://www.youtube.com/watch?raw=1&v=")
 (defun watch-youtube (url-or-id)
   "Watch the given youtube video"
   (interactive "sURL: ")
-  (let ((url (if (string-prefix-p "http" url-or-id) ; TODO: Replace http with https (cond)
+  (let ((url (if (string-prefix-p "http" url-or-id)
 		 url-or-id (concat youtube-url url-or-id))))
-    (call-process-shell-command ;TODO: Print errors
+    (call-process-shell-command
      (format "%s '%s'" video-player-command url)
      nil 0)))
-
 
 ;; Elfeed
 (require 'elfeed)
@@ -47,7 +39,8 @@
 	 (tags (cdr feed))
 	 (feed (if tag (cons tag tags) tags)))
     (cons url feed)))	  
-;; Huge list of my favorite feeds; TODO: Abstract extra mapcars
+
+;; Huge list of my favorite feeds; TODO: Move to a separate file
 (setq elfeed-feeds
       (append
        '(("https://nullprogram.com/feed/" blog emacs general)
@@ -110,8 +103,7 @@
   (lambda ()
     (setq TeX-command-extra-options "-shell-escape")))
 
-;; Company
-;; (setq company-idle-delay 0)
+;;; Company
 (add-hook 'after-init-hook 'global-company-mode)
 
 ;;; Development:
@@ -123,13 +115,10 @@
 
 ;;; LSP
 (require 'lsp-mode)
-(require 'lsp-pyright)
-
-;;; Java
 
 ;; Lisp & scheme
 (setq inferior-lisp-program "sbcl")
-;; Hooks
+
 ;;; TODO: Change to mapc (3×2)
 (add-hook 'lisp-mode-hook 'paredit-mode)
 (add-hook 'lisp-mode-hook 'rainbow-delimiters-mode)
@@ -139,6 +128,7 @@
 (add-hook 'scheme-mode-hook 'rainbow-delimiters-mode)
 
 ;; Python
+(require 'lsp-pyright)
 
 ;;; Nix
 (add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))

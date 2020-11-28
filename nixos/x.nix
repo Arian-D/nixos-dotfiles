@@ -4,26 +4,19 @@
   services.xserver = {
     enable = true;
     displayManager.sddm.enable = true;
-    displayManager.defaultSession = "none+stumpwm";
+    displayManager.defaultSession = "none+xmonad";
     desktopManager = {
       xterm.enable = false;
-      plasma5.enable = true;
+      # plasma5.enable = true;
       gnome3.enable = false;
     };
     
     windowManager = {
-      stumpwm.enable = true;
-      dwm.enable = true;
       xmonad = {
         enable = true;
         enableContribAndExtras = true;
       };
     };    
- 
-    # xautolock = {
-    #   enable = true;
-    #   time = 3;
-    # };
 
     videoDrivers = [ "intel" ];
     libinput.enable = true;

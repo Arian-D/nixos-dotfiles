@@ -10,11 +10,32 @@ let
   home = getEnv "HOME";
 
   wallpaper = pkgs.fetchurl {
-    url = https://i.redd.it/jx0cehys3yr31.jpg;
-    sha256 = "1r03jn6rh12yq9a3g20bfnx7l4isc2x4sya0ry9zb2glrcwm3fsr";
+    url = https://i.imgur.com/GTdaXyT.jpg;
+    sha256 = "1s3g071ic330zp8bb4zmkrxi6s9gapyj9mi18riwlqy6kj93mpws";
   };
 
+  networkingPackages = with pkgs; [
+    nmap
+    openvpn netcat-gnu
+  ];
 
+  devPackages = with pkgs; [    
+    texlive.combined.scheme-basic
+    github-cli
+    nix-direnv
+    # Haskal
+    (haskellPackages.ghcWithPackages(hs: with hs; [
+      stack
+      hoogle
+    ]))
+    # Lisps
+    sbcl
+    guile
+    racket
+    # LSPs
+    rnix-lsp
+    nodePackages.pyright
+  ];
 in
 
 {
@@ -24,36 +45,25 @@ in
       ./emacs.nix
     ];
 
-
-  networkingPackages = with pkgs; [
-    nmap wireshark
-    openvpn netcat-gnu
-  ];
-
   home.file.wallpaper.source = wallpaper;
   home.file.".fehbg".source = "${wallpaper}";
   home.packages = with pkgs; [
+    pulseeffects
     tty-clock
     neofetch
     libreoffice
     remmina
-    nix-direnv
     higan
     spectacle
     nyxt
     pinentry.qt
     torsocks                    # To be used with my remote server
     gimp-with-plugins
-    godot steam
+    godot
     discord jitsi-meet-electron
-    github-cli
-    nodePackages.pyright
-    rnix-lsp
-    # Lisp
-    sbcl
-    guile
-    racket
-  ];
+  ]
+  ++ networkingPackages
+  ++ devPackages;
 
   home.sessionVariables = {
     EDITOR = "emacsclient";
@@ -65,8 +75,6 @@ in
   nix:
     enable: true
   '';
-
-  services.lorri.enable = true;
 
   programs = {
     mpv.enable = true;
