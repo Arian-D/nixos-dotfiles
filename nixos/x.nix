@@ -7,7 +7,7 @@
     displayManager.defaultSession = "none+xmonad";
     desktopManager = {
       xterm.enable = false;
-      # plasma5.enable = true;
+      plasma5.enable = true;
       gnome3.enable = false;
     };
     

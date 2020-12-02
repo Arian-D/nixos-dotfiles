@@ -38,7 +38,7 @@ in
    
   nixpkgs.config = {
     # Stallman is watching you...
-    allowUnfree = false;
+    allowUnfree = true;
     allowBroken = false;
   };
   

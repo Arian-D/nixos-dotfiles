@@ -60,6 +60,7 @@ in
     torsocks                    # To be used with my remote server
     gimp-with-plugins
     godot
+    steam
     discord jitsi-meet-electron
   ]
   ++ networkingPackages
@@ -192,6 +193,27 @@ in
       type = internal/date
       interval = 1.0
       date = %Y-%m-%d %H:%M:%S
+      [module/battery]
+      type = internal/battery
+      
+      ; This is useful in case the battery never reports 100% charge
+      full-at = 99
+      
+      ; Use the following command to list batteries and adapters:
+      ; $ ls -1 /sys/class/power_supply/
+      battery = BAT0
+      adapter = ADP1
+      
+      ; If an inotify event haven't been reported in this many
+      ; seconds, manually poll for new values.
+      ;
+      ; Needed as a fallback for systems that don't report events
+      ; on sysfs/procfs.
+      ;
+      ; Disable polling by setting the interval to 0.
+      ;
+      ; Default: 5
+      poll-interval = 5
       '';
     }; 
   };

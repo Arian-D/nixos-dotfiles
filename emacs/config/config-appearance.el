@@ -27,7 +27,7 @@
 			     TeX-mode-hook LaTeX-mode-hook
 			     nix-mode-hook
 			     haskell-mode-hook
-			     c-mode-hook python-mode-hook ))
+			     c-mode-hook python-mode-hook))
 
 
 ;; Provide

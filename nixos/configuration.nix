@@ -33,6 +33,7 @@
   fonts.fonts = with pkgs; [
     nerdfonts
     fantasque-sans-mono
+    corefonts
   ];
 
   # Set your time zone.

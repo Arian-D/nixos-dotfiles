@@ -12,6 +12,7 @@ import XMonad.Layout.Accordion -- (Accordion)
 import System.IO
 import qualified Data.Map as M
 
+main :: IO ()
 main = xmonad $ docks def
   { borderWidth = 2
   , modMask = mod4Mask
