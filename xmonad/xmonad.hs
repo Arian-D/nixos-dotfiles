@@ -22,11 +22,11 @@ main = xmonad $ docks def
     let gap = 10
         border = Border gap gap gap gap
     in
-    avoidStruts $ (spacingRaw True -- Smart border
+    avoidStruts $ (spacingRaw False-- Smart border
       border -- Screen border
-      False
+      True
       border -- Window border
-      False) $ layoutHook def
+      True) $ layoutHook def
   , manageHook = manageDocks <+> manageHook def
   , keys = myKeys <+> keys def
   }

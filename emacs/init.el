@@ -12,18 +12,16 @@
 
 ;; Use a separate file for custom behavior
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-(unless (file-exists-p custom-file)	; Make sure it's there
-    (shell-command (concat "touch " custom-file)))
-(load-file custom-file)
+(when (file-exists-p custom-file)	; Make sure it's there
+  (load-file custom-file))
 
 ;; Add ./config/ folder to the `load-path'
 (let ((config-path (expand-file-name "config" user-emacs-directory)))
   (add-to-list 'load-path config-path))
 
 ;; Load the configs
-(mapc 'require
-      '(config-behavior
-	config-haskell
-	config-org
-	config-appearance
-	config-nixos))
+(require 'config-behavior)
+(require 'config-haskell)
+(require 'config-org)
+(require 'config-appearance)
+(require 'config-nixos)

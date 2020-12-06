@@ -55,13 +55,13 @@ in
     remmina
     higan
     spectacle
-    nyxt
+    next
     pinentry.qt
     torsocks                    # To be used with my remote server
     gimp-with-plugins
     godot
     steam
-    discord jitsi-meet-electron
+    jitsi-meet-electron
   ]
   ++ networkingPackages
   ++ devPackages;

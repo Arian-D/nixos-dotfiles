@@ -3,28 +3,26 @@
 {
   programs.emacs = {
     enable = true;
-    # package = pkgs.emacs26.override {
-    #   imagemagick = pkgs.imagemagickBig;
-    #   withXwidgets = true;
-    # };
     extraPackages = epkgs: with epkgs; [
       # Essential
       helm                        # Survival
       evil                        # Trying it out for a while
       which-key                   # Saves you extra `C-h k'
-      use-package                 # Declarative
+      use-package                 # Declarative-ish
       magit                       # Best Git client
       doom-themes                 # For chllenger deep, dracula, and other occasional themes
       doom-modeline               # hmmm
       challenger-deep-theme       # Cool theme; looks better than the doom one
       nix-mode                    # Nix
-      nixos-options               # Might remove; doesn't seem to work
       company                     # Autocompletion
       direnv                      # Missing component of Nix
+      envrc                       # For direnv projects
       elfeed                      # RSS, Atom, and YT
       telega                      # Telegram do be cool
       multi-term                  # export TERM=emacs
-      projectile
+      # LSP stuff
+      lsp-mode
+      lsp-ui
       # Configs and stuff
       yaml-mode
       markdown-mode
@@ -32,7 +30,6 @@
       web-mode
       company-web
       # Java: for employability
-      lsp-mode
       lsp-java
       # Haskal: for unemployability
       haskell-mode
@@ -55,9 +52,10 @@
       # Org: aimless attempt at getting my shit together
       org-roam                  # Still learning it
       org-alert
+      org-bullets
       org-evil
       # Miscx
-      auctex                    # LaTeX to make Knuth proud
+      # auctex                    # LaTeX to make Knuth proud
       slack                     # Slack AKA professional Discord
       pinentry                  # For GPG
       emojify

@@ -6,16 +6,24 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 (use-package helm
+  :after evil
   :config (helm-mode 1) 		; Always start
-  :custom (helm-ff-skip-boring-files t)	; Hide ugly files
-  :bind 
-  ("M-x" . helm-M-x)
-  ("C-x r b" . helm-filtered-bookmarks)
-  ("C-x C-f" . helm-find-files))
+  :custom
+  (helm-ff-skip-boring-files t)		; Hide ugly files
+  (helm-split-window-in-side-p t)	; Show up on the side
+  (helm-move-to-line-cycle-in-source t)	; Cycle
+  :bind
+  (("M-x" . helm-M-x)
+   ("C-x r b" . helm-filtered-bookmarks)
+   ("C-x C-f" . helm-find-files)
+   :map evil-normal-state-map
+   ("g b" . helm-buffers-list)
+   ("z f" . helm-find-files)
+   ("z k" . kill-buffer)))
 
 (use-package which-key
+  :custom (which-key-idle-delay 0.2)
   :config
-  (setq which-key-idle-delay 0.2)
   (which-key-setup-side-window-right-bottom)
   (which-key-mode))
 
@@ -28,8 +36,8 @@
   :bind ("C-x g" . magit-status))
 
 (use-package slack
-  :config
-  (setq slack-buffer-emojify t))
+  :custom
+  (slack-buffer-emojify t))
 
 ;; Elfeed
 (use-package elfeed
@@ -41,7 +49,11 @@
     '(("https://nullprogram.com/feed/" blog emacs general)
       ("https://news.ycombinator.com/rss" hn general)
       ("https://drewdevault.com/feed.xml" blog linux sway general)
-      ("https://planetpython.org/rss20.xml" python general))
+      )
+    ;; Dev
+    '(("https://www.tweag.io/rss.xml" tweag haskell dev)
+      ("https://planetpython.org/rss20.xml" python general)
+      )
     ;; GNU slash Leenouxe
     '(("https://planet.kernel.org/rss20.xml" kernel linux)
       ("https://guix.gnu.org/feeds/blog.atom" guix linux)
@@ -68,22 +80,21 @@
 
 ;;; Tex
 (add-hook 'TeX-mode-hook
-  (lambda ()
-    (setq TeX-command-extra-options "-shell-escape")))
+	  (lambda ()
+	    (setq TeX-command-extra-options "-shell-escape")))
 
 ;;; Company
 (use-package company
-  :config
-  (add-hook 'after-init-hook 'global-company-mode))
+  :hook
+  (after-init . global-company-mode))
 
 ;;; Development:
 
+;;; use envrc for all direnv projects
+(use-package envrc
+  :config (envrc-global-mode))
+
 ;;; LSP
-
-;; Lisp & scheme
-(use-package slime
-  :custom (inferior-lisp-program "sbcl"))
-
 (use-package paredit
   :hook
   ((lisp-mode . paredit-mode)
@@ -96,17 +107,31 @@
    (emacs-lisp-mode . rainbow-delimiters-mode)
    (scheme-mode . rainbow-delimiters-mode)))
 
+;;; LaTeX
+;; (use-package tex
+;;   :defer t
+;;   :ensure auctex
+;;   :custom
+;;   (TeX-auto-save t))
+
+(setq initial-major-mode 'org-mode
+      initial-scratch-message "#+TITLE: Scratch")
+
 ;; Python
 (use-package lsp-pyright
   :after lsp-mode)
 
-;;; Nix
 (use-package lsp-mode
   :config
+  ;;; Nix
   (add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
   (lsp-register-client
    (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
-                    :major-modes '(nix-mode)
-                    :server-id 'nix)))
+		    :major-modes '(nix-mode)
+		    :server-id 'nix)))
+
+;; Lisp & scheme
+(use-package slime
+  :custom (inferior-lisp-program "sbcl"))
 
 (provide 'config-behavior)

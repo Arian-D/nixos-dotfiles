@@ -7,11 +7,18 @@
   (org-startup-indented t)
   (org-pretty-entities t)
   (org-hide-emphasis-markers t)
-  (org-agenda-block-separator " ")
   (org-fontify-whole-heading-line t)
   (org-fontify-done-headline t)
   (org-fontify-quote-and-verse-blocks t)
   (org-default-notes-file (concat org-directory "/notes.org"))
+  ;;; Code blocks
+  (org-src-tab-acts-natively t)
+  (org-src-preserve-indentation t)
+  ;;; org-agenda config
+  (org-agenda-skip-scheduled-if-done t)
+  (org-agenda-skip-deadline-if-done t)
+  (org-agenda-skip-deadline-prewarning-if-scheduled 'pre-scheduled)
+  :init
   :config
   ;;; Enable fill mode to disallow long lines
   (add-hook 'org-mode-hook 'auto-fill-mode)
@@ -25,10 +32,14 @@
      (python . t)
      (shell . t)))
   :bind
-  ("C-c l" . org-store-link)
-  ("C-c a" . org-agenda)
-  ("C-c c" . org-capture)
-  ("C-c b" . org-switchb))
+  (("C-c l" . org-store-link)
+   ("C-c a" . org-agenda)
+   ("C-c c" . org-capture)
+   ("C-c b" . org-switchb)))
+
+;;; Pwetty bullets
+(use-package org-bullets
+  :after org)
 
 ;;; EVIL
 (use-package org-evil

@@ -1,9 +1,17 @@
 ;; Emacs appearance
 
 ;; Clean up the space
-(tool-bar-mode -1)
-(menu-bar-mode -1)
-(set-scroll-bar-mode nil)
+(use-package tool-bar
+  :config
+  (tool-bar-mode -1))
+
+(use-package menu-bar
+  :config
+  (menu-bar-mode -1))
+
+(use-package scroll-bar
+  :config
+  (set-scroll-bar-mode nil))
 
 ;; Remove the black borders after resize
 (setq frame-resize-pixelwise t)
@@ -11,24 +19,36 @@
 ;; My favorite font
 (set-frame-font "Fantasque Sans Mono-16:weight=light" nil t)
 
+;; Pwetty icons for doom-modeline
+(use-package all-the-icons)
+
+;; Modeline
+(use-package doom-modeline
+  :after all-the-icons
+  :hook (after-init . doom-modeline-mode))
+
 ;; My favorite theme
-(load-theme 'doom-challenger-deep t)
+(use-package doom-themes
+  :config
+  (load-theme 'doom-city-lights t)
+  (doom-themes-visual-bell-config)
+  (doom-themes-org-config))
 
 ;; Display battery in the mode line
-(display-battery-mode)
+(use-package battery
+  :config
+  (display-battery-mode 1))
+
+;; Display time
+(use-package time
+  :config
+  (display-time-mode 1))
 
 ;; Set the beam style cursor
 (set-default 'cursor-type 'bar)
 
-;; Line number mode for my favorite modes
-(mapc (lambda (mode-hook)
-	(add-hook mode-hook 'display-line-numbers-mode))
-      '(emacs-lisp-mode-hook lisp-mode-hook scheme-mode-hook
-			     TeX-mode-hook LaTeX-mode-hook
-			     nix-mode-hook
-			     haskell-mode-hook
-			     c-mode-hook python-mode-hook))
-
-
+;; Line numbers everywhere
+(use-package display-line-numbers
+  :hook (prog-mode . display-line-numbers-mode))
 ;; Provide
 (provide 'config-appearance)

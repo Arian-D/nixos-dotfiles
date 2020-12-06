@@ -33,6 +33,11 @@ in
   ++ essentialPackages
   ++ desktopPackages;
 
+  # Temporarily let this guy in
+  nixpkgs.config.permittedInsecurePackages = [
+    "python2.7-cryptography-2.9.2"
+  ];
+
   # Wireshark to capture them packets
   programs.wireshark.enable = true;
    
