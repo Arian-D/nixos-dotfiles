@@ -15,13 +15,12 @@
 (when (file-exists-p custom-file)	; Make sure it's there
   (load-file custom-file))
 
-;; Add ./config/ folder to the `load-path'
 (let ((config-path (expand-file-name "config" user-emacs-directory)))
-  (add-to-list 'load-path config-path))
-
-;; Load the configs
-(require 'config-behavior)
-(require 'config-haskell)
-(require 'config-org)
-(require 'config-appearance)
-(require 'config-nixos)
+  ;; Add ./config/ folder to the `load-path'
+  (add-to-list 'load-path config-path)
+  ;; Load the configs
+  (require 'config-behavior)
+  (require 'config-haskell)
+  (require 'config-org)
+  (require 'config-appearance)
+  (require 'config-nixos))

@@ -14,17 +14,6 @@
   (haskell-process-auto-import-loaded-modules t)
   (haskell-process-log t)
   ;; Cabal, stack, or ghci
-  (haskell-process-type 'auto)
-  )
+  (haskell-process-type 'auto))
 
-;; Startup hook for haskell mode
-(add-hook 'haskell-mode-hook
-	  (lambda ()
-	    (set (make-local-variable 'company-backends)
-		 (append '((company-capf company-dabbrev-code))
-			 company-backends))))
-
-
-;; Use GHCi to find def, or use tags file
-;; (define-key haskell-mode-map (kbd "M-.") 'haskell-mode-jump-to-def-or-tag)
 (provide 'config-haskell)

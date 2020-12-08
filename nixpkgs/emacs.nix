@@ -51,6 +51,7 @@
       dockerfile-mode
       # Org: aimless attempt at getting my shit together
       org-roam                  # Still learning it
+      org-gcal
       org-alert
       org-bullets
       org-evil

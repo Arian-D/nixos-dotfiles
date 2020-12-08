@@ -6,7 +6,7 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 (use-package helm
-  :after evil
+  :defer t
   :config (helm-mode 1) 		; Always start
   :custom
   (helm-ff-skip-boring-files t)		; Hide ugly files
@@ -15,27 +15,34 @@
   :bind
   (("M-x" . helm-M-x)
    ("C-x r b" . helm-filtered-bookmarks)
-   ("C-x C-f" . helm-find-files)
-   :map evil-normal-state-map
-   ("g b" . helm-buffers-list)
-   ("z f" . helm-find-files)
-   ("z k" . kill-buffer)))
+   ("C-x C-f" . helm-find-files)))
 
 (use-package which-key
-  :custom (which-key-idle-delay 0.2)
+  :custom (which-key-idle-delay 0.1)
   :config
   (which-key-setup-side-window-right-bottom)
   (which-key-mode))
 
 (use-package evil
-  :init (evil-mode 1)
   :custom (evil-flash-delay 1)
+  :config
+  (evil-mode 1)
+  :bind
+  (:map evil-normal-state-map
+	("; b l" . helm-buffers-list)
+	("; b k" . kill-buffer)
+	("; f" . helm-find-files)
+	("; g" . keyboard-quit)
+	("; ;" . helm-M-x))
   :chords ("kj" . evil-normal-state))
 
 (use-package magit
-  :bind ("C-x g" . magit-status))
+  :bind (("C-x g" . magit-status)
+	 :map evil-normal-state-map
+	 ("; G" . magit-status)))
 
 (use-package slack
+  :disabled
   :custom
   (slack-buffer-emojify t))
 
@@ -113,9 +120,6 @@
 ;;   :ensure auctex
 ;;   :custom
 ;;   (TeX-auto-save t))
-
-(setq initial-major-mode 'org-mode
-      initial-scratch-message "#+TITLE: Scratch")
 
 ;; Python
 (use-package lsp-pyright
