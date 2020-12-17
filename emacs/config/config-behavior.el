@@ -20,7 +20,6 @@
 (use-package which-key
   :custom (which-key-idle-delay 0.1)
   :config
-  (which-key-setup-side-window-right-bottom)
   (which-key-mode))
 
 (use-package evil
@@ -29,11 +28,12 @@
   (evil-mode 1)
   :bind
   (:map evil-normal-state-map
-	("; b l" . helm-buffers-list)
-	("; b k" . kill-buffer)
+	("; b" . helm-buffers-list)
+	("; q" . kill-buffer)
+	("; s" . save-buffer)
 	("; f" . helm-find-files)
 	("; g" . keyboard-quit)
-	("; ;" . helm-M-x))
+	("; TAB" . helm-M-x))
   :chords ("kj" . evil-normal-state))
 
 (use-package magit

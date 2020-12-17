@@ -19,8 +19,8 @@
   ;; Add ./config/ folder to the `load-path'
   (add-to-list 'load-path config-path)
   ;; Load the configs
-  (require 'config-behavior)
-  (require 'config-haskell)
-  (require 'config-org)
-  (require 'config-appearance)
-  (require 'config-nixos))
+  (use-package config-behavior)
+  (use-package config-haskell)
+  (use-package config-org)
+  (use-package config-appearance)
+  (use-package config-nixos))

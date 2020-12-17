@@ -24,23 +24,27 @@
   (save-some-buffers)
   (let ((default-directory "/sudo::"))
     (async-shell-command (concat "nixos-rebuild switch"
-				 (if upgrade " --upgrade" "")))))
+				 (if upgrade " --upgrade" ""))
+			 "*NixOS Rebuild Switch*")))
 
 (defun home-manager-switch ()
   "Build and switch the new home-manager config"
   (interactive)
   (save-buffer)
-  (async-shell-command "home-manager switch"))
+  (async-shell-command "home-manager switch"
+		       "*Home Manager Switch*"))
 
 (defun nix-collect-garbage (deep)
   "Collect nixos garbage"
   (interactive (list (yes-or-no-p "-d?")))
-  (async-shell-command (concat "nix-collect-garbage" (if deep " -d" ""))))
+  (async-shell-command (concat "nix-collect-garbage" (if deep " -d" ""))
+		       "*Nix Collect Garbage*"))
 
 ;; System
 (defun shutdown (sure &optional reboot)
   "Shutdown the machine"
   (interactive (list (yes-or-no-p "Are you sure?")))
+  (save-some-buffers)
   (if sure (let ((default-directory "/sudo::"))
 	     (shell-command (if reboot "reboot" "shutdown")))))
 

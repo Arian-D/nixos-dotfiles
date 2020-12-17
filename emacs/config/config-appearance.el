@@ -4,11 +4,9 @@
 (use-package tool-bar
   :config
   (tool-bar-mode -1))
-
 (use-package menu-bar
   :config
   (menu-bar-mode -1))
-
 (use-package scroll-bar
   :config
   (set-scroll-bar-mode nil))
@@ -16,8 +14,18 @@
 ;; Remove the black borders after resize
 (setq frame-resize-pixelwise t)
 
-;; My favorite font
-(set-frame-font "Fantasque Sans Mono-16:weight=light" nil t)
+;; Default face that's everywhere
+(set-face-attribute 'default nil
+		    :width 'expanded
+		    :family "FantasqueSansMono Nerd Font"
+		    :weight 'normal
+		    :height 160)
+
+(set-face-attribute 'variable-pitch nil
+		    :width 'expanded
+		    :family "FantasqueSansMono Nerd Font"
+		    :weight 'normal
+		    :height 160)
 
 ;; Pwetty icons for doom-modeline
 (use-package all-the-icons)
@@ -33,6 +41,12 @@
   (load-theme 'doom-city-lights t)
   (doom-themes-visual-bell-config)
   (doom-themes-org-config))
+
+;;; Make the org/md experience more fun
+(use-package poet-theme)
+(add-hook 'text-mode-hook
+           (lambda ()
+            (variable-pitch-mode 1)))
 
 ;; Display battery in the mode line
 (use-package battery
