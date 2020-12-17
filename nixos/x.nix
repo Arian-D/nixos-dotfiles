@@ -7,7 +7,7 @@
     displayManager.defaultSession = "none+xmonad";
     desktopManager = {
       xterm.enable = false;
-      plasma5.enable = true;
+      plasma5.enable = false;
       gnome3.enable = false;
     };
     
@@ -30,18 +30,11 @@
 
   hardware.opengl.driSupport32Bit = true;
   
-  # Pretty fades and blurs
+  # Pretty fades
   services.picom = {
     enable = true;
     backend = "glx";
     fade = true;
     fadeDelta = 3;
-    settings = {
-      blur-strength = 100;
-      blur-background = true;
-      blur-background-frame = true;
-      blur-background-fixed = true;
-      blur-kern = "7x7box";
-    };
   };
 }

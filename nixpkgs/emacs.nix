@@ -13,6 +13,7 @@
       doom-themes                 # For chllenger deep, dracula, and other occasional themes
       doom-modeline               # hmmm
       challenger-deep-theme       # Cool theme; looks better than the doom one
+      poet-theme                  # For org and md
       nix-mode                    # Nix
       company                     # Autocompletion
       direnv                      # Missing component of Nix
@@ -52,6 +53,7 @@
       # Org: aimless attempt at getting my shit together
       org-roam                  # Still learning it
       org-gcal
+      org-super-agenda
       org-alert
       org-bullets
       org-evil

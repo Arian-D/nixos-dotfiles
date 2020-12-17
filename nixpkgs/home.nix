@@ -20,7 +20,7 @@ let
   ];
 
   devPackages = with pkgs; [    
-    texlive.combined.scheme-basic
+    texlive.combined.scheme-full
     github-cli
     nix-direnv
     # Haskal
