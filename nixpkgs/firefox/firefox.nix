@@ -60,7 +60,6 @@
         "extensions.activeThemeID" = "firefox-compact-dark@mozilla.org";
         "devtools.theme" = "dark";
       };
-      userChrome = builtins.readFile ((builtins.getEnv "HOME") + "/.config/nixpkgs/firefox/userChrome.css");
     };
   };
 }
