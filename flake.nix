@@ -17,7 +17,6 @@
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.users.someone = import ./nixpkgs/home.nix;
         }
       ];
     };

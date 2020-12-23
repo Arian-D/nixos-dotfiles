@@ -1,7 +1,7 @@
-{pkgs ? import <nixpkgs>, ...}:
+{pkgs, ...}:
 
 {
-  programs.emacs = {
+  home-manager.users.someone.programs.emacs = {
     enable = true;
     extraPackages = epkgs: with epkgs; [
       # Essential
@@ -21,6 +21,7 @@
       elfeed                      # RSS, Atom, and YT
       telega                      # Telegram do be cool
       multi-term                  # export TERM=emacs
+      yasnippet
       # LSP stuff
       lsp-mode
       lsp-ui

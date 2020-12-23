@@ -9,10 +9,6 @@ let
     ffmpeg
   ];
 
-  desktopPackages = with pkgs; [
-    home-manager
-  ];
-
   # nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
   #   export __NV_PRIME_RENDER_OFFLOAD=1
   #   export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
@@ -30,13 +26,7 @@ in
     # nvidia-offload
     winePackages.stable
   ]
-  ++ essentialPackages
-  ++ desktopPackages;
-
-  # Temporarily let this guy in
-  nixpkgs.config.permittedInsecurePackages = [
-    "python2.7-cryptography-2.9.2"
-  ];
+  ++ essentialPackages;
 
   # Wireshark to capture them packets
   programs.wireshark.enable = true;

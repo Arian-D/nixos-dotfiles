@@ -2,14 +2,13 @@
 
 let
   strictBlockList = pkgs.fetchurl {
-    url = https://raw.githubusercontent.com/StevenBlack/hosts/2.7.10/hosts;
-    sha256 = "05jxm3k90ysgigyiaspsiz2g1a0jhk08pccc0f914jh1dqcrswcv";
+    url = https://raw.githubusercontent.com/StevenBlack/hosts/3.2.11/hosts;
+    sha256 = "005kpy368rvyx0drd88kag4wp9jnxjxik2w4c97w7pwgsqi2x8a4";
   };
 
 in
 
 {
-  # Essential
   networking = {
     hostName = "somewhere";
     networkmanager = {
@@ -20,15 +19,15 @@ in
     enableIPv6 = false;
 
     firewall = {
-      enable = false;
+      enable = true;
       allowPing = false;
     };
     
     nameservers = [
       "9.9.9.9"
+      "1.1.1.1"
     ];
     
-    # Block adware/malware
     extraHosts = lib.readFile "${strictBlockList}";
   };
 
