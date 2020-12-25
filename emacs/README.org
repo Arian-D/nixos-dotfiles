@@ -25,6 +25,14 @@ Just simple stuff to get the ball rolling.
 ;;; -*- lexical-binding: t -*-
 #+end_src
 
+** Which key
+The best helper.
+#+begin_src emacs-lisp
+(use-package which-key
+  :custom (which-key-idle-delay 0.5)
+  :config
+  (which-key-mode))
+#+end_src
 ** Server
 This turns on the server so that there would only be one instance of
 Emacs running.
@@ -57,6 +65,45 @@ A very nice tool for completion.
   (("M-x" . helm-M-x)
    ("C-x r b" . helm-filtered-bookmarks)
    ("C-x C-f" . helm-find-files)))
+#+end_src
+
+** Evil
+The superior keybindings.
+*** Chords
+~"kj"~ here acts as the escape. This requires the ~use-package-chords~
+extension to be enabled.
+#+begin_src emacs-lisp
+(use-package use-package-chords
+  :config (key-chord-mode 1))
+#+end_src
+*** Evil
+Evil, along with some cool keybindings.
+#+begin_src emacs-lisp
+(use-package evil
+  :init
+  (setq evil-want-integration t
+	evil-want-keybinding nil)
+  :custom (evil-flash-delay 1)
+  :config
+  (evil-mode 1)
+  :bind
+  (:map evil-normal-state-map
+	("; b" . helm-buffers-list)
+	("; q" . kill-buffer)
+	("; s" . save-buffer)
+	("; f" . helm-find-files)
+	("; g" . keyboard-quit)
+	("; TAB" . helm-M-x))
+  :chords ("kj" . evil-normal-state))
+#+end_src
+*** Collection
+[[https://github.com/emacs-evil/evil-collection][evil-collection]] provides more bindings, since evil is not fully
+complete.
+#+begin_src emacs-lisp
+(use-package evil-collection
+  :after evil
+  :config
+  (evil-collection-init))
 #+end_src
 * Appearance
 ** Defaults
@@ -117,6 +164,11 @@ Display time in modeline.
 #+begin_src emacs-lisp
 (display-time-mode 1)
 #+end_src
+** Shorter boolean prompt
+Instead of having to type =yes=, you can just say =y=.
+#+begin_src emacs-lisp
+(defalias 'yes-or-no-p 'y-or-n-p)
+#+end_src
 * Development
 Afterall, Emacs is a text editor.
 ** Line numbers
@@ -124,6 +176,14 @@ Put line numbers for buffers that should have it.
 #+begin_src emacs-lisp
 (use-package display-line-numbers
   :hook (prog-mode . display-line-numbers-mode))
+#+end_src
+** Git
+Magit
+#+begin_src emacs-lisp
+(use-package magit
+  :bind (("C-x g" . magit-status)
+         :map evil-normal-state-map
+         ("; G" . magit-status)))
 #+end_src
 ** LSP
 I use [[https://emacs-lsp.github.io/lsp-mode/][lsp-mode]] quite extensively for autocompletion, formatting, and
@@ -182,6 +242,18 @@ dealing with highly nested expressions.
 #+end_src
 ** TODO Haskell
 ...
+* Misc 
+** Elfeed
+Daily dose of rabit holes.
+#+begin_src emacs-lisp
+(use-package elfeed
+  :bind ("C-x w" . elfeed)
+  :config
+  (let ((feeds-file (expand-file-name "feeds.el" user-emacs-directory)))
+    (when (file-exists-p feeds-file)
+      (load-file feeds-file))))
+#+end_src
+
 * The rest
 These are the rest of the configs which will soon join this file.
 #+begin_src emacs-lisp
