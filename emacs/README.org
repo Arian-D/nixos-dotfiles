@@ -1,0 +1,48 @@
+#+title: Emacs Config
+ #+property: header-args:emacs-lisp :tangle ./init.el :results silent 
+* Understanding this
+** Requirements
+Outside of this directory you should see the NixOS config, which would
+take care of installing Emacs along with the dependencies. That being
+said, if you already have an Emacs installation on your machine and
+don't want to install Nix, using [[https://github.com/jwiegley/use-package][use-package]] should take care of
+installing the packages if you set ~:ensure~ to ~t~.
+** Literate
+This configuration is [[https://en.wikipedia.org/wiki/Literate_programming][literate]], as in, the file you're reading /is/ the
+actual program. Running ~M-x org-babel-tangle~, or if you trusted the
+local variables in Emacs, saving the file would create *and* load the
+config for you. Pretty neat, huh?
+** Inspiration
+Although this is a custom config from scratch, a lot of it is heavily
+inspired by [[https://github.com/tecosaur/emacs-config][Tecosaur]]'s [[https://github.com/hlissner/doom-emacs][Doom Emacs]] config, and [[https://github.com/joseph8th/literatemacs][joseph8th]]'s config.
+* Basics
+TODO...
+ #+begin_src emacs-lisp :tangle yes
+;; -*- lexical-binding: t -*-
+;;; Always have the server running
+(use-package server
+  :config
+  (unless (server-running-p)
+    (server-start)))
+
+;; Use a separate file for custom behavior
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(when (file-exists-p custom-file)	; Make sure it's there
+  (load-file custom-file))
+
+(let ((config-path (expand-file-name "config" user-emacs-directory)))
+  ;; Add ./config/ folder to the `load-path'
+  (add-to-list 'load-path config-path)
+  ;; Load the configs
+  (use-package config-behavior)
+  (use-package config-haskell)
+  (use-package config-org)
+  (use-package config-appearance)
+  (use-package config-nixos))
+ #+end_src
+
+
+ ;; Local Variables: 
+ ;; eval: (add-hook 'after-save-hook (lambda () (if (y-or-n-p "Reload?")(load-file user-init-file))) nil t) 
+ ;; eval: (add-hook 'after-save-hook (lambda () (if (y-or-n-p "Tangle?")(org-babel-tangle))) nil t) 
+ ;; End:

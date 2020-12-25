@@ -1,37 +1,26 @@
 #+TITLE: Dot files
 My NixOS, Emacs, and XMonad dot files.
 
-These configurations are my personal ones, and they may not pertain to
-your personal needs. Feel free to use them or copy snippets for your
-configs.
+Feel free to copy snippets, or use the config in it's entirety.
 
 * Installation
 Assuming you have cloned the repo and ~$PWD~ is the repo, you can go
 through these steps. The order is structured like this because some of
 these packages /may/ depend on the previous ones.
 ** NixOS
-#+begin_src bash
-sudo ln -s ./nixos /etc/nixos
-#+end_src
-** Home-manager
-#+begin_src bash
-ln -s ./nixpkgs ~/.nixpkgs
+This repository is a [[https://nixos.wiki/wiki/Flakes][flake]], meaning that among all the cool features,
+you don't have to copy the config to =/etc/nixos/=. Running the
+following should be enough to get your NixOS system up and running.
+#+begin_src bash 
+sudo make rebuild
 #+end_src
 ** Emacs
+Symlink the =emacs= directory to your home.
 #+begin_src bash
 ln -s ./emacs ~/.emacs.d
 #+end_src
 ** XMonad
+Symlink the =XMonad= directory to your home.
 #+begin_src bash
 ln -s ./xmonad ~/.xmonad
 #+end_src
-* Todo list
-** Emacs [2/6]
-- [ ] Make ERC go over TLS by default
-- [ ] Function to spawn nix-shell with certain packages
-- [ ] Set up gnus
-** NixOS/home-manager [1/3]
-- [ ] Lockscreen
-** Misc [0/3]
-- [ ] Rename repo
-  
