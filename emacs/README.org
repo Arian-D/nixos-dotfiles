@@ -1,5 +1,7 @@
 #+title: Emacs Config
- #+property: header-args:emacs-lisp :tangle ./init.el :results silent 
+#+property: header-args:emacs-lisp :tangle ./init.el :results silent 
+#+startup: fold
+
 * Understanding this
 ** Requirements
 Outside of this directory you should see the NixOS config, which would
@@ -12,24 +14,38 @@ This configuration is [[https://en.wikipedia.org/wiki/Literate_programming][lite
 actual program. Running ~M-x org-babel-tangle~, or if you trusted the
 local variables in Emacs, saving the file would create *and* load the
 config for you. Pretty neat, huh?
-** Inspiration
+** Literate Inspiration
 Although this is a custom config from scratch, a lot of it is heavily
 inspired by [[https://github.com/tecosaur/emacs-config][Tecosaur]]'s [[https://github.com/hlissner/doom-emacs][Doom Emacs]] config, and [[https://github.com/joseph8th/literatemacs][joseph8th]]'s config.
+
 * Basics
-TODO...
- #+begin_src emacs-lisp :tangle yes
-;; -*- lexical-binding: t -*-
-;;; Always have the server running
+Just simple stuff to get the ball rolling.
+** Lexical binding
+#+begin_src emacs-lisp
+;;; -*- lexical-binding: t -*-
+#+end_src
+
+** Server
+This turns on the server so that there would only be one instance of
+Emacs running.
+#+begin_src emacs-lisp
 (use-package server
   :config
   (unless (server-running-p)
     (server-start)))
+#+end_src
 
-;; Use a separate file for custom behavior
+** Separate ~custom.el~
+Rather than cluttering the ~init.el~ file, this uses a separte file for customs.
+#+begin_src emacs-lisp
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (when (file-exists-p custom-file)	; Make sure it's there
   (load-file custom-file))
+#+end_src
 
+* The rest
+These are the rest of the configs which will soon join this file.
+#+begin_src emacs-lisp
 (let ((config-path (expand-file-name "config" user-emacs-directory)))
   ;; Add ./config/ folder to the `load-path'
   (add-to-list 'load-path config-path)
@@ -39,10 +55,9 @@ TODO...
   (use-package config-org)
   (use-package config-appearance)
   (use-package config-nixos))
- #+end_src
+#+end_src
 
-
- ;; Local Variables: 
- ;; eval: (add-hook 'after-save-hook (lambda () (if (y-or-n-p "Reload?")(load-file user-init-file))) nil t) 
- ;; eval: (add-hook 'after-save-hook (lambda () (if (y-or-n-p "Tangle?")(org-babel-tangle))) nil t) 
- ;; End:
+;; Local Variables: 
+;; eval: (add-hook 'after-save-hook (lambda () (if (y-or-n-p "Reload?")(load-file user-init-file))) nil t) 
+;; eval: (add-hook 'after-save-hook (lambda () (if (y-or-n-p "Tangle?")(org-babel-tangle))) nil t) 
+;; End:

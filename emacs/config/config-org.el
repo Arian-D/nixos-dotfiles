@@ -35,6 +35,8 @@
      (python . t)
      (shell . t)))
   (evil-define-key 'normal org-mode-map (kbd "; c '") 'org-edit-special)
+  (evil-define-key 'normal org-mode-map (kbd "; c t") 'org-babel-tangle)
+  (evil-define-key 'normal org-mode-map (kbd "; c s") 'org-insert-structure-template)
   (evil-define-key 'normal org-mode-map (kbd "; l") 'org-insert-link)
   (evil-define-key 'normal org-mode-map (kbd "; t") 'org-todo)
   (evil-define-key 'normal org-mode-map (kbd "; S s") 'org-schedule)
