@@ -3,7 +3,6 @@
 {
   home-manager.users.someone.programs.firefox = {
     enable = true;
-    # package = pkgs.firefox-unwrapped;
     profiles.nix = {
       settings = {
         ## Privacy

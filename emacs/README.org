@@ -18,7 +18,7 @@ config for you. Pretty neat, huh?
 Although this is a custom config from scratch, a lot of it is heavily
 inspired by [[https://github.com/tecosaur/emacs-config][Tecosaur]]'s [[https://github.com/hlissner/doom-emacs][Doom Emacs]] config, and [[https://github.com/joseph8th/literatemacs][joseph8th]]'s config.
 
-* Basics
+* Essetials
 Just simple stuff to get the ball rolling.
 ** Lexical binding
 #+begin_src emacs-lisp
@@ -39,10 +39,149 @@ Emacs running.
 Rather than cluttering the ~init.el~ file, this uses a separte file for customs.
 #+begin_src emacs-lisp
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-(when (file-exists-p custom-file)	; Make sure it's there
+(when (file-exists-p custom-file)
   (load-file custom-file))
 #+end_src
 
+** Helm
+A very nice tool for completion.
+#+begin_src emacs-lisp
+(use-package helm
+  :defer t
+  :config (helm-mode 1)
+  :custom
+  (helm-ff-skip-boring-files t)
+  (helm-split-window-in-side-p t)
+  (helm-move-to-line-cycle-in-source t)
+  :bind
+  (("M-x" . helm-M-x)
+   ("C-x r b" . helm-filtered-bookmarks)
+   ("C-x C-f" . helm-find-files)))
+#+end_src
+* Appearance
+** Defaults
+The defaults that come with Emacs are pretty ugly. These settings make
+them tolerable.
+*** Toolbar
+#+begin_src emacs-lisp
+(tool-bar-mode -1)
+#+end_src
+*** Menu bar
+#+begin_src emacs-lisp
+(menu-bar-mode -1)
+#+end_src
+*** Scroll bar
+#+begin_src emacs-lisp
+(set-scroll-bar-mode nil)
+#+end_src
+
+** Face
+This the default [[https://www.emacswiki.org/emacs/Face][face]]. It uses a patched version of [[https://fontlibrary.org/en/font/fantasque-sans-mono][Fantasque]] from
+[[https://github.com/ryanoasis/nerd-fonts][nerd fonts]].
+#+begin_src emacs-lisp
+(set-face-attribute 'default nil
+		    :width 'expanded
+		    :family "FantasqueSansMono Nerd Font"
+		    :weight 'normal
+		    :height 160)
+#+end_src
+** Theme
+Doom themes are very nice. 
+#+begin_src emacs-lisp
+(use-package doom-themes
+  :config
+  (load-theme 'doom-city-lights t)
+  (doom-themes-visual-bell-config)
+  (doom-themes-org-config))
+#+end_src
+** Modeline
+This is also doom.
+#+begin_src emacs-lisp
+(use-package doom-modeline
+  :after all-the-icons
+  :hook (after-init . doom-modeline-mode)
+  :custom (doom-modeline-height 15))
+#+end_src
+*** All the icons
+As you see, this package requires ~all-the-icons~ for pretty icons.
+#+begin_src emacs-lisp
+(use-package all-the-icons)
+#+end_src
+*** Battery
+Display battery in modeline.
+#+begin_src emacs-lisp
+(display-battery-mode 1)
+#+end_src
+*** Time
+Display time in modeline.
+#+begin_src emacs-lisp
+(display-time-mode 1)
+#+end_src
+* Development
+Afterall, Emacs is a text editor.
+** Line numbers
+Put line numbers for buffers that should have it.
+#+begin_src emacs-lisp
+(use-package display-line-numbers
+  :hook (prog-mode . display-line-numbers-mode))
+#+end_src
+** LSP
+I use [[https://emacs-lsp.github.io/lsp-mode/][lsp-mode]] quite extensively for autocompletion, formatting, and
+other language features.
+#+begin_src emacs-lisp
+(use-package lsp-mode
+  :hook
+  ((c++-mode . lsp-deferred)))
+#+end_src
+[[https://emacs-lsp.github.io/lsp-ui/][lsp-ui]] makes things a lot more prettier and adds more features.
+#+begin_src emacs-lisp
+(use-package lsp-ui
+  :after lsp-mode)
+#+end_src
+** Yasnippet
+Currently, I don't have that many snippets, but I do use it for lsp
+integration.
+#+begin_src emacs-lisp
+(use-package yasnippt
+  :config
+  (yas-reload-all)
+  :hook (prog-mode . yas-minor-mode))
+#+end_src
+** Python
+[[https://emacs-lsp.github.io/lsp-pyright/][lsp-pyright]] is for Microsoft's [[https://github.com/microsoft/pyright][Pyright]] language server which has a
+nice typechecker, and I'd prefer it over [[https://github.com/Microsoft/python-language-server][python-language-server]].
+#+begin_src emacs-lisp
+(use-package lsp-pyright
+  :after lsp-mode
+  :hook
+  ((python-mode . lsp-deferred)
+   (python-mode . (lambda ()
+		    (require 'lsp-pyright)
+		    (lsp)))))
+#+end_src
+** Lisps
+*** Paredit
+[[https://www.emacswiki.org/emacs/ParEdit][paredit]], taught very well [[https://calva.io/paredit/][here]], is very essential to editing
+S-expressions.
+#+begin_src emacs-lisp
+(use-package paredit
+  :hook
+  ((lisp-mode . paredit-mode)
+   (emacs-lisp-mode . paredit-mode)
+   (scheme-mode . paredit-mode)))
+#+end_src
+*** Rainbow
+Rainbow delimiters make distinguishing parens much easier when
+dealing with highly nested expressions.
+#+begin_src emacs-lisp
+(use-package rainbow-delimiters
+  :hook
+  ((lisp-mode . rainbow-delimiters-mode)
+   (emacs-lisp-mode . rainbow-delimiters-mode)
+   (scheme-mode . rainbow-delimiters-mode)))
+#+end_src
+** TODO Haskell
+...
 * The rest
 These are the rest of the configs which will soon join this file.
 #+begin_src emacs-lisp
@@ -53,11 +192,12 @@ These are the rest of the configs which will soon join this file.
   (use-package config-behavior)
   (use-package config-haskell)
   (use-package config-org)
-  (use-package config-appearance)
   (use-package config-nixos))
 #+end_src
 
+#+begin_comment
 ;; Local Variables: 
 ;; eval: (add-hook 'after-save-hook (lambda () (if (y-or-n-p "Reload?")(load-file user-init-file))) nil t) 
 ;; eval: (add-hook 'after-save-hook (lambda () (if (y-or-n-p "Tangle?")(org-babel-tangle))) nil t) 
 ;; End:
+#+end_comment

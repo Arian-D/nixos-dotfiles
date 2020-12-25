@@ -5,18 +5,6 @@
 ;; Shorten interactive yes or no
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-(use-package helm
-  :defer t
-  :config (helm-mode 1) 		; Always start
-  :custom
-  (helm-ff-skip-boring-files t)		; Hide ugly files
-  (helm-split-window-in-side-p t)	; Show up on the side
-  (helm-move-to-line-cycle-in-source t)	; Cycle
-  :bind
-  (("M-x" . helm-M-x)
-   ("C-x r b" . helm-filtered-bookmarks)
-   ("C-x C-f" . helm-find-files)))
-
 (use-package which-key
   :custom (which-key-idle-delay 0.1)
   :config
@@ -95,51 +83,12 @@
   :hook
   (after-init . global-company-mode))
 
-;;; Development:
-
-;;; use envrc for all direnv projects
-;; (use-package envrc
-;;   :config (envrc-global-mode))
-
 ;;; LSP
-(use-package paredit
-  :hook
-  ((lisp-mode . paredit-mode)
-   (emacs-lisp-mode . paredit-mode)
-   (scheme-mode . paredit-mode)))
-
-(use-package rainbow-delimiters
-  :hook
-  ((lisp-mode . rainbow-delimiters-mode)
-   (emacs-lisp-mode . rainbow-delimiters-mode)
-   (scheme-mode . rainbow-delimiters-mode)))
-
 ;;; LaTeX
 ;; (use-package tex
 ;;   :defer t
 ;;   :ensure auctex
 ;;   :custom
 ;;   (TeX-auto-save t))
-
-(use-package lsp-mode
-  :hook
-  ((python-mode . lsp-deferred)
-   (c++-mode . lsp-deferred)))
-
-(use-package lsp-pyright
-  :after lsp-mode
-  :hook
-  (python-mode . (lambda ()
-		   (require 'lsp-pyright)
-		   (lsp))))
-
-(use-package yasnippt
-  :config
-  (yas-reload-all)
-  :hook (prog-mode . yas-minor-mode))
-
-;; Lisp & scheme
-(use-package slime
-  :custom (inferior-lisp-program "sbcl"))
 
 (provide 'config-behavior)

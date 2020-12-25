@@ -1,4 +1,4 @@
-{pkgs, ...}:
+{pkgs, home-manager, ...}:
 
 {
   home-manager.users.someone.programs.emacs = {
@@ -6,7 +6,9 @@
     extraPackages = epkgs: with epkgs; [
       # Essential
       helm                        # Survival
-      evil                        # Trying it out for a while
+      helm-descbinds              # 
+      evil                        # Superior keybindings
+      evil-collection             # For other places
       which-key                   # Saves you extra `C-h k'
       use-package                 # Declarative-ish
       magit                       # Best Git client
