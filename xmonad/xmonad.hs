@@ -11,10 +11,12 @@ import XMonad.Layout.Tabbed (shrinkText, tabbed)
 import XMonad.Layout.Accordion -- (Accordion)
 import System.IO
 import qualified Data.Map as M
+import System.Environment (lookupEnv)
 
 main :: IO ()
-main = xmonad $ docks def
-  { borderWidth = 2
+main = do
+  setWallpaper
+  xmonad $ docks def { borderWidth = 2
   , modMask = mod4Mask
   , terminal = "alacritty"
   , focusedBorderColor = "#0000ff"
@@ -38,4 +40,9 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList
   , ((modm, xK_backslash), promptSelection "mpv") -- Watch clipboard
   , ((modm, xK_p), spawn "rofi -show drun") -- Rofi > dmenu
   , ((modm .|. shiftMask, xK_g), toggleScreenSpacingEnabled >> toggleWindowSpacingEnabled)
-  ] 
+  ]
+
+-- setWallpaper :: MonadIO m => m ()
+setWallpaper = lookupEnv "WALLPAPER" >>= \x ->
+  case x of Nothing -> return ()
+            Just path -> (spawn . unwords) ["feh", "--bg-fill", path]

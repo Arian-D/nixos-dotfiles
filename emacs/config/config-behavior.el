@@ -98,8 +98,8 @@
 ;;; Development:
 
 ;;; use envrc for all direnv projects
-(use-package envrc
-  :config (envrc-global-mode))
+;; (use-package envrc
+;;   :config (envrc-global-mode))
 
 ;;; LSP
 (use-package paredit
@@ -121,18 +121,22 @@
 ;;   :custom
 ;;   (TeX-auto-save t))
 
-;; Python
-(use-package lsp-pyright
-  :after lsp-mode)
-
 (use-package lsp-mode
+  :hook
+  ((python-mode . lsp-deferred)
+   (c++-mode . lsp-deferred)))
+
+(use-package lsp-pyright
+  :after lsp-mode
+  :hook
+  (python-mode . (lambda ()
+		   (require 'lsp-pyright)
+		   (lsp))))
+
+(use-package yasnippt
   :config
-  ;;; Nix
-  (add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
-  (lsp-register-client
-   (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
-		    :major-modes '(nix-mode)
-		    :server-id 'nix)))
+  (yas-reload-all)
+  :hook (prog-mode . yas-minor-mode))
 
 ;; Lisp & scheme
 (use-package slime
