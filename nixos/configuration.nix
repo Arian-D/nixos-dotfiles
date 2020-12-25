@@ -96,7 +96,6 @@
     ];
   };
 
-
   home-manager.users.someone = let
     gitName = "Arian-D";
     gitEmail = "ArianDehghani@protonmail.com";
