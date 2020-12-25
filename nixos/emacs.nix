@@ -37,6 +37,7 @@
       lsp-java
       # Haskal: for unemployability
       haskell-mode
+      lsp-haskell
       helm-hoogle
       # Coq... hehe
       proof-general

@@ -121,6 +121,14 @@ them tolerable.
 #+begin_src emacs-lisp
 (set-scroll-bar-mode nil)
 #+end_src
+*** Splash screen
+Replace the default splash screen with an org buffer
+#+begin_src emacs-lisp
+(setq inhibit-startup-screen t
+      inhibit-splash-screen t
+      initial-major-mode 'org-mode
+      initial-scratch-message "#+TITLE: Scratchpad")
+#+end_src
 
 ** Face
 This the default [[https://www.emacswiki.org/emacs/Face][face]]. It uses a patched version of [[https://fontlibrary.org/en/font/fantasque-sans-mono][Fantasque]] from
@@ -232,7 +240,7 @@ S-expressions.
 #+end_src
 *** Rainbow
 Rainbow delimiters make distinguishing parens much easier when
-dealing with highly nested expressions.
+dealing with deeply nested expressions.
 #+begin_src emacs-lisp
 (use-package rainbow-delimiters
   :hook
@@ -242,9 +250,120 @@ dealing with highly nested expressions.
 #+end_src
 ** TODO Haskell
 ...
-* Misc 
+
+* TODO Org
+** Core
+#+begin_src emacs-lisp
+(use-package org
+  :after evil
+  :ensure nil
+  :defer nil
+  :custom
+  (org-directory "~/me")
+  ;;; Cute lil rice
+  (org-startup-indented t)
+  (org-hidden-keywords '(title author email date))
+  (org-highlight-latex-and-related '(native))
+  (org-pretty-entities t)
+  (org-hide-emphasis-markers t)
+  (org-hide-block-startup t)
+  (org-hide-macro-markers t)
+  (org-fontify-whole-heading-line t)
+  (org-fontify-done-headline t)
+  (org-fontify-quote-and-verse-blocks t)
+  (org-default-notes-file (concat org-directory "/notes.org"))
+  ;;; Code blocks
+  (org-src-preserve-indentation t)
+  (org-src-tab-acts-natively t)
+  (org-confirm-babel-evaluate nil)
+  :hook
+  ((org-mode . auto-fill-mode)
+   (org-mode . prettify-symbols-mode))
+  :config
+  ;;; Evaluate code blocks
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((haskell . t)
+     (scheme . t)
+     (emacs-lisp . t)
+     (python . t)
+     (shell . t)))
+  (evil-define-key 'normal org-mode-map (kbd "; c '") 'org-edit-special)
+  (evil-define-key 'normal org-mode-map (kbd "; c t") 'org-babel-tangle)
+  (evil-define-key 'normal org-mode-map (kbd "; c s") 'org-insert-structure-template)
+  (evil-define-key 'normal org-mode-map (kbd "; l") 'org-insert-link)
+  (evil-define-key 'normal org-mode-map (kbd "; t") 'org-todo)
+  (evil-define-key 'normal org-mode-map (kbd "; S s") 'org-schedule)
+  (evil-define-key 'normal org-mode-map (kbd "; S d") 'org-deadline)
+  (evil-define-key 'normal org-mode-map (kbd "; SPC") 'org-ctrl-c-ctrl-c)
+  (evil-define-key 'normal org-mode-map (kbd "M-l") 'org-shiftright)
+  (evil-define-key 'normal org-mode-map (kbd "M-h") 'org-shiftright)
+  (evil-define-key 'normal org-mode-map (kbd "M-k") 'org-shiftup)
+  (evil-define-key 'normal org-mode-map (kbd "M-j") 'org-shiftdown)
+  (evil-define-key 'normal org-mode-map (kbd "M-K") 'org-metaup)
+  (evil-define-key 'normal org-mode-map (kbd "M-J") 'org-metadown)
+  (evil-define-key '(normal visual) 'global
+    (kbd "; a") 'org-agenda)
+  :bind
+  (("C-c l" . org-store-link)
+   ("C-c a" . org-agenda)
+   ("C-c c" . org-capture)
+   ("C-c b" . org-switchb)))
+#+end_src
+** Agenda
+#+begin_src emacs-lisp
+(use-package org-agenda
+  :after org
+  :ensure nil
+  :custom
+  (org-agenda-block-separator "")
+  (org-agenda-skip-scheduled-if-done t)
+  (org-agenda-skip-deadline-if-done t)
+  (org-agenda-skip-deadline-prewarning-if-scheduled 'pre-scheduled))
+#+end_src
+** Roam
+#+begin_src emacs-lisp
+(use-package org-roam
+  :after org
+  :custom
+  (org-roam-directory "~/roam")
+  (org-roam-link-title-format "(→%s)")
+  (org-roam-completion-system 'helm)
+  :config
+  (add-hook 'after-init-hook 'org-roam-mode)
+  :bind (("C-M-g" . org-roam-find-file)
+	 :map org-roam-mode-map
+	 ("C-c i" . org-roam-insert)))
+#+end_src
+** Bullets
+#+begin_src emacs-lisp
+(use-package org-bullets
+  :after org
+  :hook
+  (org-mode . (lambda () (org-bullets-mode 1))))
+#+end_src
+** Evil
+#+begin_src emacs-lisp
+(use-package org-evil
+  :after org)
+#+end_src
+** Google calendar
+#+begin_src emacs-lisp
+(use-package org-gcal
+  :after org
+  :defer t
+  :config
+  (let* ((gcal-creds-file (expand-file-name "gcal-creds.el.gpg" user-emacs-directory))
+	 (creds-file-exists (file-exists-p gcal-creds-file)))
+    (when creds-file-exists
+      (load gcal-creds-file)
+      (setq org-gcal-client-id my/gcal-client-id
+	    org-gcal-client-secret my/gcal-client-secret
+	    org-gcal-fetch-file-alist '(("arianxdehghani@gmail.com" .  "~/me/calendar.org"))))))
+#+end_src
+* Misc
 ** Elfeed
-Daily dose of rabit holes.
+Daily dose of rabbit holes.
 #+begin_src emacs-lisp
 (use-package elfeed
   :bind ("C-x w" . elfeed)
@@ -253,7 +372,6 @@ Daily dose of rabit holes.
     (when (file-exists-p feeds-file)
       (load-file feeds-file))))
 #+end_src
-
 * The rest
 These are the rest of the configs which will soon join this file.
 #+begin_src emacs-lisp
@@ -261,9 +379,7 @@ These are the rest of the configs which will soon join this file.
   ;; Add ./config/ folder to the `load-path'
   (add-to-list 'load-path config-path)
   ;; Load the configs
-  (use-package config-behavior)
   (use-package config-haskell)
-  (use-package config-org)
   (use-package config-nixos))
 #+end_src
 

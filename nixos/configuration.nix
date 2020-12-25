@@ -128,6 +128,7 @@
       rnix-lsp
       nodePackages.pyright
       clang-tools
+      haskellPackages.haskell-language-server
     ];
   in
     {
