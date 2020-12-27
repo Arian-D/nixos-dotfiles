@@ -5,12 +5,14 @@
     enable = true;
     extraPackages = epkgs: with epkgs; [
       # Essential
-      helm                        # Survival
-      helm-descbinds
+      counsel
+      counsel-projectile
+      ivy-rich
       evil                        # Superior keybindings
       evil-collection             # For other places
       which-key                   # Saves you extra `C-h k'
       use-package                 # Declarative-ish
+      projectile                  # For that sweet project search
       magit                       # Best Git client
       doom-themes                 # For chllenger deep, dracula, and other occasional themes
       doom-modeline               # hmmm
@@ -39,7 +41,6 @@
       # Haskal: for unemployability
       haskell-mode
       lsp-haskell
-      helm-hoogle
       # Coq... hehe
       proof-general
       company-coq

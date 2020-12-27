@@ -51,22 +51,26 @@ Rather than cluttering the ~init.el~ file, this uses a separte file for customs.
   (load-file custom-file))
 #+end_src
 
-** Helm
-A very nice tool for completion.
+** Counsel
 #+begin_src emacs-lisp
-(use-package helm
-  :defer t
-  :config (helm-mode 1)
+(use-package counsel
+  :after evil
   :custom
-  (helm-ff-skip-boring-files t)
-  (helm-split-window-in-side-p t)
-  (helm-move-to-line-cycle-in-source t)
-  :bind
-  (("M-x" . helm-M-x)
-   ("C-x r b" . helm-filtered-bookmarks)
-   ("C-x C-f" . helm-find-files)))
+  ((ivy-height 15)
+   (ivy-use-virtual-buffers t)
+   (ivy-count-format "%d/%d "))
+  :config
+  (global-set-key (kbd "M-x") 'counsel-M-x)
+  (evil-global-set-key 'normal (kbd "; f") 'counsel-find-file)
+  (evil-global-set-key 'normal (kbd "; TAB") 'counsel-M-x)
+  (evil-global-set-key 'normal (kbd "; b") 'counsel-switch-buffer))
 #+end_src
-
+This just adds function description to ~M-x~ commands
+#+begin_src emacs-lisp
+(use-package ivy-rich
+  :init
+  (ivy-rich-mode 1))
+#+end_src
 ** Evil
 The superior keybindings.
 *** Chords
@@ -82,18 +86,13 @@ Evil, along with some cool keybindings.
 (use-package evil
   :init
   (setq evil-want-integration t
-	evil-want-keybinding nil)
+        evil-want-keybinding nil)
   :custom (evil-flash-delay 1)
   :config
   (evil-mode 1)
-  :bind
-  (:map evil-normal-state-map
-	("; b" . helm-buffers-list)
-	("; q" . kill-buffer)
-	("; s" . save-buffer)
-	("; f" . helm-find-files)
-	("; g" . keyboard-quit)
-	("; TAB" . helm-M-x))
+  (evil-global-set-key 'normal (kbd "; q") 'kill-buffer)
+  (evil-global-set-key 'normal (kbd "; s") 'save-buffer)
+  (evil-global-set-key 'normal (kbd "; g") 'keyboard-quit)
   :chords ("kj" . evil-normal-state))
 #+end_src
 *** Collection
@@ -192,6 +191,25 @@ Magit
   :bind (("C-x g" . magit-status)
          :map evil-normal-state-map
          ("; G" . magit-status)))
+#+end_src
+** Projectile
+#+begin_src emacs-lisp
+(use-package projectile
+  :after evil
+  :init
+  (projectile-mode +1)
+  :config
+  (setq projectile-project-search-path '("~/projects/all/")
+        projectile-auto-discover nil
+        projectile-completion-system 'ivy)
+  (evil-global-set-key 'normal (kbd "; p") 'projectile-command-map)
+  :bind (:map projectile-mode-map
+              ("C-c p" . projectile-command-map)))
+#+end_src
+and counsel
+#+begin_src emacs-lisp
+(use-package counsel-projectile
+  :config (counsel-projectile-mode))
 #+end_src
 ** LSP
 I use [[https://emacs-lsp.github.io/lsp-mode/][lsp-mode]] quite extensively for autocompletion, formatting, and
@@ -350,17 +368,17 @@ But lsp-haskell is something that I might replace it with in the near future.
 #+end_src
 ** Roam
 #+begin_src emacs-lisp
-(use-package org-roam
-  :after org
-  :custom
-  (org-roam-directory "~/roam")
-  (org-roam-link-title-format "(→%s)")
-  (org-roam-completion-system 'helm)
-  :config
-  (add-hook 'after-init-hook 'org-roam-mode)
-  :bind (("C-M-g" . org-roam-find-file)
-	 :map org-roam-mode-map
-	 ("C-c i" . org-roam-insert)))
+  (use-package org-roam
+    :after org
+    :custom
+    (org-roam-directory "~/roam")
+    (org-roam-link-title-format "(→%s)")
+    (org-roam-completion-system 'ivy)
+    :config
+    (add-hook 'after-init-hook 'org-roam-mode)
+    :bind (("C-M-g" . org-roam-find-file)
+	   :map org-roam-mode-map
+	   ("C-c i" . org-roam-insert)))
 #+end_src
 ** Bullets
 #+begin_src emacs-lisp
