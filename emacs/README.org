@@ -14,10 +14,12 @@ This configuration is [[https://en.wikipedia.org/wiki/Literate_programming][lite
 actual program. Running ~M-x org-babel-tangle~, or if you trusted the
 local variables in Emacs, saving the file would create *and* load the
 config for you. Pretty neat, huh?
-** Literate Inspiration
+** Inspiration
 Although this is a custom config from scratch, a lot of it is heavily
-inspired by [[https://github.com/tecosaur/emacs-config][Tecosaur]]'s [[https://github.com/hlissner/doom-emacs][Doom Emacs]] config, and [[https://github.com/joseph8th/literatemacs][joseph8th]]'s config.
-
+inspired by many other people such as:
+- [[https://github.com/tecosaur/emacs-config][Tecosaur]]'s [[https://github.com/hlissner/doom-emacs][Doom Emacs]] config
+- [[https://github.com/daviwil][daviwil]]'s [[https://www.youtube.com/playlist?list=PLEoMzSkcN8oPH1au7H6B7bBJ4ZO7BXjSZ][Emacs from scratch]] Youtube series
+- [[https://github.com/joseph8th/literatemacs][joseph8th]]'s config
 * Essetials
 Just simple stuff to get the ball rolling.
 ** Lexical binding
@@ -182,6 +184,7 @@ Afterall, Emacs is a text editor.
 Put line numbers for buffers that should have it.
 #+begin_src emacs-lisp
 (use-package display-line-numbers
+  :custom (display-line-numbers-type 'relative)
   :hook (prog-mode . display-line-numbers-mode))
 #+end_src
 ** Git
@@ -405,6 +408,14 @@ But lsp-haskell is something that I might replace it with in the near future.
       (setq org-gcal-client-id my/gcal-client-id
 	    org-gcal-client-secret my/gcal-client-secret
 	    org-gcal-fetch-file-alist '(("arianxdehghani@gmail.com" .  "~/me/calendar.org"))))))
+#+end_src
+** Visual column mode
+#+begin_src emacs-lisp
+(use-package visual-fill-column
+  :hook (org-mode . (lambda ()
+		      (setq visual-fill-column-width 100
+			    visual-fill-column-center-text t)
+		      (visual-fill-column-mode 1))))
 #+end_src
 * Misc
 ** Elfeed

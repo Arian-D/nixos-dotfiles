@@ -24,7 +24,6 @@
       envrc                       # For direnv projects
       elfeed                      # RSS, Atom, and YT
       telega                      # Telegram do be cool
-      multi-term                  # export TERM=emacs
       vterm
       yasnippet
       # LSP stuff
@@ -63,6 +62,7 @@
       org-alert
       org-bullets
       org-evil
+      visual-fill-column
       # Miscx
       # auctex                    # LaTeX to make Knuth proud
       slack                     # Slack AKA professional Discord
