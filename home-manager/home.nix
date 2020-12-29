@@ -45,7 +45,6 @@ in
   ];
 
   home.file.wallpaper.source = wallpaper;
-  home.file.".fehbg".source = "${wallpaper}";
   home.packages = with pkgs; [
     pulseeffects
     tty-clock
