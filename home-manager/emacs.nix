@@ -35,6 +35,10 @@
       # Configs and stuff
       yaml-mode
       markdown-mode
+      # Graphviz dot
+      graphviz-dot-mode
+      # Flutter
+      lsp-dart
       # Webshit garbage
       web-mode
       company-web

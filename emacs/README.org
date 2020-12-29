@@ -315,7 +315,6 @@ But lsp-haskell is something that I might replace it with in the near future.
 ;;   ((haskell-mode . lsp)
 ;;    (haskell-literate-mode . lsp)))
 #+end_src
-
 * TODO Org
 ** Core
 #+begin_src emacs-lisp
@@ -327,6 +326,7 @@ But lsp-haskell is something that I might replace it with in the near future.
   (org-directory "~/me")
   ;;; Cute lil rice
   (org-startup-indented t)
+  (org-startup-with-inline-images t)
   (org-hidden-keywords '(title author email date))
   (org-highlight-latex-and-related '(native))
   (org-pretty-entities t)
@@ -343,7 +343,8 @@ But lsp-haskell is something that I might replace it with in the near future.
   (org-confirm-babel-evaluate nil)
   :hook
   ((org-mode . auto-fill-mode)
-   (org-mode . prettify-symbols-mode))
+   (org-mode . prettify-symbols-mode)
+   (org-babel-after-execute . org-redisplay-inline-images))
   :config
   ;;; Evaluate code blocks
   (org-babel-do-load-languages
@@ -352,7 +353,8 @@ But lsp-haskell is something that I might replace it with in the near future.
      (scheme . t)
      (emacs-lisp . t)
      (python . t)
-     (shell . t)))
+     (shell . t)
+     (dot . t)))
   (evil-define-key 'normal org-mode-map (kbd "; c '") 'org-edit-special)
   (evil-define-key 'normal org-mode-map (kbd "; c t") 'org-babel-tangle)
   (evil-define-key 'normal org-mode-map (kbd "; c s") 'org-insert-structure-template)
@@ -444,6 +446,12 @@ Daily dose of rabbit holes.
   (let ((feeds-file (expand-file-name "feeds.el" user-emacs-directory)))
     (when (file-exists-p feeds-file)
       (load-file feeds-file))))
+#+end_src
+** Graphviz
+The Graphviz [[https://graphviz.org/doc/info/lang.html][dot]] language, which I mostly use in org-mode.
+#+begin_src emacs-lisp
+(use-package graphviz-dot-mode
+  :custom (graphviz-dot-indent-width 2))
 #+end_src
 ** Networking
 These are some interactive functions that I use occasionally.
