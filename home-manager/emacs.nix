@@ -29,6 +29,9 @@
       # LSP stuff
       lsp-mode
       lsp-ui
+      company-lsp
+      # C
+      ccls
       # Configs and stuff
       yaml-mode
       markdown-mode

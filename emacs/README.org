@@ -224,12 +224,15 @@ Us zoomer programmers can't live without auto-completion.
 ** LSP
 I use [[https://emacs-lsp.github.io/lsp-mode/][lsp-mode]] quite extensively for autocompletion, formatting, and
 other language features.
+
 #+begin_src emacs-lisp
 (use-package lsp-mode
-  :hook
-  ((c++-mode . lsp-deferred)))
+  :custom
+  (lsp-keymap-prefix (kbd "; l")))
 #+end_src
-[[https://emacs-lsp.github.io/lsp-ui/][lsp-ui]] makes things a lot more prettier and adds more features.
+
+[[https://emacs-lsp.github.io/lsp-ui/][lsp-ui]] makes things a lot prettier and adds more features.
+
 #+begin_src emacs-lisp
 (use-package lsp-ui
   :after lsp-mode)
@@ -242,6 +245,13 @@ integration.
   :config
   (yas-reload-all)
   :hook (prog-mode . yas-minor-mode))
+#+end_src
+** C/C++
+For C/C++ language servers I use [[https://github.com/MaskRay/ccls][ccls]], but [[https://clangd.llvm.org/][clangd]], which is the
+default LSP in lsp-mode, works just as good.
+#+begin_src emacs-lisp
+(use-package ccls
+  :hook ((c-mode c++-mode objc-mode cuda-mode) . lsp-deferred))
 #+end_src
 ** Python
 [[https://emacs-lsp.github.io/lsp-pyright/][lsp-pyright]] is for Microsoft's [[https://github.com/microsoft/pyright][Pyright]] language server which has a

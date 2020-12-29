@@ -32,7 +32,7 @@ let
     # LSPs
     rnix-lsp
     nodePackages.pyright
-    clang-tools
+    ccls
     haskellPackages.haskell-language-server
   ];
   
