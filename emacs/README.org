@@ -70,6 +70,7 @@ Rather than cluttering the ~init.el~ file, this uses a separte file for customs.
 This just adds function description to ~M-x~ commands
 #+begin_src emacs-lisp
 (use-package ivy-rich
+  :after ivy
   :init
   (ivy-rich-mode 1))
 #+end_src
@@ -213,6 +214,12 @@ and counsel
 #+begin_src emacs-lisp
 (use-package counsel-projectile
   :config (counsel-projectile-mode))
+#+end_src
+** Company
+Us zoomer programmers can't live without auto-completion.
+#+begin_src emacs-lisp
+(use-package company-mode
+  :hook (after-init . global-company-mode))
 #+end_src
 ** LSP
 I use [[https://emacs-lsp.github.io/lsp-mode/][lsp-mode]] quite extensively for autocompletion, formatting, and
