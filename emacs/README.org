@@ -196,6 +196,8 @@ Magit
          :map evil-normal-state-map
          ("; G" . magit-status)))
 #+end_src
+** TODO Forge
+Coming soon...
 ** Projectile
 #+begin_src emacs-lisp
 (use-package projectile
@@ -286,7 +288,7 @@ dealing with deeply nested expressions.
    (emacs-lisp-mode . rainbow-delimiters-mode)
    (scheme-mode . rainbow-delimiters-mode)))
 #+end_src
-** TODO Haskell
+** Haskell
 Currently, I use the wondeful haskell-mode.
 #+begin_src emacs-lisp
 (use-package haskell-mode
@@ -315,6 +317,8 @@ But lsp-haskell is something that I might replace it with in the near future.
 ;;   ((haskell-mode . lsp)
 ;;    (haskell-literate-mode . lsp)))
 #+end_src
+** TODO LaTeX
+Todo...
 * TODO Org
 ** Core
 #+begin_src emacs-lisp

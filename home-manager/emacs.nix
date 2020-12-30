@@ -71,7 +71,7 @@
       org-evil
       visual-fill-column
       # Miscx
-      # auctex                    # LaTeX to make Knuth proud
+      cdlatex                   # TeX go brrr
       slack                     # Slack AKA professional Discord
       pinentry                  # For GPG
       emojify

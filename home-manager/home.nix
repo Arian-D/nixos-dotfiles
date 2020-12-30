@@ -3,7 +3,7 @@
 let
   
   gitName = "Arian-D";
-  gitEmail = "ArianDehghani@protonmail.com";
+  gitEmail = "ArianXDehghani@gmail.com";
 
   wallpaper = pkgs.fetchurl {
     url = https://i.imgur.com/GTdaXyT.jpg;
