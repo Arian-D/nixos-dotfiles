@@ -12,7 +12,7 @@ This repository is a [[https://nixos.wiki/wiki/Flakes][flake]], meaning that amo
 you don't have to copy the config to =/etc/nixos/=. Running the
 following should be enough to get your NixOS system up and running.
 #+begin_src bash 
-sudo make rebuild
+sudo make switch
 #+end_src
 ** Emacs
 Symlink the =emacs= directory to your home.
