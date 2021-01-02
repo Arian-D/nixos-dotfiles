@@ -63,7 +63,8 @@
       docker
       dockerfile-mode
       # Org: aimless attempt at getting my shit together
-      org-roam                  # Still learning it
+      org
+      org-roam
       org-gcal
       org-super-agenda
       org-alert

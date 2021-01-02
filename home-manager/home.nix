@@ -16,9 +16,11 @@ let
   ];
 
   devPackages = with pkgs; [    
+    gnumake
     texlive.combined.scheme-full
     github-cli
     nix-direnv
+    python3
     # Haskal
     (haskellPackages.ghcWithPackages(hs: with hs; [
       stack
@@ -50,6 +52,7 @@ in
     tty-clock
     neofetch
     libreoffice
+    evince
     remmina
     spectacle
     next
@@ -58,6 +61,7 @@ in
     gimp-with-plugins
     steam
     jitsi-meet-electron
+    discord
     element-desktop
   ]
   ++ networkingPackages

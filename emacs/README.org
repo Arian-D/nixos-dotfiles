@@ -137,17 +137,29 @@ This the default [[https://www.emacswiki.org/emacs/Face][face]]. It uses a patch
 [[https://github.com/ryanoasis/nerd-fonts][nerd fonts]].
 #+begin_src emacs-lisp
 (set-face-attribute 'default nil
-		    :width 'expanded
-		    :family "FantasqueSansMono Nerd Font"
-		    :weight 'normal
-		    :height 160)
+                    :width 'expanded
+                    :family "FantasqueSansMono Nerd Font"
+                    :weight 'normal
+                    :height 160)
+
+(set-face-attribute 'variable-pitch nil
+                    :width 'expanded
+                    :family "ETBembo"
+                    :weight 'normal
+                    :height 200)
+
+(set-face-attribute 'fixed-pitch nil
+                    :width 'expanded
+                    :family "FantasqueSansMono Nerd Font"
+                    :weight 'normal
+                    :height 160)
 #+end_src
 ** Theme
 Doom themes are very nice. 
 #+begin_src emacs-lisp
 (use-package doom-themes
   :config
-  (load-theme 'doom-city-lights t)
+  (load-theme 'doom-one t)
   (doom-themes-visual-bell-config)
   (doom-themes-org-config))
 #+end_src
@@ -320,16 +332,36 @@ But lsp-haskell is something that I might replace it with in the near future.
 ** TODO LaTeX
 Todo...
 * TODO Org
+I use [[https://orgmode.org][org-mode]] for pretty much everything.
 ** Core
-#+begin_src emacs-lisp
+~variable-pitch~ is a good face for pretty much everything in org-mode
+other than code, so that becomes a mode in org, and for the special
+faces that need a monospaced font we inherit from the ~fixed-pitch~ face.
+#+name: org-faces
+#+begin_src emacs-lisp :tangle no
+(add-hook 'org-mode-hook
+          (lambda ()
+            (variable-pitch-mode 1)))
+
+(dolist (face '(org-code
+		org-meta-line
+		org-block-begin-line
+		org-block-end-line
+                org-block
+                org-table))
+  (set-face-attribute face nil :inherit 'fixed-pitch))
+#+end_src
+
+#+begin_src emacs-lisp :noweb yes
 (use-package org
   :after evil
   :ensure nil
   :defer nil
   :custom
   (org-directory "~/me")
-  ;;; Cute lil rice
+    ;;; Cute lil rice
   (org-startup-indented t)
+  (org-startup-indented "⤵")
   (org-startup-with-inline-images t)
   (org-hidden-keywords '(title author email date))
   (org-highlight-latex-and-related '(native))
@@ -341,7 +373,7 @@ Todo...
   (org-fontify-done-headline t)
   (org-fontify-quote-and-verse-blocks t)
   (org-default-notes-file (concat org-directory "/notes.org"))
-  ;;; Code blocks
+    ;;; Code blocks
   (org-src-preserve-indentation t)
   (org-src-tab-acts-natively t)
   (org-confirm-babel-evaluate nil)
@@ -350,7 +382,8 @@ Todo...
    (org-mode . prettify-symbols-mode)
    (org-babel-after-execute . org-redisplay-inline-images))
   :config
-  ;;; Evaluate code blocks
+  <<org-faces>>
+    ;;; Evaluate code blocks
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((haskell . t)
@@ -381,6 +414,7 @@ Todo...
    ("C-c c" . org-capture)
    ("C-c b" . org-switchb)))
 #+end_src
+** Tempo
 ** Agenda
 #+begin_src emacs-lisp
 (use-package org-agenda
