@@ -1,13 +1,7 @@
 # Emacs stuff
-# TODO: Remove all .el files
-emacs/emojis/*
-emacs/.cache/*
-emacs/bookmarks
-emacs/.lsp*
-emacs/custom.el
-emacs/tramp
-emacs/init.el
-*.elc
+emacs/*
+!emacs/README.org
+!emacs/feeds.el
 
 # Haskell
 *.hi
