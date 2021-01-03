@@ -9,20 +9,21 @@
     };
   };
 
-  outputs = inputs @ { nixpkgs, nixpkgs-unstable, home-manager, ... }: {
+  outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, home-manager, ... }: {
     nixosConfigurations.somewhere = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
         ./nixos/configuration.nix
         nixpkgs.nixosModules.notDetected
-        home-manager.nixosModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.users.someone = import ./home-manager/home.nix;
-          home-manager.verbose = true;
-        }
       ];
     };
+
+    homeConfigurations.home = home-manager.lib.homeManagerConfiguration {
+      configuration = import ./home-manager/home.nix;
+      system = "x86_64-linux";
+      homeDirectory = "/home/someone";
+      username = "someone";
+    };
+    home = self.homeConfigurations.home.activationPackage;
   };
 }

@@ -5,14 +5,23 @@ Feel free to copy snippets, or use the config in it's entirety.
 
 * Installation
 Assuming you have cloned the repo and ~$PWD~ is the repo, you can go
-through these steps. The order is structured like this because some of
-these packages /may/ depend on the previous ones.
+through these steps. keep in mind that these steps assume you have the
+nix flakes feature enabled, so if you are on a system where you don't
+have the feature yet, you can simply run these commands in
+#+begin_src bash
+nix-shell -p nixFlakes
+#+end_src
 ** NixOS
 This repository is a [[https://nixos.wiki/wiki/Flakes][flake]], meaning that among all the cool features,
 you don't have to copy the config to =/etc/nixos/=. Running the
 following should be enough to get your NixOS system up and running.
 #+begin_src bash 
-sudo make switch
+sudo make somewhere
+#+end_src
+** Home-manager
+To use home-manager, where most of the desktop apps reside, use
+#+begin_src bash
+make home-manager
 #+end_src
 ** Emacs
 Symlink the =emacs= directory to your home.
