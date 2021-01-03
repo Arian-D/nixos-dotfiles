@@ -1,7 +1,7 @@
 #+TITLE: Dot files
-My NixOS, Emacs, and XMonad dot files.
+My [[https://nixos.org/][NixOS]], [[https://www.gnu.org/software/emacs/][Emacs]], and [[https://xmonad.org/][XMonad]] dot files.
 
-Feel free to copy snippets, or use the config in it's entirety.
+Feel free to copy snippets, or use the config in its entirety.
 
 * Installation
 Assuming you have cloned the repo and ~$PWD~ is the repo, you can go
@@ -15,7 +15,7 @@ nix-shell -p nixFlakes
 This repository is a [[https://nixos.wiki/wiki/Flakes][flake]], meaning that among all the cool features,
 you don't have to copy the config to =/etc/nixos/=. Running the
 following should be enough to get your NixOS system up and running.
-#+begin_src bash 
+#+begin_src bash
 sudo make somewhere
 #+end_src
 ** Home-manager
