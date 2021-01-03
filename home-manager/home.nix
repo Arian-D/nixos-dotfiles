@@ -19,6 +19,7 @@ let
     gnumake
     texlive.combined.scheme-full
     github-cli
+    graphviz
     nix-direnv
     python3
     # Haskal
