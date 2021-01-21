@@ -8,6 +8,8 @@
       counsel
       counsel-projectile
       ivy-rich
+      all-the-icons-ivy-rich
+      mini-frame
       evil                        # Superior keybindings
       evil-collection             # For other places
       which-key                   # Saves you extra `C-h k'
@@ -38,7 +40,7 @@
       # Graphviz dot
       graphviz-dot-mode
       # Flutter
-      lsp-dart
+      # lsp-dart
       # Webshit garbage
       web-mode
       company-web

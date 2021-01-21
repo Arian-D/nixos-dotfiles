@@ -53,26 +53,47 @@ Rather than cluttering the ~init.el~ file, this uses a separte file for customs.
   (load-file custom-file))
 #+end_src
 
-** Counsel
+** Ivy
+I use Ivy for auto-completion, and hasn't let me down. Another nice
+alternative is [[https://github.com/emacs-helm/helm][helm]].
 #+begin_src emacs-lisp
-(use-package counsel
-  :after evil
+(use-package ivy
   :custom
   ((ivy-height 15)
    (ivy-use-virtual-buffers t)
-   (ivy-count-format "%d/%d "))
-  :config
-  (global-set-key (kbd "M-x") 'counsel-M-x)
-  (evil-global-set-key 'normal (kbd "; f") 'counsel-find-file)
-  (evil-global-set-key 'normal (kbd "; TAB") 'counsel-M-x)
-  (evil-global-set-key 'normal (kbd "; b") 'counsel-switch-buffer))
+   (ivy-count-format "(%d/%d) ")))
 #+end_src
-This just adds function description to ~M-x~ commands
+Lets make Ivy a little bit easier.
 #+begin_src emacs-lisp
 (use-package ivy-rich
-  :after ivy
-  :init
-  (ivy-rich-mode 1))
+  :hook (ivy-mode . ivy-rich-mode)
+  :custom (ivy-rich-path-style 'abbrev))
+
+(use-package all-the-icons-ivy-rich
+  :hook (ivy-rich-mode . all-the-icons-ivy-rich-mode))
+
+#+end_src
+** Counsel
+Counsel provides sane Ivy-alternatives to the Emacs functions.
+#+begin_src emacs-lisp
+(use-package counsel
+  :after evil
+  :defer nil
+  :config
+  (evil-global-set-key 'normal (kbd "; f") 'counsel-find-file)
+  (evil-global-set-key 'normal (kbd "; TAB") 'counsel-M-x)
+  (evil-global-set-key 'normal (kbd "; b") 'counsel-switch-buffer)
+  :hook (after-init . counsel-mode))
+#+end_src
+** Mini frame
+[[https://github.com/muffinmad/emacs-mini-frame][emacs-mini-frame]] provides a nice [[https://github.com/davatorium/rofi][rofi]]-like frame instead of the minibuffer.
+#+begin_src emacs-lisp
+(use-package mini-frame
+  :custom (mini-frame-show-parameters
+           '((top . 100)
+             (width . 0.9)
+             (left . 0.5)))
+  :hook (after-init . mini-frame-mode))
 #+end_src
 ** Evil
 The superior keybindings.
@@ -140,7 +161,7 @@ This the default [[https://www.emacswiki.org/emacs/Face][face]]. It uses a patch
                     :width 'expanded
                     :family "FantasqueSansMono Nerd Font"
                     :weight 'normal
-                    :height 160)
+                    :height 200)
 
 (set-face-attribute 'variable-pitch nil
                     :width 'expanded
@@ -204,9 +225,9 @@ Put line numbers for buffers that should have it.
 Magit
 #+begin_src emacs-lisp
 (use-package magit
-  :bind (("C-x g" . magit-status)
-         :map evil-normal-state-map
-         ("; G" . magit-status)))
+  :config
+  (evil-define-key 'normal org-mode-map (kbd "; G") 'magit-status)
+  :bind (("C-x g" . magit-status)))
 #+end_src
 ** TODO Forge
 Coming soon...
@@ -242,7 +263,8 @@ other language features.
 #+begin_src emacs-lisp
 (use-package lsp-mode
   :custom
-  (lsp-keymap-prefix (kbd "; l")))
+  (lsp-keymap-prefix "C-;"))
+
 #+end_src
 
 [[https://emacs-lsp.github.io/lsp-ui/][lsp-ui]] makes things a lot prettier and adds more features.
@@ -344,14 +366,16 @@ faces that need a monospaced font we inherit from the ~fixed-pitch~ face.
             (variable-pitch-mode 1)))
 
 (dolist (face '(org-code
-		org-meta-line
-		org-block-begin-line
-		org-block-end-line
+                org-meta-line
+                org-block-end-line
+                org-block-begin-line
                 org-block
                 org-table))
   (set-face-attribute face nil :inherit 'fixed-pitch))
+(set-face-attribute 'org-block-end-line nil :inherit 'org-block-begin-line)
 #+end_src
 
+This is the core config.
 #+begin_src emacs-lisp :noweb yes
 (use-package org
   :after evil
@@ -414,7 +438,18 @@ faces that need a monospaced font we inherit from the ~fixed-pitch~ face.
    ("C-c c" . org-capture)
    ("C-c b" . org-switchb)))
 #+end_src
-** TODO Tempo...
+** Tempo...
+Tempo provides nice shortcuts for inserting structures.
+#+begin_src emacs-lisp
+(use-package org-tempo
+  :after org
+  :config
+  (dolist (structure '(("sh" . "src shell")
+                       ("el" . "src emacs-lisp")
+                       ("py" . "src python")
+                       ("hs" . "src haskell")))
+    (add-to-list 'org-structure-template-alist structure)))
+#+end_src
 ** Agenda
 #+begin_src emacs-lisp
 (use-package org-agenda
@@ -536,6 +571,7 @@ I have a function to garbage-collect Nix.
 #+end_src
 
 * Save macros 
+
 #+begin_src 
 ;; Local Variables: 
 ;; eval: (add-hook 'after-save-hook (lambda () (if (y-or-n-p "Reload?")(load-file user-init-file))) nil t) 

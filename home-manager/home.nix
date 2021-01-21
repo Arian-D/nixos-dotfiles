@@ -21,22 +21,31 @@ let
     github-cli
     graphviz
     nix-direnv
+    rnix-lsp
     python3
+    nodePackages.pyright
+    # Android
+    android-studio
+    androidsdk_9_0
     # Haskal
     (haskellPackages.ghcWithPackages(hs: with hs; [
       stack
       hoogle
     ]))
+    haskellPackages.haskell-language-server
     # Lisps
     sbcl
     guile
     chez
     racket
     # LSPs
-    rnix-lsp
-    nodePackages.pyright
     ccls
-    haskellPackages.haskell-language-server
+    # (J|T)S
+    # nodePackages.javascript-typescript-langserver
+    nodePackages.typescript-language-server
+    nodePackages.npm
+    nodePackages.yarn
+    nodePackages.typescript
   ];
   
 in
@@ -64,6 +73,7 @@ in
     jitsi-meet-electron
     discord
     element-desktop
+    calibre
   ]
   ++ networkingPackages
   ++ devPackages;
@@ -71,6 +81,10 @@ in
   home.sessionVariables = {
     EDITOR = "emacsclient";
     WALLPAPER = "${wallpaper}";
+  };
+
+  gtk = {
+    enable = true;
   };
   
   home.file.".stack/config.yaml".text = ''

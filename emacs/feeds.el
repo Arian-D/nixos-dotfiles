@@ -1,10 +1,11 @@
-(defvar my/feeds
+(setq elfeed-feeds
   '(("https://nullprogram.com/feed/" blog emacs general)
     ("https://news.ycombinator.com/rss" hn general)
     ("https://drewdevault.com/feed.xml" blog linux sway general)
     ;; Dev
     ("https://www.tweag.io/rss.xml" tweag haskell dev)
-    ("https://planetpython.org/rss20.xml" python general)
+    ("https://planet.haskell.org/atom.xml" haskell dev)
+    ("https://planetpython.org/rss20.xml" python dev)
     ;; GNU slash Leenouxe
     ("https://planet.kernel.org/rss20.xml" kernel linux)
     ("https://guix.gnu.org/feeds/blog.atom" guix linux)
@@ -27,5 +28,4 @@
     ;; Quick mafs
     ("https://golem.ph.utexas.edu/category/" n-category-cafe blog math)
     ;; Entertainment
-    ("https://xkcd.com/atom.xml" xkcd comics entertainment))
-  "List of my favoriteRSS/Atom feeds")
+    ("https://xkcd.com/atom.xml" xkcd comics entertainment)))
