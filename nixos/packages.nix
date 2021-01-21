@@ -27,9 +27,6 @@ in
     winePackages.stable
   ]
   ++ essentialPackages;
-
-  # Wireshark to capture them packets
-  programs.wireshark.enable = true;
    
   nixpkgs.config = {
     # Stallman is watching you...
@@ -39,10 +36,10 @@ in
   
   boot.binfmt.emulatedSystems = [ "aarch64-linux" "armv7l-linux" ];
   virtualisation = {
-    # virtualbox.host = {
-    #   enable = true;
-    #   enableHardening = true;
-    # };
+    virtualbox.host = {
+      enable = false;
+      # enableHardening = true;
+    };
     docker.enable = true;
     libvirtd.enable = true;     # QEMU
   };

@@ -35,6 +35,9 @@ in
   environment.variables.SSLKEYLOGFILE = "/home/someone/SSLKEYLOGFILE";
   environment.sessionVariables.SSLKEYLOGFILE = "/home/someone/SSLKEYLOGFILE";
 
-  programs.wireshark.enable = true;
+  programs.wireshark = {
+    enable = true;
+    package = pkgs.wireshark;
+  };
 
 }
