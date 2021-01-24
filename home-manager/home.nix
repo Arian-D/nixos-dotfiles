@@ -15,13 +15,21 @@ let
     openvpn netcat-gnu
   ];
 
-  devPackages = with pkgs; [    
+  devPackages = with pkgs; [
+    # General
     gnumake
-    texlive.combined.scheme-full
     github-cli
+    sqlite
+    # Dot
     graphviz
+    # LaTeX
+    texlive.combined.scheme-full
+    # Nix
     nix-direnv
     rnix-lsp
+    # C[++]
+    ccls
+    # Python
     python3
     nodePackages.pyright
     # Android
@@ -38,8 +46,6 @@ let
     guile
     chez
     racket
-    # LSPs
-    ccls
     # (J|T)S
     # nodePackages.javascript-typescript-langserver
     nodePackages.typescript-language-server
@@ -65,7 +71,7 @@ in
     evince
     remmina
     spectacle
-    next
+    ((import (builtins.getFlake "nixpkgs/nixpkgs-unstable") {}).nyxt)
     pinentry.qt
     torsocks                    # To be used with my remote server
     gimp-with-plugins
