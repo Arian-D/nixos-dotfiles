@@ -9,3 +9,8 @@ emacs/*
 *.errors
 xmonad/xmonad-*-linux
 xmonad/.stack-work/*
+xmonad/prompt-history
+
+# System stuff
+*.qcow2
+*/result
