@@ -161,13 +161,13 @@ This the default [[https://www.emacswiki.org/emacs/Face][face]]. It uses a patch
                     :width 'expanded
                     :family "FantasqueSansMono Nerd Font"
                     :weight 'normal
-                    :height 200)
+                    :height 160)
 
 (set-face-attribute 'variable-pitch nil
                     :width 'expanded
                     :family "ETBembo"
                     :weight 'normal
-                    :height 200)
+                    :height 225)
 
 (set-face-attribute 'fixed-pitch nil
                     :width 'expanded
@@ -300,6 +300,17 @@ nice typechecker, and I'd prefer it over [[https://github.com/Microsoft/python-l
    (python-mode . (lambda ()
 		    (require 'lsp-pyright)
 		    (lsp)))))
+#+end_src
+** (J|T)S
+Web-mode takes care of TypeScript and JavaScript files. The rest is
+done with lsp-mode (which might need extra configuration in the future).
+#+begin_src emacs-lisp
+(use-package web-mode
+  :hook
+  ((js-mode . web-mode))
+  :config
+  (add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.ts\\'" . web-mode)))
 #+end_src
 ** Lisps
 *** Paredit
@@ -505,7 +516,7 @@ Tempo provides nice shortcuts for inserting structures.
 #+begin_src emacs-lisp
 (use-package visual-fill-column
   :hook (org-mode . (lambda ()
-		      (setq visual-fill-column-width 100
+		      (setq visual-fill-column-width 50
 			    visual-fill-column-center-text t)
 		      (visual-fill-column-mode 1))))
 #+end_src
