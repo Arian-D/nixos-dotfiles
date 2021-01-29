@@ -69,6 +69,7 @@
       org-roam
       org-gcal
       org-super-agenda
+      org-wild-notifier
       org-alert
       org-bullets
       org-evil

@@ -53,6 +53,12 @@ Rather than cluttering the ~init.el~ file, this uses a separte file for customs.
   (load-file custom-file))
 #+end_src
 
+** Notification
+#+begin_src emacs-lisp
+(use-package alert
+  :config
+  (setq alert-default-style 'notifications))
+#+end_src
 ** Ivy
 I use Ivy for auto-completion, and hasn't let me down. Another nice
 alternative is [[https://github.com/emacs-helm/helm][helm]].
@@ -472,6 +478,11 @@ Tempo provides nice shortcuts for inserting structures.
   (org-agenda-skip-deadline-if-done t)
   (org-agenda-skip-deadline-prewarning-if-scheduled 'pre-scheduled))
 #+end_src
+#+begin_src emacs-lisp
+(use-package org-wild-notifier
+  :init
+  (org-wild-notifier-mode))
+#+end_src
 ** Roam
 #+begin_src emacs-lisp
   (use-package org-roam
@@ -516,7 +527,7 @@ Tempo provides nice shortcuts for inserting structures.
 #+begin_src emacs-lisp
 (use-package visual-fill-column
   :hook (org-mode . (lambda ()
-		      (setq visual-fill-column-width 50
+		      (setq visual-fill-column-width 150
 			    visual-fill-column-center-text t)
 		      (visual-fill-column-mode 1))))
 #+end_src
