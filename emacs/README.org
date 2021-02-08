@@ -16,7 +16,14 @@ inspired by many other people such as:
 - [[https://github.com/joseph8th/literatemacs][joseph8th]]'s config
 * Essentials
 Just simple stuff to get the ball rolling.
+** Lexical binding
+#+begin_src emacs-lisp
+;;; -*- lexical-binding: t -*-
+#+end_src
+
 ** Straight
+This is a really cool package manager that is functional like Nix or
+Guix, but it doesn't rely on them.
 #+begin_src emacs-lisp
 (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
@@ -32,11 +39,6 @@ Just simple stuff to get the ball rolling.
   (straight-use-package 'use-package)
   (setq straight-use-package-by-default t))
 #+end_src
-** Lexical binding
-#+begin_src emacs-lisp
-;;; -*- lexical-binding: t -*-
-#+end_src
-
 ** Which key
 The best helper.
 #+begin_src emacs-lisp
@@ -494,17 +496,24 @@ Tempo provides nice shortcuts for inserting structures.
 #+end_src
 ** Roam
 #+begin_src emacs-lisp
-  (use-package org-roam
-    :after org
-    :custom
-    (org-roam-directory "~/roam")
-    (org-roam-link-title-format "(→%s)")
-    (org-roam-completion-system 'ivy)
-    :config
-    (add-hook 'after-init-hook 'org-roam-mode)
-    :bind (("C-M-g" . org-roam-find-file)
-	   :map org-roam-mode-map
-	   ("C-c i" . org-roam-insert)))
+(use-package org-roam
+  :after org
+  :custom
+  (org-roam-directory "~/roam")
+  (org-roam-link-title-format "(→%s)")
+  (org-roam-completion-system 'ivy)
+  :config
+  (let ((roam-dir "~/roam"))
+    (when (and (equal system-name "somewhere")
+	       (equal user-login-name "someone")
+	       (not (file-exists-p roam-dir)))
+      (magit-clone-regular"git@github.com:arian-d/knowledge-base"
+			roam-dir
+			nil)
+      (add-hook 'after-init-hook 'org-roam-mode)))
+  :bind (("C-M-g" . org-roam-find-file)
+	 :map org-roam-mode-map
+	 ("C-c i" . org-roam-insert)))
 #+end_src
 ** Bullets
 #+begin_src emacs-lisp
