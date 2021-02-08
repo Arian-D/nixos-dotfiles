@@ -3,12 +3,6 @@
 #+startup: fold
 
 * Understanding this
-** Requirements
-Outside of this directory you should see the NixOS config, which would
-take care of installing Emacs along with the dependencies. That being
-said, if you already have an Emacs installation on your machine and
-don't want to install Nix, using [[https://github.com/jwiegley/use-package][use-package]] should take care of
-installing the packages if you set ~:ensure~ to ~t~.
 ** Literate
 This configuration is [[https://en.wikipedia.org/wiki/Literate_programming][literate]], as in, the file you're reading /is/ the
 actual program. Running ~M-x org-babel-tangle~, or if you trusted the
@@ -22,6 +16,22 @@ inspired by many other people such as:
 - [[https://github.com/joseph8th/literatemacs][joseph8th]]'s config
 * Essentials
 Just simple stuff to get the ball rolling.
+** Straight
+#+begin_src emacs-lisp
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage)
+  (straight-use-package 'use-package)
+  (setq straight-use-package-by-default t))
+#+end_src
 ** Lexical binding
 #+begin_src emacs-lisp
 ;;; -*- lexical-binding: t -*-
@@ -92,9 +102,11 @@ Counsel provides sane Ivy-alternatives to the Emacs functions.
   :hook (after-init . counsel-mode))
 #+end_src
 ** Mini frame
-[[https://github.com/muffinmad/emacs-mini-frame][emacs-mini-frame]] provides a nice [[https://github.com/davatorium/rofi][rofi]]-like frame instead of the minibuffer.
+[[https://github.com/muffinmad/emacs-mini-frame][emacs-mini-frame]] provides a nice [[https://github.com/davatorium/rofi][rofi]]-like frame instead of the
+minibuffer. Sadly, it flickers at the moment, hence why it's disabled.
 #+begin_src emacs-lisp
 (use-package mini-frame
+  :disabled
   :custom (mini-frame-show-parameters
            '((top . 100)
              (width . 0.9)
@@ -120,7 +132,7 @@ Evil, along with some cool keybindings.
   :custom (evil-flash-delay 1)
   :config
   (evil-mode 1)
-  (evil-global-set-key 'normal (kbd "; q") 'kill-buffer)
+  (evil-global-set-key 'normal (kbd "; q") 'kill-current-buffer)
   (evil-global-set-key 'normal (kbd "; s") 'save-buffer)
   (evil-global-set-key 'normal (kbd "; g") 'keyboard-quit)
   :chords ("kj" . evil-normal-state))
@@ -259,7 +271,7 @@ and counsel
 ** Company
 Us zoomer programmers can't live without auto-completion.
 #+begin_src emacs-lisp
-(use-package company-mode
+(use-package company
   :hook (after-init . global-company-mode))
 #+end_src
 ** LSP
@@ -283,7 +295,7 @@ other language features.
 Currently, I don't have that many snippets, but I do use it for lsp
 integration.
 #+begin_src emacs-lisp
-(use-package yasnippt
+(use-package yasnippet
   :config
   (yas-reload-all)
   :hook (prog-mode . yas-minor-mode))
@@ -368,6 +380,10 @@ But lsp-haskell is something that I might replace it with in the near future.
 ;;   ((haskell-mode . lsp)
 ;;    (haskell-literate-mode . lsp)))
 #+end_src
+** Nix
+#+begin_src emacs-lisp
+(use-package nix-mode)
+#+end_src
 ** TODO LaTeX
 Todo...
 * TODO Org
@@ -396,7 +412,6 @@ This is the core config.
 #+begin_src emacs-lisp :noweb yes
 (use-package org
   :after evil
-  :ensure nil
   :defer nil
   :custom
   (org-directory "~/me")
@@ -458,25 +473,19 @@ This is the core config.
 ** Tempo...
 Tempo provides nice shortcuts for inserting structures.
 #+begin_src emacs-lisp
-(use-package org-tempo
-  :after org
-  :config
-  (dolist (structure '(("sh" . "src shell")
-                       ("el" . "src emacs-lisp")
-                       ("py" . "src python")
-                       ("hs" . "src haskell")))
-    (add-to-list 'org-structure-template-alist structure)))
+(require 'org-tempo)
+(dolist (structure '(("sh" . "src shell")
+		     ("el" . "src emacs-lisp")
+		     ("py" . "src python")
+		     ("hs" . "src haskell")))
+  (add-to-list 'org-structure-template-alist structure))
 #+end_src
 ** Agenda
 #+begin_src emacs-lisp
-(use-package org-agenda
-  :after org
-  :ensure nil
-  :custom
-  (org-agenda-block-separator "")
-  (org-agenda-skip-scheduled-if-done t)
-  (org-agenda-skip-deadline-if-done t)
-  (org-agenda-skip-deadline-prewarning-if-scheduled 'pre-scheduled))
+(setq org-agenda-block-separator "")
+(setq org-agenda-skip-scheduled-if-done t)
+(setq org-agenda-skip-deadline-if-done t)
+(setq org-agenda-skip-deadline-prewarning-if-scheduled 'pre-scheduled)
 #+end_src
 #+begin_src emacs-lisp
 (use-package org-wild-notifier

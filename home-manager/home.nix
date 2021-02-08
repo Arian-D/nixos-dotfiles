@@ -58,7 +58,6 @@ in
 
 {
   imports = [
-    ./emacs.nix
     ./firefox.nix
   ];
 
@@ -71,7 +70,7 @@ in
     evince
     remmina
     spectacle
-    ((import (builtins.getFlake "nixpkgs/nixpkgs-unstable") {}).nyxt)
+    # ((import (builtins.getFlake "nixpkgs/nixpkgs-unstable") {}).nyxt)
     pinentry.qt
     torsocks                    # To be used with my remote server
     gimp-with-plugins
@@ -100,6 +99,7 @@ in
         '';
 
   programs = {
+    emacs.enable = true;
     mpv.enable = true;
 
     direnv = {
