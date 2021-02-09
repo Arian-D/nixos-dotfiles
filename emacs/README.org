@@ -333,6 +333,11 @@ done with lsp-mode (which might need extra configuration in the future).
   (add-to-list 'auto-mode-alist '("\\.ts\\'" . web-mode)))
 #+end_src
 ** Lisps
+*** Geiser
+Have you read your SICP today?
+#+begin_src emacs-lisp
+(use-package geiser)
+#+end_src
 *** Paredit
 [[https://www.emacswiki.org/emacs/ParEdit][paredit]], taught very well [[https://calva.io/paredit/][here]], is very essential to editing
 S-expressions.
@@ -382,13 +387,18 @@ But lsp-haskell is something that I might replace it with in the near future.
 ;;   ((haskell-mode . lsp)
 ;;    (haskell-literate-mode . lsp)))
 #+end_src
+** Proof General
+I'm a formal methodist.
+#+begin_src emacs-lisp
+(use-package proof-general)
+#+end_src
 ** Nix
 #+begin_src emacs-lisp
 (use-package nix-mode)
 #+end_src
 ** TODO LaTeX
 Todo...
-* TODO Org
+* Org
 I use [[https://orgmode.org][org-mode]] for pretty much everything.
 ** Core
 ~variable-pitch~ is a good face for pretty much everything in org-mode
@@ -550,6 +560,13 @@ Tempo provides nice shortcuts for inserting structures.
 		      (visual-fill-column-mode 1))))
 #+end_src
 * Misc
+** Novel
+I may be illiterate, but I still read children's books.
+#+begin_src emacs-lisp
+(use-package nov
+  :config
+  (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode)))
+#+end_src
 ** Elfeed
 Daily dose of rabbit holes.
 #+begin_src emacs-lisp

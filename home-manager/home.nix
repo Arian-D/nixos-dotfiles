@@ -79,6 +79,7 @@ in
     discord
     element-desktop
     calibre
+    unzip
   ]
   ++ networkingPackages
   ++ devPackages;
@@ -184,9 +185,10 @@ in
     gpg-agent = {
       enable = true;
       extraConfig = ''
-            allow-emacs-pinentry
-            allow-loopback-pinentry
-          '';
+        allow-emacs-pinentry
+        allow-loopback-pinentry
+        enable-ssh-support
+      '';
     };
 
     # Notification
