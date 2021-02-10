@@ -238,6 +238,7 @@ Afterall, Emacs is a text editor.
 Put line numbers for buffers that should have it.
 #+begin_src emacs-lisp
 (use-package display-line-numbers
+  :ensure nil
   :custom (display-line-numbers-type 'relative)
   :hook (prog-mode . display-line-numbers-mode))
 #+end_src
@@ -395,6 +396,10 @@ I'm a formal methodist.
 ** Nix
 #+begin_src emacs-lisp
 (use-package nix-mode)
+#+end_src
+*** Direnv
+#+begin_src emacs-lisp
+(use-package direnv)
 #+end_src
 ** TODO LaTeX
 Todo...
