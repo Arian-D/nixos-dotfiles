@@ -45,4 +45,8 @@ in
   };
   programs.firejail.enable = true;
   programs.java.enable = true;
+
+  nixpkgs.config.permittedInsecurePackages = [
+    "libvirt-5.9.0"
+  ];
 }

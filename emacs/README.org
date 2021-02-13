@@ -322,6 +322,9 @@ nice typechecker, and I'd prefer it over [[https://github.com/Microsoft/python-l
 		    (require 'lsp-pyright)
 		    (lsp)))))
 #+end_src
+#+begin_src emacs-lisp
+(use-package ein)
+#+end_src
 ** (J|T)S
 Web-mode takes care of TypeScript and JavaScript files. The rest is
 done with lsp-mode (which might need extra configuration in the future).
@@ -556,6 +559,11 @@ Tempo provides nice shortcuts for inserting structures.
 	    org-gcal-client-secret my/gcal-client-secret
 	    org-gcal-fetch-file-alist '(("arianxdehghani@gmail.com" .  "~/me/calendar.org"))))))
 #+end_src
+** Markdown
+Org mode, but for the average pleb.
+#+begin_src emacs-lisp
+(use-package markdown-mode)
+#+end_src
 ** Visual column mode
 #+begin_src emacs-lisp
 (use-package visual-fill-column
@@ -606,6 +614,11 @@ These are some interactive functions that I use occasionally.
   (interactive "sWhere? ")
   (let ((default-directory (concat "/ssh:" host ":")))
     (async-shell-command "who -u")))
+#+end_src
+** Docker
+Docker do be cool.
+#+begin_src emacs-lisp
+(use-package docker)
 #+end_src
 ** System
 A function to shut down the machine.

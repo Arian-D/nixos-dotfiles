@@ -20,6 +20,7 @@ let
     gnumake
     github-cli
     sqlite
+    pandoc
     # Dot
     graphviz
     # LaTeX
@@ -30,7 +31,7 @@ let
     # C[++]
     ccls
     # Python
-    python3
+    (python3.withPackages (p: [ p.jupyter ]))
     nodePackages.pyright
     # Android
     android-studio
