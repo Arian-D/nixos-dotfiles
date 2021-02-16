@@ -562,7 +562,9 @@ Tempo provides nice shortcuts for inserting structures.
 ** Markdown
 Org mode, but for the average pleb.
 #+begin_src emacs-lisp
-(use-package markdown-mode)
+(use-package markdown-mode
+  :custom
+  (markdown-command '("pandoc" "--from=markdown" "--to=html5")))
 #+end_src
 ** Visual column mode
 #+begin_src emacs-lisp
@@ -619,6 +621,11 @@ These are some interactive functions that I use occasionally.
 Docker do be cool.
 #+begin_src emacs-lisp
 (use-package docker)
+#+end_src
+and I also need this for syntax highlighting, and building images in
+buffer.
+#+begin_src emacs-lisp
+(use-package dockerfile-mode)
 #+end_src
 ** System
 A function to shut down the machine.
