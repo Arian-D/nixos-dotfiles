@@ -23,8 +23,8 @@ in
   # Packages
   environment.systemPackages = with pkgs; [
     nixops
-    # nvidia-offload
     winePackages.stable
+    docker-compose
   ]
   ++ essentialPackages;
    

@@ -31,7 +31,7 @@ let
     # C[++]
     ccls
     # Python
-    (python3.withPackages (p: [ p.jupyter ]))
+    (python3.withPackages (p: [ p.jupyter p.tkinter]))
     nodePackages.pyright
     # Android
     android-studio
