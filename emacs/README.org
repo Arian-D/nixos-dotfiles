@@ -246,12 +246,22 @@ Put line numbers for buffers that should have it.
 Magit
 #+begin_src emacs-lisp
 (use-package magit
+  :after evil
   :config
   (evil-define-key 'normal org-mode-map (kbd "; G") 'magit-status)
   :bind (("C-x g" . magit-status)))
 #+end_src
-** TODO Forge
+** Forge
+#+begin_src emacs-lisp
+(use-package forge
+  :after magit)
+#+end_src
 Coming soon...
+** Yaml
+DevOps is the future, amirite?
+#+begin_src emacs-lisp
+(use-package yaml-mode)
+#+end_src
 ** Projectile
 #+begin_src emacs-lisp
 (use-package projectile
