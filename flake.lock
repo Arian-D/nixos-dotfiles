@@ -53,11 +53,33 @@
         "type": "github"
       }
     },
+    "nyxt": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1608630887,
+        "narHash": "sha256-lHvot6jbnmiULw6KRXwpv5qQs2/f4u85aVqxGKF3quk=",
+        "owner": "atlas-engineer",
+        "repo": "nyxt",
+        "rev": "a065942ce03be5b85addf3fa0b9b5617f5ee1e08",
+        "type": "github"
+      },
+      "original": {
+        "owner": "atlas-engineer",
+        "ref": "2-pre-release-5",
+        "repo": "nyxt",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-unstable": "nixpkgs-unstable"
+        "nixpkgs-unstable": "nixpkgs-unstable",
+        "nyxt": "nyxt"
       }
     }
   },
