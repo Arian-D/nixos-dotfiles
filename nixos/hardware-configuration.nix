@@ -18,6 +18,11 @@
       fsType = "btrfs";
     };
 
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/27F3-0DEA";
+      fsType = "vfat";
+    };
+
   boot.initrd.luks.devices."nixenv".device = "/dev/disk/by-uuid/2ae649d5-59d9-485b-ac89-75aab6fd1a90";
 
   swapDevices =
