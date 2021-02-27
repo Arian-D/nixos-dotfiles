@@ -16,6 +16,7 @@
 
   outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, home-manager, nyxt, ... }:
     {
+      # NixOS (Somewhere)
       nixosConfigurations.somewhere = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
@@ -24,6 +25,7 @@
         ];
       };
 
+      # Home-manager
       homeConfigurations.home =
         home-manager.lib.homeManagerConfiguration {
           configuration = { pkgs, ... }:
@@ -35,6 +37,7 @@
           homeDirectory = "/home/someone";
           username = "someone";
         };
+
       home = self.homeConfigurations.home.activationPackage;
     };
 }

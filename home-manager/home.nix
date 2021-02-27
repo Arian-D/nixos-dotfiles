@@ -1,4 +1,4 @@
-{pkgs, ...}:
+{ pkgs, ...}:
 
 let
   
@@ -18,6 +18,7 @@ let
   devPackages = with pkgs; [
     # General
     gnumake
+    gcc
     github-cli
     sqlite
     pandoc

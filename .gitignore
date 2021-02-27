@@ -13,4 +13,4 @@ xmonad/prompt-history
 
 # System stuff
 *.qcow2
-*/result
+*result
