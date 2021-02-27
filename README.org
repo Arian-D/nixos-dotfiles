@@ -33,3 +33,9 @@ Symlink the =XMonad= directory to your home.
 #+begin_src bash
 ln -s ./xmonad ~/.xmonad
 #+end_src
+
+** Nyxt
+Symlink the =Nyxt= directory to your home.
+#+begin_src bash
+ln -s ./nyxt ~/.config/nyxt
+#+end_src

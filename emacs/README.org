@@ -252,11 +252,11 @@ Magit
   :bind (("C-x g" . magit-status)))
 #+end_src
 ** Forge
+Forge is there to eliminate the need to visit GitHub on the browser.
 #+begin_src emacs-lisp
 (use-package forge
   :after magit)
 #+end_src
-Coming soon...
 ** Yaml
 DevOps is the future, amirite?
 #+begin_src emacs-lisp
@@ -351,6 +351,13 @@ done with lsp-mode (which might need extra configuration in the future).
 Have you read your SICP today?
 #+begin_src emacs-lisp
 (use-package geiser)
+#+end_src
+*** Common Lisp
+This is mostly for configuring Nyxt browser. I don't use CL for
+anything else.
+#+begin_src emacs-lisp
+(use-package slime
+  :custom (inferior-lisp-program "sbcl"))
 #+end_src
 *** Paredit
 [[https://www.emacswiki.org/emacs/ParEdit][paredit]], taught very well [[https://calva.io/paredit/][here]], is very essential to editing
