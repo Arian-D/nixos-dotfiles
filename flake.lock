@@ -23,11 +23,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1614447571,
-        "narHash": "sha256-kHshBYBAAL0sx7DwwrPyfvtUwidQ9aWXy0XrL5RQFhY=",
+        "lastModified": 1614531331,
+        "narHash": "sha256-/69RG5ZI84MMN+ZD99A+MtPzyNDtwfcEFIUsuijwQPw=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "d303eee16ce8dee5c0b5b8e5f6323f561c189ec5",
+        "rev": "df8e3bd110921621d175fad88c9e67909b7cb3d3",
         "type": "github"
       },
       "original": {
@@ -60,16 +60,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1608630887,
-        "narHash": "sha256-lHvot6jbnmiULw6KRXwpv5qQs2/f4u85aVqxGKF3quk=",
+        "lastModified": 1614338622,
+        "narHash": "sha256-sZ9q+67kYBnlCDd5uGnUDuT0L75C99udW19iLw/ApIA=",
         "owner": "atlas-engineer",
         "repo": "nyxt",
-        "rev": "a065942ce03be5b85addf3fa0b9b5617f5ee1e08",
+        "rev": "0d2a36cd98f6ab932ee13618de7ad6442db84dfb",
         "type": "github"
       },
       "original": {
         "owner": "atlas-engineer",
-        "ref": "2-pre-release-5",
+        "ref": "master",
         "repo": "nyxt",
         "type": "github"
       }
