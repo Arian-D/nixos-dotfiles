@@ -82,6 +82,7 @@ in
     element-desktop
     calibre
     unzip
+    xclip
   ]
   ++ networkingPackages
   ++ devPackages;
