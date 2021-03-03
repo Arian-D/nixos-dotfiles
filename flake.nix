@@ -26,18 +26,15 @@
       };
 
       # Home-manager
-      homeConfigurations.home =
-        home-manager.lib.homeManagerConfiguration {
-          configuration = { pkgs, ... }:
-            {
-              imports = [./home-manager/home.nix];
-              home.packages = [ nyxt.defaultPackage.x86_64-linux ];
-            };
-          system = "x86_64-linux";
-          homeDirectory = "/home/someone";
-          username = "someone";
-        };
-
-      home = self.homeConfigurations.home.activationPackage;
+      home = (home-manager.lib.homeManagerConfiguration {
+        configuration = { pkgs, ... }:
+          {
+            imports = [./home-manager/home.nix];
+            home.packages = [ nyxt.defaultPackage.x86_64-linux ];
+          };
+        system = "x86_64-linux";
+        homeDirectory = "/home/someone";
+        username = "someone";
+      }).activationPackage;
     };
 }
