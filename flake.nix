@@ -7,6 +7,7 @@
       url = "github:nix-community/home-manager/release-20.09";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    emacs-overlay.url = "github:nix-community/emacs-overlay";
     nyxt = {
       url = "github:atlas-engineer/nyxt/2-pre-release-5";
       flake = true;
@@ -14,7 +15,13 @@
     };
   };
 
-  outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, home-manager, nyxt, ... }:
+  outputs = inputs @ { self
+                     , nixpkgs
+                     , nixpkgs-unstable
+                     , home-manager
+                     , nyxt
+                     , emacs-overlay
+                     , ... }:
     {
       # NixOS (Somewhere)
       nixosConfigurations.somewhere = nixpkgs.lib.nixosSystem {
@@ -27,8 +34,12 @@
 
       # Home-manager
       home = (home-manager.lib.homeManagerConfiguration {
-        configuration = { pkgs, ... }:
+        configuration =
+          { pkgs, ... }:
           {
+            nixpkgs.overlays = [
+              emacs-overlay.outputs.overlay
+            ];
             imports = [./home-manager/home.nix];
             home.packages = [ nyxt.defaultPackage.x86_64-linux ];
           };
