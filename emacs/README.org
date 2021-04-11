@@ -170,7 +170,9 @@ Replace the default splash screen with an org buffer
 (setq inhibit-startup-screen t
       inhibit-splash-screen t
       initial-major-mode 'org-mode
-      initial-scratch-message "#+TITLE: Scratchpad")
+      initial-scratch-message "#+TITLE: Let's question reality
+,* Begin...
+")
 #+end_src
 
 ** Face
@@ -462,6 +464,16 @@ faces that need a monospaced font we inherit from the ~fixed-pitch~ face.
 		(org-level-8 . 1.0)))
   (set-face-attribute (car face) nil :height (cdr face)))
 
+;;; Replace the default blocks with pwetty icons (from all-the-icons)
+(setq-default prettify-symbols-alist
+	      '(
+		("#+BEGIN_SRC" . "")
+		("#+END_SRC" . "")
+		("#+begin_src" . "")
+		("#+end_src" . "")
+		("#+begin_quote" . "")
+		("#+end_quote" . "")))
+
 #+end_src
 
 This is the core config.
@@ -605,11 +617,11 @@ Tempo provides nice shortcuts for inserting structures.
 #+end_src
 ** Bullets
 #+begin_src emacs-lisp
-(use-package org-bullets
-  :disabled t
+(use-package org-superstar
   :after org
-  :hook
-  (org-mode . (lambda () (org-bullets-mode 1))))
+  :hook (org-mode . org-superstar-mode)
+  :custom
+  (org-superstar-leading-bullet ?\s))
 #+end_src
 ** Evil
 #+begin_src emacs-lisp
