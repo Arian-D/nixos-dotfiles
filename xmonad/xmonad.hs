@@ -36,8 +36,8 @@ main = do
     --                    border -- Window border
     --                    True) $ layoutHook def
     , layoutHook = avoidStruts (
-        Full |||
         Tall 1 (3/100) (1/2)) |||
+        -- Tall 1 (3/100) (1/2)) |||
         noBorders (fullscreenFull Full)
                    
     , manageHook = manageDocks <+> manageHook def
