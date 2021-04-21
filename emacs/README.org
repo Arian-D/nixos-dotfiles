@@ -451,6 +451,9 @@ faces that need a monospaced font we inherit from the ~fixed-pitch~ face.
                 org-table))
   (set-face-attribute face nil :inherit 'fixed-pitch))
 (set-face-attribute 'org-block-end-line nil :inherit 'org-block-begin-line)
+;; (set-face-attribute 'org-block-begin-line nil :background nil)
+(set-face-attribute 'org-block nil :background nil)
+(set-face-attribute 'org-latex-and-related nil :background nil)
 
 ;;; Size of the headings
 (dolist (face '((org-document-title . 1.5)
@@ -500,7 +503,7 @@ This is the core config.
   ;; LaTeX
   (org-format-latex-options
    '(:foreground default
-		 :background default
+		 :background "Transparent"
 		 :scale 2.0
 		 :html-foreground "Black"
 		 :html-background "Transparent"
@@ -628,20 +631,16 @@ Tempo provides nice shortcuts for inserting structures.
 (use-package org-evil
   :after org)
 #+end_src
-** Google calendar
+** Calendar
+Sync the calendar with my online one. The settings are in =caldav.el=.
 #+begin_src emacs-lisp
-(use-package org-gcal
-  :after org
-  :defer t
+(use-package org-caldav
   :config
-  (let* ((gcal-creds-file (expand-file-name "gcal-creds.el.gpg" user-emacs-directory))
-	 (creds-file-exists (file-exists-p gcal-creds-file)))
-    (when creds-file-exists
-      (load gcal-creds-file)
-      (setq org-gcal-client-id my/gcal-client-id
-	    org-gcal-client-secret my/gcal-client-secret
-	    org-gcal-fetch-file-alist '(("arianxdehghani@gmail.com" .  "~/me/calendar.org"))))))
+  (let ((caldav-config-file (expand-file-name "caldav.el" user-emacs-directory)))
+    (if (file-exists-p caldav-config-file)
+	(load-file caldav-config-file))))
 #+end_src
+
 ** Markdown
 Org mode, but for the average pleb.
 #+begin_src emacs-lisp
