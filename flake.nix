@@ -3,6 +3,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-20.09";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-master.url = "github:nixos/nixpkgs/master";
     home-manager = {
       url = "github:nix-community/home-manager/release-20.09";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -18,6 +19,7 @@
   outputs = inputs @ { self
                      , nixpkgs
                      , nixpkgs-unstable
+                     , nixpkgs-master
                      , home-manager
                      , nyxt
                      , emacs-overlay
@@ -41,7 +43,9 @@
               emacs-overlay.outputs.overlay
             ];
             imports = [./home-manager/home.nix];
-            home.packages = [ nyxt.defaultPackage.x86_64-linux ];
+            home.packages = with nixpkgs-master.legacyPackages.x86_64-linux; [
+              nyxt discord
+            ];
           };
         system = "x86_64-linux";
         homeDirectory = "/home/someone";
