@@ -35,21 +35,23 @@
       };
 
       # Home-manager
-      home = (home-manager.lib.homeManagerConfiguration {
-        configuration =
-          { pkgs, ... }:
-          {
-            nixpkgs.overlays = [
-              emacs-overlay.outputs.overlay
-            ];
-            imports = [./home-manager/home.nix];
-            home.packages = with nixpkgs-unstable.legacyPackages.x86_64-linux; [
-              nyxt discord
-            ];
-          };
-        system = "x86_64-linux";
-        homeDirectory = "/home/someone";
-        username = "someone";
-      }).activationPackage;
+      homeConfigurations.home =
+        home-manager.lib.homeManagerConfiguration {
+          configuration =
+            { pkgs, ... }:
+            {
+              nixpkgs.overlays = [
+                emacs-overlay.outputs.overlay
+              ];
+              imports = [./home-manager/home.nix];
+              home.packages = with nixpkgs-unstable.legacyPackages.x86_64-linux; [
+                nyxt discord
+              ];
+            };
+          system = "x86_64-linux";
+          homeDirectory = "/home/someone";
+          username = "someone";
+        };
+      home = self.homeConfigurations.home.activationPackage;
     };
 }
