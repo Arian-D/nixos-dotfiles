@@ -13,6 +13,7 @@ let
   networkingPackages = with pkgs; [
     nmap
     openvpn netcat-gnu
+    sshfs
   ];
 
   devPackages = with pkgs; [
@@ -37,6 +38,7 @@ let
     # Android
     android-studio
     androidsdk_9_0
+    swiProlog
     # Haskal
     (haskellPackages.ghcWithPackages(hs: with hs; [
       stack
@@ -76,13 +78,13 @@ in
     pinentry.qt
     torsocks                    # To be used with my remote server
     gimp-with-plugins
-    steam
     jitsi-meet-electron
-    discord
     element-desktop
     calibre
     unzip
     xclip
+    nextcloud-client
+    davfs2
   ]
   ++ networkingPackages
   ++ devPackages;
@@ -103,7 +105,10 @@ in
         '';
 
   programs = {
-    emacs.enable = true;
+    emacs = {
+      enable = true;
+      extraPackages = epkgs: [ epkgs.vterm ];
+    };
     mpv.enable = true;
 
     direnv = {
@@ -217,11 +222,13 @@ in
       extraConfig = ''
             [bar/mybar]
             modules-right = date
+            modules-left = battery
 
             [module/date]
             type = internal/date
             interval = 1.0
             date = %Y-%m-%d %H:%M:%S
+
             [module/battery]
             type = internal/battery
 
@@ -230,7 +237,7 @@ in
 
             ; Use the following command to list batteries and adapters:
             ; $ ls -1 /sys/class/power_supply/
-            battery = BAT0
+            battery = BAT1
             adapter = ADP1
 
             ; If an inotify event haven't been reported in this many

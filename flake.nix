@@ -43,7 +43,7 @@
               emacs-overlay.outputs.overlay
             ];
             imports = [./home-manager/home.nix];
-            home.packages = with nixpkgs-master.legacyPackages.x86_64-linux; [
+            home.packages = with nixpkgs-unstable.legacyPackages.x86_64-linux; [
               nyxt discord
             ];
           };
