@@ -4,7 +4,7 @@ let
   essentialPackages = with pkgs; [
     file
     manpages
-    wget ripgrep fd fzf
+    wget ripgrep fd fzf ripgrep-all
     usbutils pciutils
     ffmpeg
   ];

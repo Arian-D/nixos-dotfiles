@@ -631,6 +631,7 @@ Tempo provides nice shortcuts for inserting structures.
 (use-package org-evil
   :after org)
 #+end_src
+
 ** Calendar
 Sync the calendar with my online one. The settings are in =caldav.el=.
 #+begin_src emacs-lisp
