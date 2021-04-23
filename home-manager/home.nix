@@ -67,7 +67,7 @@ in
 
   home.file.wallpaper.source = wallpaper;
   home.packages = with pkgs; [
-    pulseeffects
+    pulseeffects-legacy
     tty-clock
     neofetch
     libreoffice
@@ -83,8 +83,10 @@ in
     calibre
     unzip
     xclip
-    nextcloud-client
     davfs2
+    nextcloud-client
+    discord
+    nyxt
   ]
   ++ networkingPackages
   ++ devPackages;
@@ -179,7 +181,9 @@ in
       location = "center";
       theme = "DarkBlue";
       font = "DejaVu Sans extralight 24";
-      extraConfig = "rofi.show-icons: true";
+      extraConfig = {
+        show-icons = true;
+      };
     };
     
     feh.enable = true;
