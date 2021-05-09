@@ -81,6 +81,7 @@
       "networkmanager" # nmtui
       "dialout"
       "libvirtd"
+      "davfs2"
       "vboxusers" # VirtualBox
       "wireshark" # Wrireshark
       "docker" # Docker

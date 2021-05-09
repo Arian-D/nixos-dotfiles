@@ -31,6 +31,8 @@ in
     extraHosts = lib.readFile "${strictBlockList}";
   };
 
+  services.davfs2.enable = true;
+
   # For wireshark
   environment.variables.SSLKEYLOGFILE = "/home/someone/SSLKEYLOGFILE";
   environment.sessionVariables.SSLKEYLOGFILE = "/home/someone/SSLKEYLOGFILE";

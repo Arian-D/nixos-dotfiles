@@ -50,5 +50,10 @@
           username = "someone";
         };
       home = self.homeConfigurations.home.activationPackage;
+
+      devShell.x86_64-linux =
+        nixpkgs.legacyPackages.x86_64-linux.callPackage
+          ./shell.nix {};
     };
+
 }
