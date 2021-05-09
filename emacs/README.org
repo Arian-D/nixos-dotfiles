@@ -527,6 +527,7 @@ This is the core config.
      (emacs-lisp . t)
      (python . t)
      (shell . t)
+     (C . t)
      (dot . t)))
   (evil-define-key 'normal org-mode-map (kbd "; c '") 'org-edit-special)
   (evil-define-key 'normal org-mode-map (kbd "; c t") 'org-babel-tangle)
