@@ -6,9 +6,13 @@
     ((search-engines
       (list
        (make-instance 'search-engine
-		      :shortcut "word"
+		      :shortcut "wordnik"
 		      :search-url "https://www.wordnik.com/words/~a"
 		      :fallback-url "https://www.wordnik.com")
+       (make-instance 'search-engine
+		      :shortcut "yt"
+		      :search-url "https://yewtu.be/search?q=~a"
+		      :fallback-url "https://yewtu.be/feed/trending")
        (make-instance 'search-engine
 		      :shortcut "gh"
 		      :search-url "https://github.com/search?q=~a"
@@ -44,6 +48,16 @@
 	   (nyxt/web-mode::query-hints ">>> " 'car))))
     (play-video uri)))
 
+;;; Reddit stuff
+(defvar *reddit-base-url* "https://old.reddit.com")
+(define-command visit-subreddit ()
+  "Visit a subreddit"
+  (let* ((input (prompt :prompt "Subreddit: "
+			:sources (make-instance 'prompter:raw-source)))
+	 (subreddit (car input))
+	 (uri (format nil "~a/r/~a" *reddit-base-url* subreddit))
+	 (quri-uri (quri:uri uri)))
+    (make-buffer-focus :url quri-uri)))
 
 (defvar *my-keymap* (make-keymap "my-map"))
 (define-key *my-keymap*
@@ -56,17 +70,6 @@
   "Dummy mode for the custom key bindings in `*my-keymap*'."
   ((keymap-scheme (keymap:make-scheme
 		   scheme:vi-normal *my-keymap*))))
-
-(defvar *reddit-url* "https://old.reddit.com")
-(define-command visit-subreddit ()
-  "Visit a subreddit"
-  (let* ((input (prompt :prompt "test "
-			:sources (make-instance 'prompter:raw-source)))
-	 (subreddit (car input))
-	 (uri (format nil "~a/r/~a" *reddit-url* subreddit))
-	 (quri-uri (quri:uri uri)))
-    (make-buffer-focus :url quri-uri)
-    ))
 
 ;;; The superior keybindings
 (define-configuration web-buffer
