@@ -353,6 +353,8 @@ done with lsp-mode (which might need extra configuration in the future).
 Have you read your SICP today?
 #+begin_src emacs-lisp
 (use-package geiser)
+(use-package geiser-guile)
+(use-package geiser-chez)
 #+end_src
 *** Common Lisp
 This is mostly for configuring Nyxt browser. I don't use CL for
