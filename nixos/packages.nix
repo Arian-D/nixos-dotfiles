@@ -22,7 +22,6 @@ in
 {
   # Packages
   environment.systemPackages = with pkgs; [
-    nixops
     winePackages.stable
     docker-compose
   ]

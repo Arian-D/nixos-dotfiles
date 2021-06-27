@@ -55,8 +55,6 @@
   # Set your time zone.
   time.timeZone = "US/Pacific";
 
-  # Enable sound.
-  sound.enable = true;
   hardware.pulseaudio = {
     enable = true;
     package = pkgs.pulseaudioFull;
