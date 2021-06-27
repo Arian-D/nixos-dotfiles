@@ -1,7 +1,7 @@
 {
   description = "My beautiful flakey Nix config";
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-20.09";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-21.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-master.url = "github:nixos/nixpkgs/master";
     home-manager = {
@@ -40,6 +40,7 @@
           configuration =
             { pkgs, ... }:
             {
+              nixpkgs.config.allowUnfree = true;
               nixpkgs.overlays = [
                 emacs-overlay.outputs.overlay
               ];
