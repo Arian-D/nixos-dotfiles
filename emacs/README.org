@@ -632,7 +632,7 @@ Tempo provides nice shortcuts for inserting structures.
 ** Evil
 #+begin_src emacs-lisp
 (use-package org-evil
-  :after org)
+  :after evil-collection)
 #+end_src
 
 ** Calendar
