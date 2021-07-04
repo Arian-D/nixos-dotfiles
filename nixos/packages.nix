@@ -24,6 +24,7 @@ in
   environment.systemPackages = with pkgs; [
     winePackages.stable
     docker-compose
+    vagrant
   ]
   ++ essentialPackages;
    
@@ -36,7 +37,7 @@ in
   boot.binfmt.emulatedSystems = [ "aarch64-linux" "armv7l-linux" ];
   virtualisation = {
     virtualbox.host = {
-      enable = false;
+      enable = true;
       # enableHardening = true;
     };
     docker.enable = true;
@@ -44,8 +45,4 @@ in
   };
   programs.firejail.enable = true;
   programs.java.enable = true;
-
-  nixpkgs.config.permittedInsecurePackages = [
-    "libvirt-5.9.0"
-  ];
 }
